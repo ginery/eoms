@@ -17,6 +17,7 @@ use App\Http\Controllers\DocumentController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::group(['prefix' => 'documents'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);
     //add another api route here. 
