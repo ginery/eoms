@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,5 +32,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
-
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 require __DIR__.'/auth.php';
