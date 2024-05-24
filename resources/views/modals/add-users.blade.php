@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Phone Number <span class="text-danger">*</span></label>
-                                <input type="number" name="phone_number" class="form-control" placeholder="Last Name">
+                                <input type="number" name="phone_number" class="form-control" placeholder="Phone Number">
                             </div>
                         </div>
                         <div class="form-group">

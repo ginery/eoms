@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class=" container-fluid  d-flex align-items-stretch justify-content-between">
         <!--begin::Card-->
-        <div class="card card-custom">
+        <div class="card card-custom col-12">
             <div class="card-header flex-wrap py-5">
             <div class="card-title">
                 <h3 class="card-label">
@@ -29,28 +29,29 @@
             </div>
             <div class="card-body">
             <!--begin: Datatable-->
-            <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
+            <table class="table table-separate table-head-custom table-checkable" id="kt_datatable1">
                 <thead>
                     <tr>
-                        <th>Record ID</th>
-                        <th>Company Email</th>
-                        <th>Company Agent</th>
-                        <th>Company Name</th>
-                        <th>Status</th>
-                        <th>Type</th>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Full Name</th>
+                        <th>Phone Number</th>
+                        <th>Role</th>                       
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($users as $user)
                     <tr>
-                        <td>1</td>
-                        <td>hboule0@hp.com</td>
-                        <td>Hayes Boule</td>
-                        <td>Casper-Kerluke</td>
-                        <td>5</td>
-                        <td>1</td>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->first_name." ".$user->last_name}}</td>
+                        <td>{{$user->phone_number}}</td>
+                        <td>{{$user->role}}</td>
                         <td nowrap></td>
-                    </tr>             
+                    </tr>   
+                    @endforeach
+                          
                 </tbody>
             </table>
             <!--end: Datatable-->
@@ -59,4 +60,62 @@
         <!--end::Card-->
     </div>
     @include('modals.add-users')
+    <script> 
+        // --- for users
+        $(document).ready(function(){
+            $('#kt_datatable1').DataTable();
+        });
+        function getUserData() {
+            // $('#kt_datatable1').dataTable().destroy(); 
+            $('#kt_datatable1').dataTable(); 
+        }   
+        function handleAddModalClick(){
+            $("#addModal").modal('show');
+        };
+        $('#add-user-form').submit(function(e){
+             e.preventDefault();
+             var data = $(this).serialize();
+
+             $.ajax({
+               type: "POST",
+               url: "api/users/add",
+               data: data,
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                   
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully saved.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                     
+                   
+                    //  getUserData();  
+                    //  $("#addModal").modal('hide');                  
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+             })
+         });
+     
+     </script>
 </x-app-layout>
