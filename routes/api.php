@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,5 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'documents'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);
+    //add another api route here. 
+});
+
+Route::group(['prefix' => 'users'], function () {
+    Route::post('/add', [UserController::class, 'create']);
     //add another api route here. 
 });

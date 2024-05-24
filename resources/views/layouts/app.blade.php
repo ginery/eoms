@@ -733,6 +733,7 @@
       </script>
         <!--end::Global Config-->
         <!--begin::Global Theme Bundle(used by all pages)-->
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
         <script src="assets/plugins/global/plugins.bundle.js"></script>
         <script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
         <script src="assets/js/scripts.bundle.js"></script>
@@ -747,6 +748,26 @@
         <!--end::Page Vendors-->
         <!--begin::Page Scripts(used by this page)-->
         <script src="assets/js/pages/crud/datatables/advanced/column-rendering.js"></script>
+        <script> 
+        // --- for users       
+        function handleAddModalClick(){
+            $("#addModal").modal('show');
+        };
+        $('#add-user-form').submit(function(e){
+             e.preventDefault();
+             var data = $(this).serialize();
+
+             $.ajax({
+               type: "POST",
+               url: "api/users/add",
+               data: data,
+               success: function(response){
+                  console.log("test", response);
+               }
+             })
+         });
+     
+     </script>
    </body>
    <!--end::Body-->
 </html>
