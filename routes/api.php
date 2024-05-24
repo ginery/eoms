@@ -29,5 +29,8 @@ Route::group(['prefix' => 'documents'], function () {
 
 Route::group(['prefix' => 'users'], function () {
     Route::post('/add', [UserController::class, 'create']);
+    Route::post('/update', [UserController::class, 'update']);
+    Route::delete('/delete/{id}', [UserController::class, 'delete']);
+    Route::get('/get/{id}', [UserController::class, 'get']);
     //add another api route here. 
 });

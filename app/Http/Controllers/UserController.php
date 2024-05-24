@@ -33,4 +33,35 @@ class UserController extends Controller
         }
 
     }
+
+    public function destroy($id){
+        $item = User::findOrFail($id);
+        $item->delete();
+        return response()->json(['message' => 'Item deleted successfully'], 200);
+    }
+
+    public function delete($id){
+        $deleteItem = User::where('id',$id)->delete();
+        return $deleteItem;
+    }
+
+    public function get($id){
+        $getItem = User::where('id',$id)->first();
+        return $getItem;
+    }
+
+    public function update(Request $request){
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'role' => $request->role,
+        ];
+
+        $res = User::where('id', $request->id)->update($data);
+
+        return $res;
+    }
+
 }

@@ -48,6 +48,51 @@
                         <td>{{$user->first_name." ".$user->last_name}}</td>
                         <td>{{$user->phone_number}}</td>
                         <td>{{$user->role}}</td>
+                        <td>
+                            <!--begin::Languages-->
+                            <div class="dropdown">
+                                <!--begin::Toggle-->
+                                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                                    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+                                        <i class="fa fa-cog h-20px w-20px"></i>
+                                    </div>
+                                </div>
+                                <!--end::Toggle-->
+
+                                <!--begin::Dropdown-->
+                                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
+                                    <!--begin::Nav-->
+                                    <ul class="navi navi-hover py-4">
+
+                                        <!--begin::Item-->
+                                        <li class="navi-item">
+                                            <a href="#" onclick='deleteItem({{$user->id}})' class="navi-link">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
+                                                </span>
+                                                <span class="navi-text">Delete</span>
+                                            </a>
+                                        </li>
+                                        <!--end::Item-->
+
+                                        <!--begin::Item-->
+                                        <li class="navi-item">
+                                            <a href="#" onclick='editItem({{$user->id}})' class="navi-link">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Edit</span>
+                                            </a>
+                                        </li>
+                                        <!--end::Item-->
+
+                                    </ul>
+                                    <!--end::Nav-->
+                                </div>
+                                <!--end::Dropdown-->
+                            </div>
+                            <!--end::Languages-->
+                        </td>
                         <td nowrap></td>
                     </tr>   
                     @endforeach
@@ -60,6 +105,7 @@
         <!--end::Card-->
     </div>
     @include('modals.add-users')
+    @include('modals.update-users')
     <script> 
         // --- for users
         $(document).ready(function(){
@@ -72,6 +118,69 @@
         function handleAddModalClick(){
             $("#addModal").modal('show');
         };
+
+        function deleteItem(id){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `api/users/delete/${id}`,
+                            success: function(response){
+                                console.log("test-----------", response);
+                                Swal.fire(
+                                    "Deleted!",
+                                    "Your file has been deleted.",
+                                    "success"
+                                )
+                                location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText); // Log the error response for debugging
+                                Swal.fire(
+                                    "Error!",
+                                    "An error occurred while deleting the item.",
+                                    "error"
+                                );
+                                // Optionally, you can provide more specific error messages to the user based on the error status.
+                            }
+                    })
+                  
+                }
+            });
+        }
+
+        function editItem(id){
+            $.ajax({
+               type: "GET",
+               url: `api/users/get/${id}`,
+                success: function(response){
+                    console.log("test", response);
+                    $("#updateModal").modal('show');
+                    $("#user-id").val(response?.id)
+                    $("#user-first-name").val(response?.first_name)
+                    $("#user-last-name").val(response?.last_name)
+                    $("#user-email").val(response?.email)
+                    $("#user-phone-number").val(response?.phone_number)
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Log the error response for debugging
+                    Swal.fire(
+                        "Error!",
+                        "An error occurred while deleting the item.",
+                        "error"
+                    );
+                    // Optionally, you can provide more specific error messages to the user based on the error status.
+                }
+             })
+        }
+
+
         $('#add-user-form').submit(function(e){
              e.preventDefault();
              var data = $(this).serialize();
@@ -116,6 +225,51 @@
                }
              })
          });
-     
+
+         $('#update-user-form').submit(function(e){
+             e.preventDefault();
+             var data = $(this).serialize();
+
+             $.ajax({
+               type: "POST",
+               url: "api/users/update",
+               data: data,
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                   
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully saved.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                     
+                   
+                    //  getUserData();  
+                    //  $("#addModal").modal('hide');                  
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+             })
+         });
+
      </script>
 </x-app-layout>
