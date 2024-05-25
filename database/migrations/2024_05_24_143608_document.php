@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('document_name');
-            $table->string('document_type');
-            $table->integer('document_size');
-            $table->string('description');
-            $table->dateTime('date_added');
-            $table->integer('status');
-            $table->integer('user_id');
+            $table->string('document_name')->nullable();
+            $table->string('document_type')->nullable();
+            $table->integer('document_size')->nullable();
+            $table->string('description')->nullable();
+            $table->dateTime('date_added')->useCurrent();
+            $table->integer('status')->nullable();
+            $table->integer('user_id')->nullable();
         });
     }
 
