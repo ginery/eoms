@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('document_size');
             $table->string('description');
             $table->dateTime('date_added');
-            $table->string('status');
+            $table->integer('status');
             $table->integer('user_id');
         });
     }
