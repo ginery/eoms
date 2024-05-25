@@ -375,6 +375,7 @@
         <!--begin::Page Scripts(used by this page)-->
         {{-- <script src="assets/js/pages/crud/datatables/advanced/column-rendering.js"></script> --}}
         <script src="assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
+        <script src="assets/js/pages/custom/chat/chat.js"></script>
    </body>
    <!--end::Body-->
 </html>
