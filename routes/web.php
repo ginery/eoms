@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\ReportsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,4 +35,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
+Route::get('/messages', [MessagesController::class, 'index'])->middleware(['auth', 'verified'])->name('messages');
+Route::get('/reports', [ReportsController::class, 'index'])->middleware(['auth', 'verified'])->name('reports');
 require __DIR__.'/auth.php';
