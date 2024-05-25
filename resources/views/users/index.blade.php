@@ -29,7 +29,7 @@
             </div>
             <div class="card-body">
             <!--begin: Datatable-->
-            <table class="table table-separate table-head-custom table-checkable" id="kt_datatable1">
+            <table class="table table-separate table-head-custom table-checkable" id="table-users">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -47,7 +47,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->first_name." ".$user->last_name}}</td>
                         <td>{{$user->phone_number}}</td>
-                        <td>{{$user->role}}</td>
+                        <td>{!!getRole($user->role)!!}</td>
                         <td>
                             <!--begin::Languages-->
                             <div class="dropdown">
@@ -93,7 +93,6 @@
                             </div>
                             <!--end::Languages-->
                         </td>
-                        <td nowrap></td>
                     </tr>   
                     @endforeach
                           
@@ -109,12 +108,9 @@
     <script> 
         // --- for users
         $(document).ready(function(){
-            $('#kt_datatable1').DataTable();
+            // alert("test");
+            $('#table-users').DataTable();
         });
-        function getUserData() {
-            // $('#kt_datatable1').dataTable().destroy(); 
-            $('#kt_datatable1').dataTable(); 
-        }   
         function handleAddModalClick(){
             $("#addModal").modal('show');
         };
