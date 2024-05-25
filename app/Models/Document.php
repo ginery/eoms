@@ -24,7 +24,7 @@ class Document extends Authenticatable {
         'description',
         'date_added',
         'status', // 1 complete, 0 - in-progress, 2 - archived.
-        'user_added'
+        'user_id'
     ];
 
     /**

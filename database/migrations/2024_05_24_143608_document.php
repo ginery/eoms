@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('description');
             $table->dateTime('date_added');
             $table->string('status');
-            $table->integer('user_added');
+            $table->integer('user_id');
         });
     }
 
