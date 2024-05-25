@@ -1,3 +1,8 @@
+  
+  <?php 
+  $currentPageName = Route::current()->getName();
+  echo $currentPageName;
+  ?>
   <!--begin::Aside-->
   <div class="aside aside-left  aside-fixed  d-flex flex-column flex-row-auto"  id="kt_aside">
     <!--begin::Brand-->
@@ -30,7 +35,7 @@
        <div id="kt_aside_menu" class="aside-menu my-4 "data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
           <!--begin::Menu Nav-->
           <ul class="menu-nav ">
-             <li class="menu-item  menu-item-active" aria-haspopup="true" >
+             <li class="<?= $currentPageName === "dashboard" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true" >
                 <a href="{{route('dashboard')}}" class="menu-link ">
                    <span class="svg-icon menu-icon">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -50,7 +55,7 @@
                 <h4 class="menu-text">Menu</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
              </li>
-             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+             <li class="<?= $currentPageName === "documents" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                 <a href="{{route('documents')}}" class="menu-link menu-toggle">
                    <span class="svg-icon menu-icon">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -66,7 +71,7 @@
                    <span class="menu-text">Documents</span>
                 </a>
              </li>
-             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+             <li class="<?= $currentPageName === "messages" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="#" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
                      <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -81,7 +86,7 @@
                   <span class="menu-text">Messages</span>
                </a>
             </li>
-             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+             <li class="<?= $currentPageName === "reports" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="#" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
                      <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
