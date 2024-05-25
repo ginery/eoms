@@ -22,6 +22,8 @@ return new class extends Migration
             $table->dateTime('date_added')->useCurrent();
             $table->integer('status')->nullable();
             $table->integer('user_id')->nullable();
+            $table->timestamps();
+            
         });
     }
 
