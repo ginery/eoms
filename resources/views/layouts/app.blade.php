@@ -121,7 +121,7 @@
                      {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                   </a>
                   <div class="text-muted mt-1">
-                     Application Developer
+                     {!! getRole(Auth::user()->role)!!}
                   </div>
                   <div class="navi mt-2">
                      <a href="#" class="navi-item">
@@ -214,7 +214,7 @@
                </a>
                <!--end:Item-->
                <!--begin::Item-->
-               <a href="custom/apps/user/profile-2.html"  class="navi-item">
+               {{-- <a href="#"  class="navi-item">
                   <div class="navi-link">
                      <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">
@@ -243,7 +243,7 @@
                </a>
                <!--end:Item-->
                <!--begin::Item-->
-               <a href="custom/apps/userprofile-1/overview.html" class="navi-item">
+               <a href="#" class="navi-item">
                   <div class="navi-link">
                      <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">
@@ -269,7 +269,7 @@
                         </div>
                      </div>
                   </div>
-               </a>
+               </a> --}}
                <!--end:Item-->
             </div>
             <!--end::Nav-->
