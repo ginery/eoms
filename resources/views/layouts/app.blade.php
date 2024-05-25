@@ -27,22 +27,6 @@
       <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
       <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
       <script src="assets/js/jquery-3.7.1.min.js"></script>
-      <script src="assets/plugins/global/plugins.bundle.js"></script>
-        <script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
-        <script src="assets/js/scripts.bundle.js"></script>
-        <!--end::Global Theme Bundle-->
-        <!--begin::Page Vendors(used by this page)-->
-        <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
-        <!--end::Page Vendors-->
-        <!--begin::Page Scripts(used by this page)-->
-        <script src="assets/js/pages/widgets.js"></script>
-        <!--end::Page Scripts-->
-        <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-        <!--end::Page Vendors-->
-        <!--begin::Page Scripts(used by this page)-->
-        {{-- <script src="assets/js/pages/crud/datatables/advanced/column-rendering.js"></script> --}}
-        <script src="assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
-        <script src="assets/js/pages/custom/chat/chat.js"></script>
    </head>
    <!--end::Head-->
    <!--begin::Body-->
@@ -376,7 +360,23 @@
         <!--end::Global Config-->
         <!--begin::Global Theme Bundle(used by all pages)-->
         
-        
+        <script src="assets/plugins/global/plugins.bundle.js"></script>
+        <script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+        <script src="assets/js/scripts.bundle.js"></script>
+        <!--end::Global Theme Bundle-->
+        <!--begin::Page Vendors(used by this page)-->
+        <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+        <!--end::Page Vendors-->
+        <!--begin::Page Scripts(used by this page)-->
+        <script src="assets/js/pages/widgets.js"></script>
+        <!--end::Page Scripts-->
+        <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--end::Page Vendors-->
+        <!--begin::Page Scripts(used by this page)-->
+        {{-- <script src="assets/js/pages/crud/datatables/advanced/column-rendering.js"></script> --}}
+        <script src="assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
+        <script src="assets/js/pages/custom/chat/chat.js"></script>
+        <script src="assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
    </body>
    <!--end::Body-->
 </html>
