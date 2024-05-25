@@ -75,7 +75,7 @@
          <div class="d-flex flex-row flex-column-fluid page">
             @include('layouts.sidemenu')
             	<!--begin::Content-->
-            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper" style="padding-top: 65px; padding-left: 200px;">
                 <!--begin::Wrapper-->
                 @include('layouts.header')  
                 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
