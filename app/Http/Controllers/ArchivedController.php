@@ -30,4 +30,16 @@ class ArchivedController extends Controller
         }
 
     }
+    public function complete(Request $request) {
+        $data = [
+            'status' => 1,            
+        ];
+        $result = Document::where('id', $request->id)->update($data);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
 }

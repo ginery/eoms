@@ -37,7 +37,7 @@
                 <th scope="col">Document Size</th>
                 <th scope="col">Description</th>
                 <th scope="col">User</th>
-                <th scope="col">Status</th>
+                <th scope="col" style="width: 200px !important;">Status</th>
                 <th scope="col">Date Added</th>
             </tr>
         </thead>
@@ -54,7 +54,6 @@
             var endDate = currentDate.clone().endOf('month').format('YYYY-MM-DD');
             $('#start_date').val(startDate);
             $('#end_date').val(endDate);
-
             generateReport();
         });
         function generateReport(id){

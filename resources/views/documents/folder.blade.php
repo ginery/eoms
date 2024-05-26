@@ -174,6 +174,16 @@
                             <!--end::Item-->
                             <!--begin::Item-->
                             <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Complete</span>
+                                </a>
+                            </li>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
@@ -200,9 +210,47 @@
     @include('modals.add-document')
     <script>
         $(document).ready(function(){
-            FilePond.create(document.getElementById('filepond'));
-            
+            FilePond.create(document.getElementById('filepond'));            
         });
+        function handleCompleteClick(id){
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/archived/complete",
+               data: {
+                id: id
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully created.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
         function handleArchivedClick(id) {
             $.ajax({
                type: "POST",
@@ -215,7 +263,7 @@
                   if(response == 1){
                     Swal.fire({
                         title: "Great!",
-                        text: "Successfully created.",
+                        text: "Successfully archived.",
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "OK",

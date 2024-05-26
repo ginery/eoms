@@ -89,7 +89,7 @@ class DocumentController extends Controller
                 if ($file->isValid()) {
 
                     $originalName = $file->getClientOriginalName();
-                    $fileName = strtolower(str_replace(' ', '_', $originalName));
+                    $fileName = time()."-".strtolower(str_replace(' ', '_', $originalName));
                     $file->move(public_path('assets/uploads'), $fileName);
                     $fileType = $file->getClientOriginalExtension();
                     $destinationPath = public_path('assets/uploads');

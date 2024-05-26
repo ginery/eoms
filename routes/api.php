@@ -50,5 +50,6 @@ Route::group(['prefix' => 'reports'], function () {
 });
 Route::group(['prefix' => 'archived'], function () {
     Route::post('/update', [ArchivedController::class, 'update']);
+    Route::post('/complete', [ArchivedController::class, 'complete']);
     
 });

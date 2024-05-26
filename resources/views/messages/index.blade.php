@@ -95,7 +95,7 @@
                    
                 </div>
                 <div class="text-center flex-grow-1">
-                   <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
+                   <div class="text-dark-75 font-weight-bold font-size-h5">John Doe</div>
                    <div>
                       <span class="label label-sm label-dot label-success"></span>
                       <span class="font-weight-bold text-muted font-size-sm">Active</span>
@@ -121,13 +121,12 @@
                                <img alt="Pic" src="assets/media/users/300_12.jpg"/>
                             </div>
                             <div>
-                               <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>
+                               <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">John Doe</a>
                                <span class="text-muted font-size-sm">2 Hours</span>
                             </div>
                          </div>
                          <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
-                            How likely are you to recommend our company
-                            to your friends and family?
+                            Test?
                          </div>
                       </div>
                       <!--end::Message In-->
@@ -143,8 +142,7 @@
                             </div>
                          </div>
                          <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
-                            Hey there, we’re just writing to let you know
-                            that you’ve been subscribed to a repository on GitHub.
+                            test reply.
                          </div>
                       </div>
                       <!--end::Message Out-->
