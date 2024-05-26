@@ -14,9 +14,9 @@ class DocumentController extends Controller
     public function index() : View {
         // $document  = Document::all();
         $role = Auth::user()->role;
-
+        // dd(json_encode($role));
         if($role === 1){
-            $document = Document::all();
+            $document = Document::where('path', 0)->get();
         } else {
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
         }

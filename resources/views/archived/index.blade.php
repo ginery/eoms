@@ -1,40 +1,5 @@
 <x-app-layout>
-
-
-
     <!--begin::Body-->
-    	<!--begin::Subheader-->
-            <div class="subheader py-2 py-lg-6  subheader-solid" id="kt_subheader">
-                <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                    <!--begin::Info-->
-                    <div class="d-flex align-items-center flex-wrap mr-1">
-
-                        <!--begin::Page Heading-->
-                        <div class="d-flex align-items-baseline flex-wrap mr-5">
-                            <!--begin::Page Title-->
-                            <h5 class="text-dark font-weight-bold my-1 mr-5">
-                                Documents
-                            </h5>
-                            <!--end::Page Title-->
-                        </div>
-                        <!--end::Page Heading-->
-                    </div>
-                    <!--end::Info-->
-
-                    <!--begin::Toolbar-->
-                    <div class="d-flex align-items-center">
-                        <!--begin::Actions-->
-                            <a href="#" onclick='handleCreateFolder()' class="btn btn-light-primary font-weight-bolder btn-sm">
-                                <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
-                                Folder 
-                            </a>
-                        <!--end::Actions-->
-                    </div>
-                    <!--end::Toolbar-->
-                </div>
-            </div>
-        <!--end::Subheader-->
-
             <div class="card-body p-0 position-relative mt-15">
                 @foreach($documents as $document)
                     <!--begin::Card-->
@@ -53,6 +18,7 @@
                                 <h3 class="card-label">
                                     {{$document->document_name}}
                                 </h3>
+                                {!!getDocumentStatus($document->status)!!}
                             </div>
                             
                             <!--begin::Languages-->

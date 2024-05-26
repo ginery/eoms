@@ -33,4 +33,16 @@ if (!function_exists('getUserFullName')) {
         return $user ? $user->first_name." ".$user->last_name:'N/A';
     }
 }
+if(!function_exists('getDocumentStatus')){
+    function getDocumentStatus($status)
+    {
+        if($status === 0){
+            return '<span class="label label-light-warning label-inline font-weight-bold">In-progress</span>';
+        }else if($status === 1){
+            return '<span class="label label-light-primary label-inline font-weight-bold">Completed</span>';
+        }else{
+            return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';
+        }
+    }
+}
 

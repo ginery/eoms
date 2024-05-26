@@ -83,6 +83,9 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
+                            @if (Auth::user()->role === 1)
+                                
+                           
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -92,7 +95,7 @@
                                 </a>
                             </li>
                             <!--end::Item-->
-
+                            @endif
                             <!--begin::Item-->
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
@@ -129,6 +132,7 @@
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
+                    {!!getDocumentStatus($document->status)!!}
                 </div>
                 
                 <!--begin::Languages-->
@@ -146,6 +150,7 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
+                            @if (Auth::user()->role === 1)
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -154,6 +159,7 @@
                                     <span class="navi-text">Delete</span>
                                 </a>
                             </li>
+                            @endif
                             <!--end::Item-->
 
                             <!--begin::Item-->
