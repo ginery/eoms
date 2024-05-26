@@ -123,7 +123,8 @@
                 if (result.value) {
                     $.ajax({
                         type: "DELETE",
-                        url: `api/documents/delete-documents/${id}`,
+                        url: `api/documents/delete-documents`,
+                        data:{id:id},
                             success: function(response){
                                 console.log("test-----------", response);
                                 Swal.fire(
@@ -169,7 +170,7 @@
                     // Optionally, you can provide more specific error messages to the user based on the error status.
                 }
              })
-        }
+        };
 
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();

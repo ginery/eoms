@@ -36,9 +36,9 @@ if (!function_exists('getUserFullName')) {
 if(!function_exists('getDocumentStatus')){
     function getDocumentStatus($status)
     {
-        if($status === 0){
+        if($status == 0){
             return '<span class="label label-light-warning label-inline font-weight-bold">In-progress</span>';
-        }else if($status === 1){
+        }else if($status == 1){
             return '<span class="label label-light-primary label-inline font-weight-bold">Completed</span>';
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';

@@ -57,11 +57,7 @@
             <div class="card-header" >
                 <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
                     <span class="card-icon">
-                       
-                            
-                       
                         <i class="fa fa-folder text-success" style="font-size:30px; "></i>
-                       
                     </span>
                     <h3 class="card-label">
                         {{$document->document_name}}
@@ -152,7 +148,7 @@
                             <!--begin::Item-->
                             @if (Auth::user()->role === 1)
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
                                     </span>
@@ -193,6 +189,19 @@
                             </li>
                             <!--end::Item-->
 
+                            @if($document->document_type !== null)
+                            <!--begin::Item-->
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleView({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">View</span>
+                                </a>
+                            </li>
+                            <!--end::Item-->
+                            @endif
+
                         </ul>
                         <!--end::Nav-->
                     </div>
@@ -208,9 +217,34 @@
 </div>
     @include('modals.create-folder-document')
     @include('modals.add-document')
+    @include('modals.update-folder-document')
     <script>
         $(document).ready(function(){
-            FilePond.create(document.getElementById('filepond'));            
+            FilePond.create(document.getElementById('filepond'));    
+
+            $('.delete-button').click(function() {
+                var fileName = $(this).data('file-name'); // Assuming you have a data attribute with the file name
+
+                $.ajax({
+                    url: '/delete-file',
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ file_name: fileName }),
+                    success: function(response) {
+                        if (response.success) {
+                            alert('File deleted successfully');
+                            // Optionally, remove the file element from the DOM
+                            $('#file-' + fileName).remove(); // Assuming each file has an ID corresponding to the file name
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the file.');
+                    }
+                });
+            });
         });
         function handleCompleteClick(id){
             $.ajax({
@@ -290,7 +324,114 @@
                }
             });
         }
+
+        function handleEditFolder(id){
+            $.ajax({
+               type: "GET",
+               url: baseUrl+`/api/documents/get-documentstoedit/${id}`,
+                success: function(response){
+                    console.log("test", response[0]);
+                    $("#updateFolderModal").modal('show');
+                    $("#document-id").val(response[0]?.id)
+                    $("#document-name").val(response[0]?.document_name)
+                    $("#document-description").val(response[0]?.description)
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Log the error response for debugging
+                    Swal.fire(
+                        "Error!",
+                        "An error occurred while deleting the item.",
+                        "error"
+                    );
+                    // Optionally, you can provide more specific error messages to the user based on the error status.
+                }
+             })
+        };
         
+        function handleDeleteFolder(id,type,name){
+            if(!type){
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true, 
+                    confirmButtonText: "Yes, delete it!"
+                }).then(function(result) {
+                    if (result.value) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: baseUrl+`/api/documents/delete-documents`,
+                            data:{id:id},
+                                success: function(response){
+                                    console.log("test-----------", response);
+                                    Swal.fire(
+                                        "Deleted!",
+                                        "Your file has been deleted.",
+                                        "success"
+                                    )
+                                    location.reload();
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error(xhr.responseText); // Log the error response for debugging
+                                    Swal.fire(
+                                        "Error!",
+                                        "An error occurred while deleting the item.",
+                                        "error"
+                                    );
+                                    // Optionally, you can provide more specific error messages to the user based on the error status.
+                                }
+                        })
+                    
+                    }
+                });
+            }else{
+                // var fileName = $(this).data('document_name'); 
+                console.log("may type",name)
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true, 
+                    confirmButtonText: "Yes, delete it!"
+                }).then(function(result) {
+                    if (result.value) {
+                        $.ajax({
+                            url: baseUrl+`/api/documents/delete-file`,
+                            type: 'DELETE',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ file_name: name }),
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        "Deleted!",
+                                        "Your file has been deleted.",
+                                        "success"
+                                    )
+
+                                    $('#file-' + name).remove(); // Assuming each file has an ID corresponding to the file name
+                                    location.reload();
+                                } else {
+                                    alert('Error: ' + response.message);
+                                    Swal.fire(
+                                        'Error: ' + response.message
+                                    )
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error:', error);
+                                alert('An error occurred while deleting the file.');
+                            }
+                        });
+
+                    
+                    }
+                });
+
+                
+            }
+        }
+
         function handleDocumentClick(id){
             $("#addDocumentModal").modal('show');
         }
@@ -302,6 +443,10 @@
             $("#createFolderModal").modal('show');
             $("#folder_id").val(folder_id);
         }
+
+
+
+
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();
              var data = $(this).serialize();
@@ -346,29 +491,77 @@
         });
         
         $('#uploadForm').submit(function(event) {
-        event.preventDefault(); 
-        const folder_id = $('#folder_id_files').val();
-        const user_id = $('#user_id').val();
-        const pond = FilePond.find(document.getElementById('filepond'));
-        const files = pond.getFiles();       
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('files[]', file.file);
-        });
-        formData.append('folder_id',folder_id);
-        formData.append('user_id', user_id);
-        $.ajax({
-            url: baseUrl+'/api/documents/upload',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log(response);
-                if(response == 1){
+            event.preventDefault(); 
+            const folder_id = $('#folder_id_files').val();
+            const user_id = $('#user_id').val();
+            const pond = FilePond.find(document.getElementById('filepond'));
+            const files = pond.getFiles();       
+            const formData = new FormData();
+
+            files.forEach(file => {
+                formData.append('files[]', file.file);
+            });
+            formData.append('folder_id',folder_id);
+            formData.append('user_id', user_id);
+            $.ajax({
+                url: baseUrl+'/api/documents/upload',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    if(response == 1){
+                        Swal.fire({
+                            title: "Great!",
+                            text: "Successfully added.",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "OK",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then(function(result) {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            title: "Aw snap!",
+                            text: "Something went wrong.",
+                            icon: "error",
+                            timer: 1500,
+                            onOpen: function() {
+                                Swal.showLoading()
+                            }
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error uploading files:', error);
+                }
+            });
+        
+        });    
+        
+        $('#update-folder-document-form').submit(function(e){
+             e.preventDefault();
+             var data = $(this).serialize();
+
+             console.log("|data=====",data)
+
+             $.ajax({
+               type: "POST",
+               url: baseUrl +"/api/documents/update-documents",
+               data: data,
+               success: function(response){
+                  console.log("test-------", response);
+                  if(response == 1){
+                   
                     Swal.fire({
                         title: "Great!",
-                        text: "Successfully added.",
+                        text: "Successfully saved.",
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "OK",
@@ -380,7 +573,11 @@
                             location.reload();
                         }
                     });
-                }else{
+                     
+                   
+                    //  getUserData();  
+                    //  $("#addModal").modal('hide');                  
+                  }else{
                     Swal.fire({
                         title: "Aw snap!",
                         text: "Something went wrong.",
@@ -390,14 +587,10 @@
                             Swal.showLoading()
                         }
                     });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error uploading files:', error);
-            }
-        });
-        
-        });        
+                  }
+               }
+             })
+         });
         
     </script>
 </x-app-layout>

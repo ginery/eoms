@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use App\Helpers\Breadcrumbs;
+use Illuminate\Support\Facades\File;
 
 class DocumentController extends Controller
 {
@@ -23,6 +24,7 @@ class DocumentController extends Controller
       
         return view('documents.index',['documents'=>$document]);
     }
+
     public function folder($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $documents = Document::where('path', $id)->where('status','!=', 2)->get();
@@ -45,8 +47,8 @@ class DocumentController extends Controller
         return $document;
     }
 
-    public function destroy($id){
-        $item = Document::findOrFail($id);
+    public function destroy(Request $request){
+        $item = Document::findOrFail($request->id);
         $item->delete();
         return response()->json(['message' => 'Item deleted successfully'], 200);
     }
@@ -87,7 +89,6 @@ class DocumentController extends Controller
 
             foreach ($request->file('files') as $file) {
                 if ($file->isValid()) {
-
                     $originalName = $file->getClientOriginalName();
                     $fileName = time()."-".strtolower(str_replace(' ', '_', $originalName));
                     $file->move(public_path('assets/uploads'), $fileName);
@@ -121,11 +122,33 @@ class DocumentController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'No files uploaded.']);
-    
         
     }
-    
 
+    public function deleteFile(Request $request)
+    {
+        // Validate the request to ensure 'file_name' is provided
+        $request->validate([
+            'file_name' => 'required|string',
+        ]);
 
+        // Define the file path
+        $filePath = public_path('assets/uploads/' . $request->file_name);
+
+        // Check if the file exists
+        if (File::exists($filePath)) {
+            // Attempt to delete the file
+            if (File::delete($filePath)) {
+                // Optionally, delete the record from the database if needed
+                Document::where('document_name', $request->file_name)->delete();
+
+                return response()->json(['success' => true, 'message' => 'File deleted successfully.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'File could not be deleted.']);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => 'File not found.']);
+        }
+    }
 
 }
