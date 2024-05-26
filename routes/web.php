@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
-Route::get('/folder/{id}', [DocumentController::class, 'folder'])->name('folder.folder');
+Route::get('/documents/{id}', [DocumentController::class, 'folder'])->name('folder.folder');
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/messages', [MessagesController::class, 'index'])->middleware(['auth', 'verified'])->name('messages');
 Route::get('/reports', [ReportsController::class, 'index'])->middleware(['auth', 'verified'])->name('reports');

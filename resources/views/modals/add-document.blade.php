@@ -1,9 +1,9 @@
-<div class="modal fade" id="createFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form id="create-folder-document-form">
             <div class="modal-content">           
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create folder</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Document</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -13,7 +13,7 @@
                     <input type="hidden" class="form-control" id="folder_id" name="folder_id" value="0">
                         <div class="row">
                             <div class="form-group col-12">
-                                <label>Folder Name<span class="text-danger">*</span></label>
+                                <label>Document Name<span class="text-danger">*</span></label>
                                 <input type="text" required class="form-control" name="document_name" placeholder="Folder Name">
                             </div>
                             {{-- <div class="form-group col-md-6">

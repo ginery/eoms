@@ -1,4 +1,7 @@
 <x-app-layout>
+
+
+
     <!--begin::Body-->
     	<!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid" id="kt_subheader">
@@ -13,20 +16,6 @@
                                 Documents
                             </h5>
                             <!--end::Page Title-->
-
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                                    <li class="breadcrumb-item">
-                                        <a href="" class="text-muted"> Features</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="" class="text-muted">Cards</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="" class="text-muted">General Cards</a>
-                                    </li>
-                                </ul>
-                                <!--end::Breadcrumb-->
                         </div>
                         <!--end::Page Heading-->
                     </div>
@@ -37,7 +26,7 @@
                         <!--begin::Actions-->
                             <a href="#" onclick='handleCreateFolder()' class="btn btn-light-primary font-weight-bolder btn-sm">
                                 <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
-                                Folder
+                                Folder 
                             </a>
                         <!--end::Actions-->
                     </div>
@@ -115,9 +104,8 @@
 
     <!-- jQuery Script -->
     <script>
-        function handleFolderClick(id) {
-            
-            location.href = "/folder/"+id;
+        function handleFolderClick(id) {            
+            location.href = "/documents/"+id;
         }
 
         function handleCreateFolder(){

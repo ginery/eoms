@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-
+use App\Models\Document;
 if (!function_exists('format_date')) {
     function format_date($date)
     {
@@ -16,6 +16,13 @@ if (!function_exists('getRole')) {
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Administrator</span>';
         }
+    }
+}
+if (!function_exists('getFolderName')) {
+    function getFolderName($id)
+    {
+        $document = Document::where('id', $id)->get()->first();
+        return $document ? $document->document_name:'N/A';
     }
 }
 

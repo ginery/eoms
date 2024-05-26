@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
-
+use App\Helpers\Breadcrumbs;
 class DocumentController extends Controller
 {
     //
@@ -23,7 +23,9 @@ class DocumentController extends Controller
         return view('documents.index',['documents'=>$document]);
     }
     public function folder($id) : View{
-        return view('documents.folder');
+        $breadcrumbs = Breadcrumbs::generate();
+        $documents = Document::where('path', $id)->get();
+        return view('documents.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents]);
     }
 
 
@@ -57,6 +59,7 @@ class DocumentController extends Controller
             'description' => $request->description,
             'status' => 0,
             'user_id' => $request->user_id,
+            'path' => $request->folder_id
         ]);
         if($res){
             echo 1;

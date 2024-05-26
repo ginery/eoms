@@ -36,7 +36,7 @@
       <div id="kt_header_mobile" class="header-mobile align-items-center  header-mobile-fixed " >
          <!--begin::Logo-->
          <a href="index.html">
-         <img alt="Logo" src="assets/media/logos/logo-light.png"/>
+         <img alt="Logo" src="{{asset('assets/media/logos/logo-light.png')}}"/>
          </a>
          <!--end::Logo-->
          <!--begin::Toolbar-->
@@ -379,7 +379,7 @@
         <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script>
-
+          var baseUrl = "{{ url('/') }}";
          // Enable pusher logging - don't include this in production
          Pusher.logToConsole = true;
      
