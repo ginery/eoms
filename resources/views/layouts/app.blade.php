@@ -26,6 +26,7 @@
       <!--end::Layout Themes-->
       <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
       <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}"/>
+      <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
       <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
    </head>
    <!--end::Head-->
@@ -377,9 +378,11 @@
         <script src="{{asset('assets/js/pages/features/miscellaneous/sweetalert2.js')}}"></script>
         <script src="{{asset('assets/js/pages/custom/chat/chat.js')}}"></script>
         <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script>
           var baseUrl = "{{ url('/') }}";
+        
          // Enable pusher logging - don't include this in production
          Pusher.logToConsole = true;
      

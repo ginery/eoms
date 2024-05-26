@@ -28,7 +28,7 @@ Route::group(['prefix' => 'documents'], function () {
     Route::get('/get-documentstoedit/{id}', [DocumentController::class, 'getDocumentToEdit']);
     Route::delete('/delete-documents/{id}', [DocumentController::class, 'destroy']);
     Route::post('/update-documents', [DocumentController::class, 'update']);
-    
+    Route::post('/upload', [DocumentController::class, 'upload']);
     //add another api route here. 
 });
 

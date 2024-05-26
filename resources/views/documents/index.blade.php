@@ -38,11 +38,11 @@
             <div class="card-body p-0 position-relative mt-15">
                 @foreach($documents as $document)
                     <!--begin::Card-->
-                    <div class="card card-custom mb-2" style="cursor: pointer;" onclick="handleFolderClick({{$document->id}})">
+                    <div class="card card-custom mb-2" style="cursor: pointer;">
                         <div class="card-header">
-                            <div class="card-title">
+                            <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
                                 <span class="card-icon">
-                                    <i class="fa fa-folder text-primary" style="font-size:30px; color:#047940 !important"></i>
+                                    <i class="fa fa-folder text-success" style="font-size:30px;"></i>
                                 </span>
                                 <h3 class="card-label">
                                     {{$document->document_name}}

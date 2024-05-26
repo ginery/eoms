@@ -17,7 +17,7 @@ class DocumentController extends Controller
         if($role === 1){
             $document = Document::all();
         } else {
-            $document = Document::where('user_id', Auth::user()->id)->get();
+            $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
         }
       
         return view('documents.index',['documents'=>$document]);
@@ -25,7 +25,7 @@ class DocumentController extends Controller
     public function folder($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $documents = Document::where('path', $id)->get();
-        return view('documents.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents]);
+        return view('documents.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
 
 
@@ -78,6 +78,44 @@ class DocumentController extends Controller
         $res = Document::where('id', $request->id)->update($data);
 
         return $res;
+    }
+
+    public function upload(Request $request){
+        if ($request->hasFile('files')) {
+            $uploadedFiles = [];
+
+            foreach ($request->file('files') as $file) {
+                if ($file->isValid()) {
+
+                    $originalName = $file->getClientOriginalName();
+                    $fileName = strtolower(str_replace(' ', '_', $originalName));
+                    $fileType = $file->getClientOriginalExtension();
+                    
+                    $res = Document::create([
+                        'document_name' => $fileName,
+                        'document_type' => $fileType,
+                        'document_size' => 0,
+                        'description' => '',
+                        'status' => 0,
+                        'user_id' => $request->user_id,
+                        'path' => $request->folder_id
+                    ]);
+                    $uploadedFiles[] = [
+                        'file_name' => $fileName,
+                        'file_type' => $fileType,
+                        'status'    => $res
+                    ];
+                } else {                 
+                    return response()->json(['success' => false, 'message' => 'Invalid file uploaded.']);
+                }
+            }
+            
+            return 1;
+        }
+
+        return response()->json(['success' => false, 'message' => 'No files uploaded.']);
+    
+        
     }
     
 
