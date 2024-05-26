@@ -89,12 +89,16 @@ class DocumentController extends Controller
 
                     $originalName = $file->getClientOriginalName();
                     $fileName = strtolower(str_replace(' ', '_', $originalName));
+                    $file->move(public_path('assets/uploads'), $fileName);
                     $fileType = $file->getClientOriginalExtension();
-                    
+                    $destinationPath = public_path('assets/uploads');
+                    $filePath = $destinationPath . '/' . $fileName;
+                    $fileSize = filesize($filePath) / 1024;
+                    $fileType = $file->getClientOriginalExtension();
                     $res = Document::create([
                         'document_name' => $fileName,
                         'document_type' => $fileType,
-                        'document_size' => 0,
+                        'document_size' => round($fileSize, 2),
                         'description' => '',
                         'status' => 0,
                         'user_id' => $request->user_id,

@@ -9,8 +9,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="user_id" placeholder="User id" value="{{ Auth::user()->id }}">
-                    <input type="text" class="form-control" id="folder_id_files" name="folder_id_files" value="{{$folder_id}}">
+                    <input type="hidden" class="form-control" id="user_id" placeholder="User id" value="{{ Auth::user()->id }}">
+                    <input type="hidden" class="form-control" id="folder_id_files" name="folder_id_files" value="{{$folder_id}}">
                     <div class="container mt-5">                      
                          <input type="file" name="filepond" id="filepond" multiple>                        
                     </div>
