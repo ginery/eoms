@@ -151,4 +151,18 @@ class DocumentController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $document = Document::findOrFail($id);
+
+        $filePath = asset('assets/uploads/' . $document->document_name);
+        $fileType = $document->document_type;
+
+        return response()->json([
+            'document_name' => $document->document_name,
+            'filePath' => $filePath,
+            'fileType' => $fileType
+        ]);
+    }
+
 }

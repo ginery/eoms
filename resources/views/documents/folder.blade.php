@@ -231,6 +231,7 @@
 </div>
     @include('modals.create-folder-document')
     @include('modals.add-document')
+    @include('modals.view-file-document')
     @include('modals.update-folder-document')
     <script>
         $(document).ready(function(){
@@ -444,6 +445,38 @@
 
                 
             }
+        }
+
+        function handleView(id) {
+            $.ajax({
+                url: baseUrl+'/api/documents/documents/' + id,
+                type: 'GET',
+                success: function(response) {
+                    $('#viewFileModalLabel').text(response.document_name);
+
+                    console.log("response=----------",response.document_name)
+                    let content = '';
+
+                    if (response.fileType === 'pdf') {
+                        content = `<iframe src="${response.filePath}" width="100%" height="600px"></iframe>`;
+                    } else if (['jpg', 'jpeg', 'png', 'gif'].includes(response.fileType)) {
+                        content = `<img src="${response.filePath}" alt="${response.document_name}" width="100%" height="600px"/>`;
+                        $('#viewFileModalBody').html(content);
+                        $('#viewFileModal').modal('show');
+                    } else if (response.fileType === 'docx') {
+                        content = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(response.filePath)}" width="100%" height="600px"></iframe>`;
+                        $('#viewFileModalBody').html(content);
+                        $('#viewFileModal').modal('show');
+                    } else {
+                        content = '<p>Unsupported file type.</p>';
+                    }
+                    $('#viewFileModalBody').html(content);
+                   
+                },
+                error: function(xhr) {
+                    alert('An error occurred while trying to fetch the document.');
+                }
+            });
         }
 
         function handleDocumentClick(id){
