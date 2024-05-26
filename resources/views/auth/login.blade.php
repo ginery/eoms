@@ -47,12 +47,13 @@
                      <!--begin::Form-->
                      <form class="form" id="kt_login_singin_form" method="POST" action="{{ route('login') }}">
                         @csrf
-                        @if (session('errors'))
-
-                        <div>
-                            {{ session('errors')->get('email')[0] }}
-                        </div>
+                        <!-- Display login error message if exists -->
+                        @if ($errors->any())
+                           <div class="alert alert-danger">
+                              {{ $errors->first() }}
+                           </div>
                         @endif
+
                         <!--begin::Title-->
                         <div class="pb-5 pb-lg-15">
                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Carlos Hilado Memorial State University</h3>

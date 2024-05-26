@@ -47,6 +47,9 @@
                                 <h3 class="card-label">
                                     {{$document->document_name}}
                                 </h3>
+                                @if (Auth::user()->role === 1)
+                                    <small>{{getUserFullName($document->user_id)}}</small>
+                                @endif
                             </div>
                             
                             <!--begin::Languages-->

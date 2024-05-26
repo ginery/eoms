@@ -62,6 +62,9 @@
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
+                    @if (Auth::user()->role === 1)
+                    <small>{{getUserFullName($document->user_id)}}</small>
+                    @endif
                 </div>
                 
                 <!--begin::Languages-->
@@ -128,6 +131,9 @@
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
+                    @if (Auth::user()->role === 1)
+                        <small>{{getUserFullName($document->user_id)}}</small>
+                    @endif
                     {!!getDocumentStatus($document->status)!!}
                 </div>
                 
@@ -185,6 +191,14 @@
                                         <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
                                     </span>
                                     <span class="navi-text">Archived</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="{{ asset('assets/uploads/' . $document->document_name . $document->type) }}" class="navi-link" download="{{ $document->document_name . $document->type }}">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Download</span>
                                 </a>
                             </li>
                             <!--end::Item-->
@@ -258,7 +272,7 @@
                   if(response == 1){
                     Swal.fire({
                         title: "Great!",
-                        text: "Successfully created.",
+                        text: "Completed",
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "OK",
