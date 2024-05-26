@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\ChatController; 
 use App\Http\Controllers\ReportsController; 
+use App\Http\Controllers\ArchivedController; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,5 +46,9 @@ Route::group(['prefix' => 'messages'], function () {
 });
 Route::group(['prefix' => 'reports'], function () {
     Route::get('/generate', [ReportsController::class, 'generate']);
+    
+});
+Route::group(['prefix' => 'archived'], function () {
+    Route::post('/update', [ArchivedController::class, 'update']);
     
 });

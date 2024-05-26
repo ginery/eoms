@@ -18,4 +18,16 @@ class ArchivedController extends Controller
         // }
         return view('archived.index',['documents' => $document]);
     }
+    public function update(Request $request) {
+        $data = [
+            'status' => 2,            
+        ];
+        $result = Document::where('id', $request->id)->update($data);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
 }

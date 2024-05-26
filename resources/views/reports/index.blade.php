@@ -57,7 +57,7 @@
 
             generateReport();
         });
-        function generateReport(){
+        function generateReport(id){
             var start_date =  $('#start_date').val();
             var end_date = $('#end_date').val();
             $("#table-reports").DataTable().destroy();

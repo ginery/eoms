@@ -25,7 +25,7 @@ class DocumentController extends Controller
     }
     public function folder($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
-        $documents = Document::where('path', $id)->get();
+        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
         return view('documents.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
 
@@ -106,7 +106,7 @@ class DocumentController extends Controller
                         'user_id' => $request->user_id,
                         'path' => $request->folder_id
                     ]);
-                    
+
                     $uploadedFiles[] = [
                         'file_name' => $fileName,
                         'file_type' => $fileType,

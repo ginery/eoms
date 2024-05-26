@@ -166,6 +166,16 @@
                                 </a>
                             </li>
                             <!--end::Item-->
+                            <!--begin::Item-->
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Archived</span>
+                                </a>
+                            </li>
+                            <!--end::Item-->
 
                         </ul>
                         <!--end::Nav-->
@@ -187,6 +197,45 @@
             FilePond.create(document.getElementById('filepond'));
             
         });
+        function handleArchivedClick(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/archived/update",
+               data: {
+                id: id
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully created.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
         
         function handleDocumentClick(id){
             $("#addDocumentModal").modal('show');
@@ -204,7 +253,7 @@
              var data = $(this).serialize();
              console.log("data serialize========",baseUrl+"api/documents/add-documents")
 
-             $.ajax({
+            $.ajax({
                type: "POST",
                url: baseUrl+"/api/documents/add-documents",
                data: data,
@@ -239,7 +288,7 @@
                     });
                   }
                }
-             })
+            });
         });
         
         $('#uploadForm').submit(function(event) {
