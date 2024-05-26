@@ -157,10 +157,10 @@
              <!--begin::Footer-->
              <div class="card-footer align-items-center">
                 <!--begin::Compose-->
-                <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message"></textarea>
+                <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message" id="text_message"></textarea>
                 <div class="d-flex align-items-center justify-content-between mt-5">
                    <div>
-                      <button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+                      <button type="button" onclick="sendMessage()" class="btn btn-primary btn-md text-uppercase font-weight-bold py-2 px-6">Send</button>
                    </div>
                 </div>
                 <!--begin::Compose-->
@@ -172,4 +172,26 @@
        <!--end::Content-->
     </div>
     <!--end::Chat-->
+    <script>
+        $(document).ready(function(){
+           
+        });
+
+        function sendMessage(){
+            var message_content = $("#text_message").val();
+            $.ajax({
+                url: 'api/messages/send', 
+                type: 'POST',
+                data: {
+                    message: message_content
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
  </x-app-layout>

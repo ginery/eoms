@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController; 
+use App\Http\Controllers\ChatController; 
+use App\Http\Controllers\ReportsController; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,4 +38,12 @@ Route::group(['prefix' => 'users'], function () {
     Route::delete('/delete/{id}', [UserController::class, 'delete']);
     Route::get('/get/{id}', [UserController::class, 'get']);
     //add another api route here. 
+});
+Route::group(['prefix' => 'messages'], function () {
+    Route::post('/send', [ChatController::class, 'sendMessage']);
+    
+});
+Route::group(['prefix' => 'reports'], function () {
+    Route::get('/generate', [ReportsController::class, 'generate']);
+    
 });

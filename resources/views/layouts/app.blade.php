@@ -377,6 +377,26 @@
         <script src="assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
         <script src="assets/js/pages/custom/chat/chat.js"></script>
         <script src="assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script>
+
+         // Enable pusher logging - don't include this in production
+         Pusher.logToConsole = true;
+     
+         var pusher = new Pusher('c249d93cdd3736592f45', {
+           cluster: 'us2'
+         });
+     
+         var channel = pusher.subscribe('my-channel');
+         channel.bind('my-event', function(data) {
+           console.log(JSON.stringify(data));
+         });
+
+         // Listen for events on the channel
+         channel.bind('my-event', function(data) {
+            console.log('Received event:', data);
+         });
+       </script>
    </body>
    <!--end::Body-->
 </html>

@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                
+                    
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>First Name <span class="text-danger">*</span></label>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary font-weight-bold">Save</button>
+                    <button type="submit" class="btn btn-success font-weight-bold">Save</button>
                 </div>
             </div>
         </form>
