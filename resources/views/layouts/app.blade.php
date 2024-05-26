@@ -25,7 +25,7 @@
       <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css"/>
       <!--end::Layout Themes-->
       <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
-      <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}"/>
+      <link rel="shortcut icon" href="{{asset('assets/images/eoms-logo.png')}}"/>
       <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
       <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
    </head>

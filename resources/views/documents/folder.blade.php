@@ -194,7 +194,7 @@
                                 </a>
                             </li>
                             <li class="navi-item">
-                                <a href="{{ asset('assets/uploads/' . $document->document_name . $document->type) }}" class="navi-link" download="{{ $document->document_name . $document->type }}">
+                                <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
                                     </span>

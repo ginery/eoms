@@ -24,7 +24,7 @@
       <link href="assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css"/>
       <link href="assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css"/>
       <!--end::Layout Themes-->
-      <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+      <link rel="shortcut icon" href="assets/images/eoms-logo.png"/>
    </head>
    <!--end::Head-->
    <!--begin::Body-->
