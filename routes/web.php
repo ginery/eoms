@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ArchivedController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,4 +39,6 @@ Route::get('/documents/{id}', [DocumentController::class, 'folder'])->name('fold
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/messages', [MessagesController::class, 'index'])->middleware(['auth', 'verified'])->name('messages');
 Route::get('/reports', [ReportsController::class, 'index'])->middleware(['auth', 'verified'])->name('reports');
+Route::get('/archived', [ArchivedController::class, 'index'])->middleware(['auth', 'verified'])->name('archived');
+
 require __DIR__.'/auth.php';

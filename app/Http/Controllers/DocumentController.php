@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use App\Helpers\Breadcrumbs;
+
 class DocumentController extends Controller
 {
     //
@@ -95,6 +96,7 @@ class DocumentController extends Controller
                     $filePath = $destinationPath . '/' . $fileName;
                     $fileSize = filesize($filePath) / 1024;
                     $fileType = $file->getClientOriginalExtension();
+
                     $res = Document::create([
                         'document_name' => $fileName,
                         'document_type' => $fileType,
@@ -104,6 +106,7 @@ class DocumentController extends Controller
                         'user_id' => $request->user_id,
                         'path' => $request->folder_id
                     ]);
+                    
                     $uploadedFiles[] = [
                         'file_name' => $fileName,
                         'file_type' => $fileType,
