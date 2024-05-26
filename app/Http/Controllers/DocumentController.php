@@ -22,6 +22,9 @@ class DocumentController extends Controller
       
         return view('documents.index',['documents'=>$document]);
     }
+    public function folder($id) : View{
+        return view('documents.folder');
+    }
 
 
     public function getDocument(){
@@ -73,6 +76,7 @@ class DocumentController extends Controller
 
         return $res;
     }
+    
 
 
 

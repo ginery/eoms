@@ -10,7 +10,8 @@
                         <div class="d-flex align-items-baseline flex-wrap mr-5">
                             <!--begin::Page Title-->
                             <h5 class="text-dark font-weight-bold my-1 mr-5">
-                                General Cards	                	            </h5>
+                                Documents
+                            </h5>
                             <!--end::Page Title-->
 
                                 <!--begin::Breadcrumb-->
@@ -48,7 +49,7 @@
             <div class="card-body p-0 position-relative mt-15">
                 @foreach($documents as $document)
                     <!--begin::Card-->
-                    <div class="card card-custom mb-2">
+                    <div class="card card-custom mb-2" style="cursor: pointer;" onclick="handleFolderClick({{$document->id}})">
                         <div class="card-header">
                             <div class="card-title">
                                 <span class="card-icon">
@@ -114,22 +115,9 @@
 
     <!-- jQuery Script -->
     <script>
-        // $(document).ready(function() {
-        //     // Define the number of cards you want to generate
-        //     $.ajax({
-        //         url: `/api/documents/get-documents/{{ Auth::user()->id }}`, 
-        //         method: 'GET', 
-        //         success: function(data) {
-        //             console.log("data ni ==========", data)
-        //         }, 
-        //         error: function(error) {
-        //             console.error('Error fetching products:', error);
-        //         }
-        //     });
-        // });
-
-        function handleCardClick(index) {
-            console.log("card clicked =======", index)
+        function handleFolderClick(id) {
+            
+            location.href = "/folder/"+id;
         }
 
         function handleCreateFolder(){
@@ -207,7 +195,7 @@
                success: function(response){
                   console.log("test", response);
                   if(response == 1){
-                   
+                    $("#createFolderModal").modal('hide');
                     Swal.fire({
                         title: "Great!",
                         text: "Successfully created.",

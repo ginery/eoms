@@ -11,22 +11,22 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
       <!--end::Fonts-->
       <!--begin::Page Vendors Styles(used by this page)-->
-      <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css"/>
       <!--end::Page Vendors Styles-->
       <!--begin::Global Theme Styles(used by all pages)-->
-      <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
       <!--end::Global Theme Styles-->
       <!--begin::Layout Themes(used by all pages)-->
-      <link href="assets/css/themes/layout/header/base/light.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/css/themes/layout/header/menu/light.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css"/>
-      <link href="assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/css/themes/layout/header/base/light.css')}}" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css"/>
+      <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css"/>
       <!--end::Layout Themes-->
-      <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-      <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
-      <script src="assets/js/jquery-3.7.1.min.js"></script>
+      <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
+      <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}"/>
+      <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
    </head>
    <!--end::Head-->
    <!--begin::Body-->
@@ -113,7 +113,7 @@
             <!--begin::Header-->
             <div class="d-flex align-items-center mt-5">
                <div class="symbol symbol-100 mr-5">
-                  <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                  <div class="symbol-label" style="background-image:url({{asset('assets/media/users/300_21.jpg')}})"></div>
                   <i class="symbol-badge bg-success"></i>
                </div>
                <div class="d-flex flex-column">
@@ -360,23 +360,23 @@
         <!--end::Global Config-->
         <!--begin::Global Theme Bundle(used by all pages)-->
         
-        <script src="assets/plugins/global/plugins.bundle.js"></script>
-        <script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
-        <script src="assets/js/scripts.bundle.js"></script>
+        <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
+        <script src="{{asset('assets/plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
+        <script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
         <!--end::Global Theme Bundle-->
         <!--begin::Page Vendors(used by this page)-->
-        <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+        <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
         <!--end::Page Vendors-->
         <!--begin::Page Scripts(used by this page)-->
-        <script src="assets/js/pages/widgets.js"></script>
+        <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
         <!--end::Page Scripts-->
-        <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+        <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
         <!--end::Page Vendors-->
         <!--begin::Page Scripts(used by this page)-->
         {{-- <script src="assets/js/pages/crud/datatables/advanced/column-rendering.js"></script> --}}
-        <script src="assets/js/pages/features/miscellaneous/sweetalert2.js"></script>
-        <script src="assets/js/pages/custom/chat/chat.js"></script>
-        <script src="assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js"></script>
+        <script src="{{asset('assets/js/pages/features/miscellaneous/sweetalert2.js')}}"></script>
+        <script src="{{asset('assets/js/pages/custom/chat/chat.js')}}"></script>
+        <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script>
 
