@@ -36,7 +36,7 @@
                 <th scope="col">Document Type</th>
                 <th scope="col">Document Size</th>
                 <th scope="col">Description</th>
-                <th scope="col">Document Size</th>
+                <th scope="col">User</th>
                 <th scope="col">Status</th>
                 <th scope="col">Date Added</th>
             </tr>

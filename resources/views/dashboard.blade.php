@@ -12,18 +12,18 @@
                   <!--begin::Dashboard-->
                   <!--begin::Row-->
                   <div class="row">
-                     <div class="col-lg-6 col-xxl-4">
+                     <div class="col-lg-12">
                         <!--begin::Mixed Widget 1-->
                         <div class="card card-custom bg-gray-100 card-stretch gutter-b">
                            <!--begin::Header-->
-                           <div class="card-header border-0 bg-danger py-5">
+                           {{-- <div class="card-header border-0 bg-danger py-5">
                               <h3 class="card-title font-weight-bolder text-white">Monthly Reports</h3>                                    
-                           </div>
+                           </div> --}}
                            <!--end::Header-->
                            <!--begin::Body-->
                            <div class="card-body p-0 position-relative overflow-hidden">
                               <!--begin::Chart-->
-                              <div id="kt_mixed_widget_1_chart" class="card-rounded-bottom bg-danger" style="height: 200px"></div>
+                              <div  class="card-rounded-bottom bg-danger" style="height: 200px"></div>
                               <!--end::Chart-->
                               <!--begin::Stats-->
                               <div class="card-spacer mt-n25">
@@ -44,7 +44,7 @@
                                           <!--end::Svg Icon-->
                                        </span>
                                        <a href="#" class="text-warning font-weight-bold font-size-h6">
-                                       Weekly Sales
+                                       In-progress
                                        </a>
                                     </div>
                                     <div class="col bg-light-primary px-6 py-8 rounded-xl mb-7">
@@ -60,7 +60,7 @@
                                           <!--end::Svg Icon-->
                                        </span>
                                        <a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">
-                                       New Users
+                                       Rejected
                                        </a>
                                     </div>
                                  </div>
@@ -80,7 +80,7 @@
                                           <!--end::Svg Icon-->
                                        </span>
                                        <a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">
-                                       Item Orders
+                                       Completed
                                        </a>
                                     </div>
                                     <div class="col bg-light-success px-6 py-8 rounded-xl">
@@ -96,7 +96,7 @@
                                           <!--end::Svg Icon-->
                                        </span>
                                        <a href="#" class="text-success font-weight-bold font-size-h6 mt-2">
-                                       Bug Reports
+                                       Archived
                                        </a>
                                     </div>
                                  </div>
@@ -108,7 +108,7 @@
                         </div>
                         <!--end::Mixed Widget 1-->
                      </div>
-                     <div class="col-lg-6 col-xxl-4">
+                     {{-- <div class="col-lg-6 col-xxl-4">
                         <!--begin::List Widget 9-->
                         <div class="card card-custom card-stretch gutter-b">
                            <!--begin::Header-->
@@ -327,7 +327,7 @@
                            <!--end: Card Body-->
                         </div>
                         <!--end: List Widget 9-->
-                     </div>
+                     </div> --}}
 
                      
                   </div>

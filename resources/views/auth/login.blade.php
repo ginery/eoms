@@ -38,8 +38,8 @@
                <!--begin::Wrapper-->
                <div class="login-content d-flex flex-column pt-lg-0 pt-12">
                   <!--begin::Logo-->
-                  <a href="#" class="login-logo pb-xl-20 pb-15">
-                  <img src="assets/media/logos/logo-4.png" class="max-h-70px" alt=""/>
+                  <a href="#" class="login-logo pb-3">
+                  <img src="assets/images/eoms-logo.png" class="max-h-70px" alt=""/>
                   </a>
                   <!--end::Logo-->
                   <!--begin::Signin-->
@@ -77,7 +77,7 @@
                         <!--end::Form group-->
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
-                           <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+                           <button type="submit" class="btn btn-success font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
                         </div>
                         <!--end::Action-->
                      </form>

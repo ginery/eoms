@@ -6,14 +6,14 @@
   <!--begin::Aside-->
   <div class="aside aside-left  aside-fixed  d-flex flex-column flex-row-auto"  id="kt_aside">
     <!--begin::Brand-->
-    <div class="brand flex-column-auto " id="kt_brand">
+    <div class="brand flex-row-auto " id="kt_brand">
        <!--begin::Logo-->
-       <a href="index.html" class="brand-logo">
-       <img alt="Logo" src="{{asset('assets/media/logos/logo-light.png')}}"/>
+       <a href="{{route('dashboard')}}" class="brand-logo" style="display: block;">
+       <img alt="Logo" src="{{asset('assets/images/eoms-logo.png')}}" style="width: 27px; align-content: center;"/> <span class="font-weight-bolder text-white" style="margin-left: 10px;"> EOMS</span>
        </a>
        <!--end::Logo-->
        <!--begin::Toggle-->
-       <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+       <button class="brand-toggle btn btn-sm px-0"  id="kt_aside_toggle">
           <span class="svg-icon svg-icon svg-icon-xl">
              <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
