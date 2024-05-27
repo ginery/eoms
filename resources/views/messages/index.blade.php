@@ -33,11 +33,11 @@
                    <div class="d-flex align-items-center justify-content-between mb-5">
                       <div class="d-flex align-items-center">
                          <div class="symbol symbol-circle symbol-50 mr-3">
-                            <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                            <img alt="Pic" src="assets/images/user-icon.jpg"/>
                          </div>
                          <div class="d-flex flex-column">
-                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">Matt Pears</a>
-                            <span class="text-muted font-weight-bold font-size-sm">Head of Development</span>
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">John Doe</a>
+                            <span class="text-muted font-weight-bold font-size-sm">Administrator</span>
                          </div>
                       </div>
                       <div class="d-flex flex-column align-items-end">
@@ -49,11 +49,11 @@
                    <div class="d-flex align-items-center justify-content-between mb-5">
                       <div class="d-flex align-items-center">
                          <div class="symbol symbol-circle symbol-50 mr-3">
-                            <img alt="Pic" src="assets/media/users/300_11.jpg"/>
+                            <img alt="Pic" src="assets/images/user-icon.jpg"/>
                          </div>
                          <div class="d-flex flex-column">
-                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">Charlie Stone</a>
-                            <span class="text-muted font-weight-bold font-size-sm">Art Director</span>
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">Test Test</a>
+                            <span class="text-muted font-weight-bold font-size-sm">Staff/Faculty</span>
                          </div>
                       </div>
                       <div class="d-flex flex-column align-items-end">
@@ -118,7 +118,7 @@
                       <div class="d-flex flex-column mb-5 align-items-start">
                          <div class="d-flex align-items-center">
                             <div class="symbol symbol-circle symbol-40 mr-3">
-                               <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                               <img alt="Pic" src="assets/images/user-icon.jpg"/>
                             </div>
                             <div>
                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">John Doe</a>
@@ -138,7 +138,7 @@
                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                             </div>
                             <div class="symbol symbol-circle symbol-40 ml-3">
-                               <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                               <img alt="Pic" src="assets/images/user-icon.jpg"/>
                             </div>
                          </div>
                          <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
