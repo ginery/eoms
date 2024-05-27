@@ -6,7 +6,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\ChatController; 
 use App\Http\Controllers\ReportsController; 
-use App\Http\Controllers\ArchivedController; 
+use App\Http\Controllers\ArchivedController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +22,9 @@ use App\Http\Controllers\ArchivedController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::post('/dashboard-status', [DashboardController::class, 'getDocumentStatus']);
+});
 Route::group(['prefix' => 'documents'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);
     Route::get('/get-documents', [DocumentController::class, 'getDocument']);
