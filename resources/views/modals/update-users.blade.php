@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="id" placeholder="id" id="user-id">
+                    <input type="hidden" class="form-control" name="id" placeholder="id" id="user-id">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>First Name <span class="text-danger">*</span></label>
