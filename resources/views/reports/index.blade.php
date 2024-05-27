@@ -23,6 +23,8 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" value="{{Auth::id()}}" id="user_id"/>
+            <input type="hidden" value="{{Auth::user()->role}}" id="role_id"/>
             <div class="col-md-3">
                 <button type="button" onclick="generateReport()" class="btn btn-success font-weight-bold">Generate</button>
             </div>          
@@ -59,6 +61,8 @@
         function generateReport(id){
             var start_date =  $('#start_date').val();
             var end_date = $('#end_date').val();
+            var user_id = $("#user_id").val();
+            var role_id = $("#role_id").val();
             $("#table-reports").DataTable().destroy();
             $("#table-reports").DataTable({
                 dom: 'Bfrtip',
@@ -74,7 +78,9 @@
                     dataSrc: 'data',
                     data: {
                         start_date: start_date,
-                        end_date: end_date
+                        end_date: end_date,
+                        user_id: user_id,
+                        role_id: role_id
                     },                   
                 },
                 columns: [
@@ -88,6 +94,21 @@
                     { data: 'date_added' }
                 ],   
             });
+            // $.ajax({
+            //     url: 'api/reports/generate',
+            //     type: 'GET',
+            //     data: {
+            //         start_date: start_date,
+            //         end_date: end_date,
+            //         user_id: user_id,
+            //         role_id: role_id
+            //     },success: function(e){
+            //         console.log(e);
+            //     },
+            //     error: function(e){
+            //         console.log("error", e);
+            //     }
+            // })
 
         }
         

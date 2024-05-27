@@ -49,9 +49,16 @@ if(!function_exists('getDocumentStatus')){
 }
 if(!function_exists('getTotalFileStatus')){
     function getTotalFileStatus($status)
-    {
+    {   
         $user_id = Auth::user()->id;
-        $document = Document::where('user_id', $user_id)->where('status', $status)->count();
+        $role = Auth::user()->role;
+        if($role == 1){
+            $document = Document::where('status', $status)->count();
+        }else{
+            $document = Document::where('user_id', $user_id)->where('status', $status)->count();
+        }
+        
+        
      
         return $document ? $document:0;
         
