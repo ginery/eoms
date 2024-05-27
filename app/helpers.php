@@ -3,6 +3,8 @@
 use Carbon\Carbon;
 use App\Models\Document;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 if (!function_exists('format_date')) {
     function format_date($date)
     {
@@ -43,6 +45,16 @@ if(!function_exists('getDocumentStatus')){
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';
         }
+    }
+}
+if(!function_exists('getTotalFileStatus')){
+    function getTotalFileStatus($status)
+    {
+        $user_id = Auth::user()->id;
+        $document = Document::where('user_id', $user_id)->where('status', $status)->count();
+     
+        return $document ? $document:0;
+        
     }
 }
 
