@@ -120,11 +120,17 @@
                 <div class="card-title">
                     <span class="card-icon"> 
                         @if ($document->document_type === 'pdf')
-                        <i class="fas fa-file-pdf" class="text-success" style="font-size:30px;"></i>
+                        <i class="fas fa-file-pdf" class="text-success" style="font-size:30px; color:red !important"></i>
                         @elseif ($document->document_type === 'docx')
                         <i class="fas fa-file-word" style="font-size:30px; color:blue !important"></i>
+                        @elseif ($document->document_type === 'xlsx')
+                        <i class="fas fa-file-excel" style="font-size:30px; color:green !important"></i>
                         @elseif ($document->document_type === 'jpg' || $document->document_type === 'png' || $document->document_type === 'gif' || $document->document_type === 'jpeg')
                         <i class="fas fa-image" style="font-size:30px; color:grey !important"></i>
+                        @elseif ($document->document_type === 'pptx')
+                        <i class="fas fa-file-powerpoint" style="font-size:30px; color:rgb(255, 94, 0) !important"></i>
+                        @else
+                        <i class="fas fa-file-alt" style="font-size:30px; color:rgb(146, 9, 226) !important"></i>
                         @endif                     
                         
                     </span>
@@ -448,6 +454,7 @@
         }
 
         function handleView(id) {
+            $("#viewFileModal").modal("show");
             $.ajax({
                 url: baseUrl+'/api/documents/documents/' + id,
                 type: 'GET',
@@ -456,19 +463,34 @@
 
                     console.log("response=----------",response.document_name)
                     let content = '';
+                    var phpUrl = "{{ asset('') }}"; // Get the base URL of your Laravel application
+                    var customPath = phpUrl + "/assets/uploads/" + response.document_name;
+
 
                     if (response.fileType === 'pdf') {
                         content = `<iframe src="${response.filePath}" width="100%" height="600px"></iframe>`;
                     } else if (['jpg', 'jpeg', 'png', 'gif'].includes(response.fileType)) {
                         content = `<img src="${response.filePath}" alt="${response.document_name}" width="100%" height="600px"/>`;
-                        $('#viewFileModalBody').html(content);
-                        $('#viewFileModal').modal('show');
-                    } else if (response.fileType === 'docx') {
-                        content = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(response.filePath)}" width="100%" height="600px"></iframe>`;
-                        $('#viewFileModalBody').html(content);
-                        $('#viewFileModal').modal('show');
-                    } else {
-                        content = '<p>Unsupported file type.</p>';
+                    } 
+                    // else if (response.fileType === 'docx') {
+                    //     content = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=http://127.0.0.1:8000/assets/uploads/1716774616-data-dictionary-template.docx" width="100%" height="600px"></iframe>`;
+                    // //     $('#viewFileModalBody').html(content);
+                    // //     $('#viewFileModal').modal('show');
+                    // console.log(customPath)
+                    // mammoth.convertToHtml({path: `${customPath}`})
+                    // .then(function(result) {
+                    //     // $('#viewFileModalBody').html(result.value);
+                    //         content = result.value; // The generated HTML
+                    //         var messages = result.messages;
+                    //     }).catch(function(err) {
+                    //         console.log(err);
+                    //         $('#viewFileModalBody').html('<p>Failed to load document.</p>');
+                    //     }); 
+                    // } 
+                    else {
+                         content = '<p>Unsupported file type.</p>';
+                        console.log(response.filePath);
+                    
                     }
                     $('#viewFileModalBody').html(content);
                    

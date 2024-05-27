@@ -380,6 +380,8 @@
         <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+
         <script>
           var baseUrl = "{{ url('/') }}";
         
