@@ -5,7 +5,7 @@
         <div class="row mt-5 ">
             <div class="col-md-3">
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="start_date" readonly="" placeholder="Select date">
+                    <input type="text" class="form-control start_date" readonly  id="kt_datepicker_2" placeholder="Select date">
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="la la-calendar-check-o"></i>
@@ -15,7 +15,7 @@
             </div>   
             <div class="col-md-3">
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="end_date" readonly="" placeholder="Select date">
+                    <input type="text" class="form-control end_date" readonly id="kt_datepicker_2" placeholder="Select date">
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="la la-calendar-check-o"></i>
@@ -52,17 +52,18 @@
     <script>
         $(document).ready(function(){        
             var currentDate = moment();
-            var startDate = currentDate.clone().startOf('month').format('YYYY-MM-DD');
-            var endDate = currentDate.clone().endOf('month').format('YYYY-MM-DD');
-            $('#start_date').val(startDate);
-            $('#end_date').val(endDate);
+            var startDate = currentDate.clone().startOf('month').format('MM/DD/YYYY');
+            var endDate = currentDate.clone().endOf('month').format('MM/DD/YYYY');
+            $('.start_date').val(startDate);
+            $('.end_date').val(endDate);
             generateReport();
         });
         function generateReport(id){
-            var start_date =  $('#start_date').val();
-            var end_date = $('#end_date').val();
+            var start_date =  $('.start_date').val();
+            var end_date = $('.end_date').val();
             var user_id = $("#user_id").val();
             var role_id = $("#role_id").val();
+            console.log(start_date);
             $("#table-reports").DataTable().destroy();
             $("#table-reports").DataTable({
                 dom: 'Bfrtip',
@@ -94,21 +95,21 @@
                     { data: 'date_added' }
                 ],   
             });
-            // $.ajax({
-            //     url: 'api/reports/generate',
-            //     type: 'GET',
-            //     data: {
-            //         start_date: start_date,
-            //         end_date: end_date,
-            //         user_id: user_id,
-            //         role_id: role_id
-            //     },success: function(e){
-            //         console.log(e);
-            //     },
-            //     error: function(e){
-            //         console.log("error", e);
-            //     }
-            // })
+            $.ajax({
+                url: 'api/reports/generate',
+                type: 'GET',
+                data: {
+                    start_date: start_date,
+                    end_date: end_date,
+                    user_id: user_id,
+                    role_id: role_id
+                },success: function(e){
+                    console.log(e);
+                },
+                error: function(e){
+                    console.log("error", e);
+                }
+            })
 
         }
         
