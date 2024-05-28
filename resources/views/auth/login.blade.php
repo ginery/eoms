@@ -58,7 +58,7 @@
                         <div class="pb-5 pb-lg-15">
                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Carlos Hilado Memorial State University</h3>
                            <div class="text-muted font-weight-bold font-size-h4">
-                            Extension Office Management System
+                            Web Portal - Extension Office Management System
                            </div>
                         </div>
                         <!--begin::Title-->
