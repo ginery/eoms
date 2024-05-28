@@ -144,6 +144,16 @@
                          <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
                             test reply.
                          </div>
+                         <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                           <div class="symbol symbol-50 symbol-lg-120">
+                               <img alt="Pic" src="assets/images/eoms-logo.png">
+                           </div>
+                        </div>
+                        <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                           <div class="symbol symbol-50 symbol-lg-120">
+                               <a href="#">Sample.pdf</a>
+                           </div>
+                        </div>
                       </div>
                       <!--end::Message Out-->
                    </div>
@@ -157,6 +167,9 @@
                 <!--begin::Compose-->
                 <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message" id="text_message"></textarea>
                 <div class="d-flex align-items-center justify-content-between mt-5">
+                  <div class="mr-3">
+                     <a href="#" class="btn btn-clean btn-icon btn-md mr-1"><i class="fas fa-paperclip"></i></a>
+                 </div>
                    <div>
                       <button type="button" onclick="sendMessage()" class="btn btn-primary btn-md text-uppercase font-weight-bold py-2 px-6">Send</button>
                    </div>
