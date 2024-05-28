@@ -77,8 +77,8 @@ class DocumentController extends Controller
             'document_name' => $request->document_name,
             'description' => $request->description,
         ];
-        $getFile = Document::where('id', $request->id)->where('path', '!=', 0)->get()->first();
-        $checkIfFile = Document::where('id', $request->id)->where('path', '!=', 0)->count();
+        $getFile = Document::where('id', $request->id)->where('document_size','!=', 0)->get()->first();
+        $checkIfFile = Document::where('id', $request->id)->where('document_size','!=', 0)->count();
         
         if ($checkIfFile > 0) {
             $oldFilePath = public_path('assets/uploads/') . $getFile->document_name;

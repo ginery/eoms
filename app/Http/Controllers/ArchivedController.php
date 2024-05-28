@@ -14,7 +14,7 @@ class ArchivedController extends Controller
         // if($role === 0){
         //     $document = Document::where('user_id', Auth::user()->id)->where('path','!=', 0)->where('document_type', null)->get();
         // } else {
-            $document = Document::where('status', 2)->where('path','!=', 0)->get();
+            $document = Document::where('status', 2)->where('document_size','!=', 0)->get();
            
         // }
         return view('archived.index',['documents' => $document]);

@@ -19,12 +19,12 @@ class ReportsController extends Controller
         $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->format('Y-m-d');
             if($request->role_id != 0){        
                 $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
+                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('document_size','!=', 0)
                 ->get();
 
             }else{
                 $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->get(); 
+                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->where('document_size','!=', 0)->get(); 
             }
             $counter = 0;
             $documents->transform(function($document) use (&$counter){
