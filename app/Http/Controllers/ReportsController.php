@@ -26,11 +26,14 @@ class ReportsController extends Controller
                 $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
                 ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->get(); 
             }
-            $documents->transform(function($document) {
+            $counter = 0;
+            $documents->transform(function($document) use (&$counter){
+                $counter++;
                 $document->date_added = \Carbon\Carbon::parse($document->date_added)->format('m-d-Y');
                 $document->status = getDocumentStatus($document->status);
                 $document->user_id = getUserFullName($document->user_id);
                 $document->document_size = $document->document_size ? number_format($document->document_size, 2)."KB":"0.00KB";
+                $document->counter = $counter;
                 return $document;
             });
        

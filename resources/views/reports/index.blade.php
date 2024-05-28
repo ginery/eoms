@@ -85,7 +85,7 @@
                     },                   
                 },
                 columns: [
-                    { data: 'id' },
+                    { data: 'counter' },
                     { data: 'document_name' },
                     { data: 'document_type' },
                     { data: 'document_size' },
