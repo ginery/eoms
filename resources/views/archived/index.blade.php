@@ -38,6 +38,7 @@
                                 <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
                                     <!--begin::Nav-->
                                     <ul class="navi navi-hover py-4">
+                                        @if (Auth::user()->role != 0)
                                         <!--begin::Item-->
                                         <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
@@ -48,6 +49,7 @@
                                             </a>
                                         </li>
                                         <!--end::Item-->
+                                        @endif
 
                                         <!--begin::Item-->
                                         <li class="navi-item">
