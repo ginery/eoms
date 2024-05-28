@@ -60,9 +60,9 @@ if(!function_exists('getTotalFileStatus')){
         $user_id = Auth::user()->id;
         $role = Auth::user()->role;
         if($role == 1){
-            $document = Document::where('status', $status)->where('path', 0)->count();
+            $document = Document::where('status', $status)->where('path','!=', 0)->count();
         }else{
-            $document = Document::where('user_id', $user_id)->where('status', $status)->where('path', 0)->count();
+            $document = Document::where('user_id', $user_id)->where('status', $status)->where('path','!=', 0)->count();
         }
         
         
