@@ -158,7 +158,7 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role === 1 || Auth::user()->role === 2)
+                            @if (Auth::user()->role != 0)
                                 <li class="navi-item">
                                     <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
                                         <span class="symbol symbol-20 mr-3">
@@ -180,7 +180,7 @@
                                 </a>
                             </li>
                             <!--end::Item-->
-                            @if(Auth::user()->role === 1)
+                            @if(Auth::user()->role == 1)
                                 @if($document->status == 0)
                                     <!--begin::Item-->
                                         <li class="navi-item">

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class ArchivedController extends Controller
 {
     public function index() : View {
-        $role = Auth::user()->role;
+        // $role = Auth::user()->role;
 
         // if($role === 0){
         //     $document = Document::where('user_id', Auth::user()->id)->where('path','!=', 0)->where('document_type', null)->get();

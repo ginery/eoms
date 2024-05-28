@@ -50,7 +50,6 @@
                                         </li>
                                         <!--end::Item-->
                                         @endif
-
                                         <!--begin::Item-->
                                         <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">

@@ -18,14 +18,13 @@ class ReportsController extends Controller
         $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->format('Y-m-d');
         $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->format('Y-m-d');
 
-        if ($request->role_id == 1) {        
+        if ($request->role_id != 0) {        
             $documents = Document::whereBetween('date_added', [$start_date, $end_date])->get(); 
         } else {
             $documents = Document::whereBetween('date_added', [$start_date, $end_date])
                                 ->where('user_id', $request->user_id)
                                 ->get(); 
         }
-
         $documents->transform(function($document) {
             // Parse and reformat date if necessary
             $document->date_added = \Carbon\Carbon::parse($document->date_added)->format('m-d-Y');

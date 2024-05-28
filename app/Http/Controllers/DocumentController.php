@@ -16,7 +16,7 @@ class DocumentController extends Controller
         // $document  = Document::all();
         $role = Auth::user()->role;
         // dd(json_encode($role));
-        if($role === 1){
+        if($role != 0){
             $document = Document::where('path', 0)->get();
         } else {
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
@@ -77,10 +77,36 @@ class DocumentController extends Controller
             'document_name' => $request->document_name,
             'description' => $request->description,
         ];
-
+        $getFile = Document::where('id', $request->id)->where('path', '!=', 0)->get()->first();
+        $checkIfFile = Document::where('id', $request->id)->where('path', '!=', 0)->count();
+        
+        if ($checkIfFile > 0) {
+            $oldFilePath = public_path('assets/uploads/') . $getFile->document_name;
+            $newFilePath = public_path('assets/uploads/') . $request->document_name;
+        
+            // Construct the new file path with a different file name
+            $newFileName = $request->document_name;
+            $newFilePath = pathinfo($newFilePath, PATHINFO_DIRNAME) . '/' . $newFileName;
+        
+            // Rename the file
+            if (file_exists($oldFilePath)) {
+                if (rename($oldFilePath, $newFilePath)) {
+                    // Update the document name in the database only after successful renaming
+                    $data['document_name'] = $newFileName;
+                } else {
+                    // Handle renaming failure
+                    return "Failed to rename the file.";
+                }
+            } else {
+                // Handle file not found
+                return "The file does not exist at the specified path.";
+            }
+        }
+        
+        // Update the document in the database
         $res = Document::where('id', $request->id)->update($data);
-
         return $res;
+        
     }
 
     public function upload(Request $request){
