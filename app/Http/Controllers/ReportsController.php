@@ -17,24 +17,23 @@ class ReportsController extends Controller
           
         $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->format('Y-m-d');
         $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->format('Y-m-d');
+            if($request->role_id != 0){        
+                $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
+                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
+                ->get();
 
-        if ($request->role_id != 0) {        
-            $documents = Document::whereBetween('date_added', [$start_date, $end_date])->get(); 
-        } else {
-            $documents = Document::whereBetween('date_added', [$start_date, $end_date])
-                                ->where('user_id', $request->user_id)
-                                ->get(); 
-        }
-        $documents->transform(function($document) {
-            // Parse and reformat date if necessary
-            $document->date_added = \Carbon\Carbon::parse($document->date_added)->format('m-d-Y');
-            $document->status = getDocumentStatus($document->status);
-            $document->user_id = getUserFullName($document->user_id);
-            $document->document_size = $document->document_size ? number_format($document->document_size, 2)."KB" : "0.00KB";
-            return $document;
-        });
-
+            }else{
+                $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
+                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->get(); 
+            }
+            $documents->transform(function($document) {
+                $document->date_added = \Carbon\Carbon::parse($document->date_added)->format('m-d-Y');
+                $document->status = getDocumentStatus($document->status);
+                $document->user_id = getUserFullName($document->user_id);
+                $document->document_size = $document->document_size ? number_format($document->document_size, 2)."KB":"0.00KB";
+                return $document;
+            });
+       
         return response()->json(['data' => $documents]);
-
     }
 }
