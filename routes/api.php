@@ -39,11 +39,12 @@ Route::group(['prefix' => 'documents'], function () {
     //add another api route here. 
 });
 
-    Route::group(['prefix' => 'users'], function () {
+Route::group(['prefix' => 'users'], function () {
     Route::post('/add', [UserController::class, 'create']);
     Route::post('/update', [UserController::class, 'update']);
     Route::delete('/delete/{id}', [UserController::class, 'delete']);
     Route::get('/get/{id}', [UserController::class, 'get']);
+    Route::post('/update-profile', [UserController::class, 'update_profile']);
     //add another api route here. 
 });
 Route::group(['prefix' => 'messages'], function () {

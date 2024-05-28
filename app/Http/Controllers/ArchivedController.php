@@ -12,7 +12,7 @@ class ArchivedController extends Controller
         $role = Auth::user()->role;
 
         if($role === 1){
-            $document = Document::where('status', 2)->get();
+            $document = Document::where('status', 2)->where('path','!=', 0)->get();
         } else {
             $document = Document::where('user_id', Auth::user()->id)->where('path','!=', 0)->where('document_type', null)->get();
         }

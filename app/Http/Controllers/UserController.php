@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class UserController extends Controller
 {
     //
@@ -62,6 +63,30 @@ class UserController extends Controller
         $res = User::where('id', $request->id)->update($data);
 
         return $res;
+    }
+    public function update_profile(Request $request){
+        if($request->new_password){
+            $data = [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'password' => Hash::make($request->new_password)
+            ];
+            $res = User::where('id', $request->user_id)->update($data);
+            return $res;  
+        }else{
+            $data = [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+            ];
+            $res = User::where('id', $request->user_id)->update($data);
+
+            return $res;
+        }
+        
     }
 
 }

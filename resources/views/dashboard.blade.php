@@ -63,7 +63,7 @@
                                        <a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">
                                        Rejected
                                        </a>
-                                       <span class="text-danger font-weight-bold font-size-h6 mt-2 float-right">{{getTotalFileStatus(-1)}}</span>
+                                       <span class="text-danger font-weight-bold font-size-h6 mt-2 float-right">{{getTotalFileStatus('-1')}}</span>
                                     </div>
                                  </div>
                                  <!--end::Row-->
@@ -86,7 +86,7 @@
                                        </a>
                                        <span class="text-success font-weight-bold font-size-h6 mt-2 float-right">{{getTotalFileStatus(1)}}</span>
                                     </div>
-                                    <div class="col bg-light-primary px-6 py-8 rounded-xl" style="cursor: pointer;" onclick="handleStatusClick(0)">
+                                    <div class="col bg-light-primary px-6 py-8 rounded-xl" style="cursor: pointer;" onclick="handleStatusClick(2)">
                                        <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
                                           <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Urgent-mail.svg-->
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -349,7 +349,7 @@
      function handleStatusClick(status){
       
       $("#dashboardStatus").modal("show");
-      $("#table-body-status").html();
+      $("#table-body-status").html("");
       var user_id = "{{Auth::id()}}";
       var role_id = "{{Auth::user()->role}}";
       // console.log("test", role_id);
@@ -357,15 +357,16 @@
          type: "POST",
          url: "api/dashboard/dashboard-status",
          data: {
-            status: status,
+            document_status: status,
             user_id: user_id,
             role_id: role_id
          },
          success: function(response){
+            console.log(response);
             for (var i = 0; i < response.length; i++) {
-               console.log(i);
+               
                $("#table-body-status").append('<tr>'+
-                                '<th scope="row">'+response[i].id+'</th>'+
+                                '<th scope="row">'+(i+1)+'</th>'+
                                 '<td>'+response[i].document_name+'</td>'+
                                 '<td>'+response[i].document_size+'</td>'+
                                 '<td>'+response[i].date_added+'</td>'+
