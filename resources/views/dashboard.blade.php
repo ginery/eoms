@@ -29,7 +29,7 @@
                               <div class="card-spacer mt-n25">
                                  <!--begin::Row-->
                                  <div class="row m-0">
-                                    <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
+                                    <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7" style="cursor: pointer;" onclick="handleStatusClick(0)">
                                        <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
                                           <!--begin::Svg Icon | path:assets/media/svg/icons/Media/Equalizer.svg-->
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -48,7 +48,7 @@
                                        </a>
                                        <span class="text-warning font-weight-bold font-size-h6 mt-2 float-right">{{getTotalFileStatus(0)}}</span>
                                     </div>
-                                    <div class="col bg-light-danger px-6 py-8 rounded-xl mb-7">
+                                    <div class="col bg-light-danger px-6 py-8 rounded-xl mb-7" style="cursor: pointer;" onclick="handleStatusClick(-1)">
                                        <span class="svg-icon svg-icon-3x svg-icon-danger d-block my-2">
                                           <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -69,7 +69,7 @@
                                  <!--end::Row-->
                                  <!--begin::Row-->
                                  <div class="row m-0">
-                                    <div class="col bg-light-success px-6 py-8 rounded-xl mr-7">
+                                    <div class="col bg-light-success px-6 py-8 rounded-xl mr-7" style="cursor: pointer;" onclick="handleStatusClick(1)">
                                        <span class="svg-icon svg-icon-3x svg-icon-success d-block my-2">
                                           <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -86,7 +86,7 @@
                                        </a>
                                        <span class="text-success font-weight-bold font-size-h6 mt-2 float-right">{{getTotalFileStatus(1)}}</span>
                                     </div>
-                                    <div class="col bg-light-primary px-6 py-8 rounded-xl">
+                                    <div class="col bg-light-primary px-6 py-8 rounded-xl" style="cursor: pointer;" onclick="handleStatusClick(0)">
                                        <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
                                           <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Urgent-mail.svg-->
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -344,4 +344,36 @@
         </div>
      </div>
      <!--end::Content-->
+     @include('modals.dashboard-status')
+   <script>
+     function handleStatusClick(status){
+      
+      $("#dashboardStatus").modal("show");
+      $("#table-body-status").html();
+      var user_id = "{{Auth::id()}}";
+      var role_id = "{{Auth::user()->role}}";
+      // console.log("test", role_id);
+      $.ajax({
+         type: "POST",
+         url: "api/dashboard/dashboard-status",
+         data: {
+            status: status,
+            user_id: user_id,
+            role_id: role_id
+         },
+         success: function(response){
+            for (var i = 0; i < response.length; i++) {
+               console.log(i);
+               $("#table-body-status").append('<tr>'+
+                                '<th scope="row">'+response[i].id+'</th>'+
+                                '<td>'+response[i].document_name+'</td>'+
+                                '<td>'+response[i].document_size+'</td>'+
+                                '<td>'+response[i].date_added+'</td>'+
+                            '</tr>');
+            }
+            
+         }
+      });
+     }
+   </script>
 </x-app-layout>
