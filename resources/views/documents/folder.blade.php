@@ -158,15 +158,15 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role === 1)
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                    </span>
-                                    <span class="navi-text">Delete</span>
-                                </a>
-                            </li>
+                            @if (Auth::user()->role === 1 || Auth::user()->role === 2)
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
+                                        <span class="symbol symbol-20 mr-3">
+                                            <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
+                                        </span>
+                                        <span class="navi-text">Delete</span>
+                                    </a>
+                                </li>
                             @endif
                             <!--end::Item-->
 
@@ -207,6 +207,7 @@
                                 @endif  
 
                                  <!--begin::Item-->
+                                 @if($document->status !== '-1')
                                     <li class="navi-item">
                                         <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
                                             <span class="symbol symbol-20 mr-3">
@@ -215,6 +216,7 @@
                                             <span class="navi-text">Rejected</span>
                                         </a>
                                     </li>
+                                @endif
                                 <!--end::Item-->
                             @endif
 
@@ -223,14 +225,17 @@
 
 
                             <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Archived</span>
-                                </a>
-                            </li>
+                            @if($document->status == 1)
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
+                                        <span class="symbol symbol-20 mr-3">
+                                            <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
+                                        </span>
+                                        <span class="navi-text">Archived</span>
+                                    </a>
+                                </li>
+                            @endif
+                          
 
                             <li class="navi-item">
                                 <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
