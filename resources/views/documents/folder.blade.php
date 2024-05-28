@@ -83,8 +83,6 @@
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
                             @if (Auth::user()->role === 1)
-                                
-                           
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -95,6 +93,7 @@
                             </li>
                             <!--end::Item-->
                             @endif
+                           
                             <!--begin::Item-->
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
@@ -158,7 +157,18 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role != 0)
+                            {{-- <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
+                                    </span>
+                                    <span class="navi-text">Delete</span>
+                                </a>
+                            </li> --}}
+                            <!--end::Item-->
+
+                            @if(Auth::user()->role === 2 && Auth::user()->role === $document->user_id)
+                                <!--begin::Item-->
                                 <li class="navi-item">
                                     <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
                                         <span class="symbol symbol-20 mr-3">
@@ -167,8 +177,19 @@
                                         <span class="navi-text">Delete</span>
                                     </a>
                                 </li>
+                                <!--end::Item-->
+                            @elseif(Auth::user()->role === 1)
+                                <!--begin::Item-->
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
+                                        <span class="symbol symbol-20 mr-3">
+                                            <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
+                                        </span>
+                                        <span class="navi-text">Delete</span>
+                                    </a>
+                                </li>
+                                <!--end::Item-->
                             @endif
-                            <!--end::Item-->
 
                             <!--begin::Item-->
                             <li class="navi-item">
@@ -686,6 +707,7 @@
             event.preventDefault(); 
             const folder_id = $('#folder_id_files').val();
             const user_id = $('#user_id').val();
+            console.log("userid=======",user_id)
             const pond = FilePond.find(document.getElementById('filepond'));
             const files = pond.getFiles();       
             const formData = new FormData();

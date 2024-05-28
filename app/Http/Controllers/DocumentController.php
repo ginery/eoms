@@ -16,7 +16,7 @@ class DocumentController extends Controller
         // $document  = Document::all();
         $role = Auth::user()->role;
         // dd(json_encode($role));
-        if($role != 0){
+        if($role === 1 || $role === 2){
             $document = Document::where('path', 0)->get();
         } else {
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
