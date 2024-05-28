@@ -165,4 +165,17 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function updateStatus(Request $request) {
+        $data = [
+            'status' => $request->status,            
+        ];
+        $result = Document::where('id', $request->id)->update($data);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
 }

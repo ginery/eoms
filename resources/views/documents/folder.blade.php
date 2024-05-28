@@ -180,16 +180,48 @@
                                 </a>
                             </li>
                             <!--end::Item-->
-                            <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Complete</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
+                            @if(Auth::user()->role === 1)
+                                @if($document->status == 0)
+                                    <!--begin::Item-->
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Accepted</span>
+                                            </a>
+                                        </li>
+                                    <!--end::Item-->
+
+                                @elseif($document->status == 3 || $document->status == 1 )
+                                    <!--begin::Item-->
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Completed</span>
+                                            </a>
+                                        </li>
+                                    <!--end::Item-->
+                                @endif  
+
+                                 <!--begin::Item-->
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
+                                            <span class="symbol symbol-20 mr-3">
+                                                <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
+                                            </span>
+                                            <span class="navi-text">Rejected</span>
+                                        </a>
+                                    </li>
+                                <!--end::Item-->
+                            @endif
+
+                           
+
+
+
                             <!--begin::Item-->
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
@@ -199,10 +231,11 @@
                                     <span class="navi-text">Archived</span>
                                 </a>
                             </li>
+
                             <li class="navi-item">
                                 <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
                                     <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
+                                        <i class="fas fa-download"></i><!-- Font Awesome edit icon -->
                                     </span>
                                     <span class="navi-text">Download</span>
                                 </a>
@@ -346,16 +379,100 @@
             });
         }
 
+        function handleRejected(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status:-1
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+
+        function handleAccepted(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status:3
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+
         function handleEditFolder(id){
             $.ajax({
                type: "GET",
                url: baseUrl+`/api/documents/get-documentstoedit/${id}`,
                 success: function(response){
                     console.log("test", response[0]);
+
                     $("#updateFolderModal").modal('show');
                     $("#document-id").val(response[0]?.id)
                     $("#document-name").val(response[0]?.document_name)
                     $("#document-description").val(response[0]?.description)
+                   
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText); // Log the error response for debugging
@@ -558,6 +675,7 @@
                }
             });
         });
+        
         
         $('#uploadForm').submit(function(event) {
             event.preventDefault(); 

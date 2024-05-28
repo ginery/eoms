@@ -35,10 +35,11 @@ Route::group(['prefix' => 'documents'], function () {
     Route::post('/upload', [DocumentController::class, 'upload']);
     Route::delete('/delete-file', [DocumentController::class, 'deleteFile']);
     Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
+    Route::post('/update-status', [DocumentController::class, 'updateStatus']);
     //add another api route here. 
 });
 
-Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => 'users'], function () {
     Route::post('/add', [UserController::class, 'create']);
     Route::post('/update', [UserController::class, 'update']);
     Route::delete('/delete/{id}', [UserController::class, 'delete']);
