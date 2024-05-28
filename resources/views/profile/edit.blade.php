@@ -19,7 +19,7 @@
             
                 <!--begin::Body-->
                 <div class="card-body">
-                    <input type="text" id="user_id" name="user_id" value="{{$user->id}}"/>
+                    <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}"/>
                     {{-- <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
                         <div class="col-lg-9 col-xl-6">
