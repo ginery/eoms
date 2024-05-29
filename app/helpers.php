@@ -42,13 +42,13 @@ if(!function_exists('getDocumentStatus')){
     function getDocumentStatus($status)
     {
         if($status == 0){
-            return '<span class="label label-light-warning label-inline font-weight-bold">In-progress</span>';
+            return '<span class="label label-light-warning label-inline font-weight-bold">Pending</span>';
         }else if($status == 1){
             return '<span class="label label-light-primary label-inline font-weight-bold">Completed</span>';
         }else if($status == -1){
             return '<span class="label label-light-danger label-inline font-weight-bold">Rejected</span>';
         }else if($status == 3){
-            return '<span class="label label-light-success label-inline font-weight-bold">Accepted</span>';
+            return '<span class="label label-light-success label-inline font-weight-bold">In-progress</span>';
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';
         }
