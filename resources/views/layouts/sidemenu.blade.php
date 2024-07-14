@@ -71,6 +71,62 @@
                    <span class="menu-text">Documents</span>
                 </a>
              </li>
+             <li class="<?= $currentPageName === "propose" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+               <a href="{{route('documents')}}" class="menu-link menu-toggle">
+                  <span class="svg-icon menu-icon">
+                     <span class="svg-icon  svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Files\Upload-folder.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3"/>
+                            <path d="M8.54301601,14.4923287 L10.6661,14.4923287 L10.6661,16.5 C10.6661,16.7761424 10.8899576,17 11.1661,17 L12.33392,17 C12.6100624,17 12.83392,16.7761424 12.83392,16.5 L12.83392,14.4923287 L14.9570039,14.4923287 C15.2331463,14.4923287 15.4570039,14.2684711 15.4570039,13.9923287 C15.4570039,13.8681299 15.41078,13.7483766 15.3273331,13.6563877 L12.1203391,10.1211145 C11.934804,9.91658739 11.6185961,9.90119131 11.414069,10.0867264 C11.4020553,10.0976245 11.390579,10.1091008 11.3796809,10.1211145 L8.1726869,13.6563877 C7.98715181,13.8609148 8.00254789,14.1771227 8.20707501,14.3626578 C8.29906387,14.4461047 8.41881721,14.4923287 8.54301601,14.4923287 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon--></span>
+                  </span>
+                  <span class="menu-text">Propose</span>
+               </a>
+            </li>
+            <li class="<?= $currentPageName === "in-progress" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+               <a href="{{route('documents')}}" class="menu-link menu-toggle">
+                  <span class="svg-icon menu-icon">
+                     <span class="svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Files\Group-folders.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <path d="M4.5,21 L21.5,21 C22.3284271,21 23,20.3284271 23,19.5 L23,8.5 C23,7.67157288 22.3284271,7 21.5,7 L11,7 L8.43933983,4.43933983 C8.15803526,4.15803526 7.77650439,4 7.37867966,4 L4.5,4 C3.67157288,4 3,4.67157288 3,5.5 L3,19.5 C3,20.3284271 3.67157288,21 4.5,21 Z" fill="#000000" opacity="0.3"/>
+                            <path d="M2.5,19 L19.5,19 C20.3284271,19 21,18.3284271 21,17.5 L21,6.5 C21,5.67157288 20.3284271,5 19.5,5 L9,5 L6.43933983,2.43933983 C6.15803526,2.15803526 5.77650439,2 5.37867966,2 L2.5,2 C1.67157288,2 1,2.67157288 1,3.5 L1,17.5 C1,18.3284271 1.67157288,19 2.5,19 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon--></span>
+                  </span>
+                  <span class="menu-text">In-progress</span>
+               </a>
+            </li>
+            <li class="<?= $currentPageName === "completed" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+               <a href="{{route('documents')}}" class="menu-link menu-toggle">
+                  <span class="svg-icon menu-icon">
+                     <span class="svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Files\Folder-check.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3"/>
+                            <path d="M10.875,16.75 C10.6354167,16.75 10.3958333,16.6541667 10.2041667,16.4625 L8.2875,14.5458333 C7.90416667,14.1625 7.90416667,13.5875 8.2875,13.2041667 C8.67083333,12.8208333 9.29375,12.8208333 9.62916667,13.2041667 L10.875,14.45 L14.0375,11.2875 C14.4208333,10.9041667 14.9958333,10.9041667 15.3791667,11.2875 C15.7625,11.6708333 15.7625,12.2458333 15.3791667,12.6291667 L11.5458333,16.4625 C11.3541667,16.6541667 11.1145833,16.75 10.875,16.75 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon--></span>
+                  </span>
+                  <span class="menu-text">Completed</span>
+               </a>
+            </li>
+            <li class="<?= $currentPageName === "rejected" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+               <a href="{{route('documents')}}" class="menu-link menu-toggle">
+                  <span class="svg-icon menu-icon">
+                     <span class="svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Files\Deleted-folder.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3"/>
+                            <path d="M10.5857864,14 L9.17157288,12.5857864 C8.78104858,12.1952621 8.78104858,11.5620972 9.17157288,11.1715729 C9.56209717,10.7810486 10.1952621,10.7810486 10.5857864,11.1715729 L12,12.5857864 L13.4142136,11.1715729 C13.8047379,10.7810486 14.4379028,10.7810486 14.8284271,11.1715729 C15.2189514,11.5620972 15.2189514,12.1952621 14.8284271,12.5857864 L13.4142136,14 L14.8284271,15.4142136 C15.2189514,15.8047379 15.2189514,16.4379028 14.8284271,16.8284271 C14.4379028,17.2189514 13.8047379,17.2189514 13.4142136,16.8284271 L12,15.4142136 L10.5857864,16.8284271 C10.1952621,17.2189514 9.56209717,17.2189514 9.17157288,16.8284271 C8.78104858,16.4379028 8.78104858,15.8047379 9.17157288,15.4142136 L10.5857864,14 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon--></span>
+                  </span>
+                  <span class="menu-text">Rejected</span>
+               </a>
+            </li>
              <li class="<?= $currentPageName === "archived" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="{{route('archived')}}" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
@@ -86,7 +142,7 @@
                   <span class="menu-text">Archived</span>
                </a>
             </li>
-             <li class="<?= $currentPageName === "messages" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+             {{-- <li class="<?= $currentPageName === "messages" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="{{route('messages')}}" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
                      <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -100,7 +156,7 @@
                   </span>
                   <span class="menu-text">Messages</span>
                </a>
-            </li>
+            </li> --}}
              <li class="<?= $currentPageName === "reports" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="{{route('reports')}}" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
