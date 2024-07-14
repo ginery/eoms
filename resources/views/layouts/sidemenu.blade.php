@@ -55,7 +55,7 @@
                 <h4 class="menu-text">Menu</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
              </li>
-             <li class="<?= $currentPageName === "documents" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+             {{-- <li class="<?= $currentPageName === "documents" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                 <a href="{{route('documents')}}" class="menu-link menu-toggle">
                    <span class="svg-icon menu-icon">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -70,7 +70,7 @@
                    </span>
                    <span class="menu-text">Documents</span>
                 </a>
-             </li>
+             </li> --}}
              <li class="<?= $currentPageName === "propose" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="{{route('documents')}}" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">
