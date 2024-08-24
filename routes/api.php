@@ -8,6 +8,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ReportsController; 
 use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProgramsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,4 +60,8 @@ Route::group(['prefix' => 'archived'], function () {
     Route::post('/update', [ArchivedController::class, 'update']);
     Route::post('/complete', [ArchivedController::class, 'complete']);
     
+});
+
+Route::group(['prefix' => 'programs'], function () {
+    Route::post('/add', [ProgramsController::class, 'add']);
 });

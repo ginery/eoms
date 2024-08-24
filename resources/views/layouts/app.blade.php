@@ -27,7 +27,56 @@
       <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
       <link rel="shortcut icon" href="{{asset('assets/images/eoms-logo.png')}}"/>
       <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+      
       <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script type="module">
+         import mermaid from 'https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs';
+         mermaid.initialize({ startOnLoad: true });
+     </script>
+      <script>
+         const firebaseConfig = {
+           apiKey: "AIzaSyCit63z3KjXYrqw4iXSVxK_SpkJEJ9MZfY",
+           authDomain: "cimd-d77c0.firebaseapp.com",
+           projectId: "cimd-d77c0",
+           storageBucket: "cimd-d77c0.appspot.com",
+           messagingSenderId: "263645376064",
+           appId: "1:263645376064:web:efef46da2298678f02f9a5",
+           measurementId: "G-RVC2Y7QLG6"
+         };
+         const firebaseApp = firebase.initializeApp(firebaseConfig);
+         const messaging = firebase.messaging();
+     
+         messaging.getToken(messaging, {
+           vapidKey: 'BAaW0h8dgAmZzm5gRj4Lrtl52rinhFBsDNvOrzzo1mUD17hIlR2VkJVnO9diZGroF-EtxkyDODCdQ1_rfzcwxtw'
+         }).then((currentToken) => {
+           if (currentToken) {
+             // Send the token to your server and update the UI if necessary
+             console.log('currentToken: ', currentToken);
+          
+             // ...
+           } else {
+             // Show permission request UI
+             console.log('No registration token available. Request permission to generate one.');
+             // ...
+           }
+         }).catch((err) => {
+           console.log('An error occurred while retrieving token. ', err);
+           // ...
+         });
+         messaging.onMessage((payload) => {
+           console.log(payload.notification);
+           
+         });
+       </script>
    </head>
    <!--end::Head-->
    <!--begin::Body-->
@@ -215,7 +264,7 @@
                      </div>
                   </a>
                @endif
-               <a href="{{route('profile.edit')}}" class="navi-item">
+               <a href="{{route('programs')}}" class="navi-item">
                   <div class="navi-link">
                      <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">
