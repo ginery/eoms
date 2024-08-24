@@ -42,8 +42,8 @@
                     @foreach ($programs as $program)
                     <tr>
                         <td>{{$program->id}}</td>
-                        <td>{{$program->created_at}}</td> 
-                        <td>{{$program->program_name}}</td>                     
+                        <td>{{$program->program_name}}</td> 
+                        <td>{{$program->created_at}}</td>                     
                         <td>
                             <!--begin::Languages-->
                             <div class="dropdown">

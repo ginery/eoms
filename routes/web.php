@@ -11,6 +11,7 @@ use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProposeController;
 use App\Http\Controllers\ProgramsController;
+use App\Http\Controllers\InProgressController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/archived', [ArchivedController::class, 'index'])->name('archived');
     Route::get('/propose', [ProposeController::class, 'index'])->name('propose');
     Route::get('/programs', [ProgramsController::class, 'index'])->name('programs');
+    Route::get('/in-progress', [InProgressController::class, 'index'])->name('in-progress');
 });
 
 

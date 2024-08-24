@@ -7,10 +7,11 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Programs;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class ProgramsController extends Controller
 {
      public function index() : View {
-        $programs = Programs::select('id', 'name', DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as created_at"))
+        $programs = Programs::select('id', 'program_name', DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as created_at"))
         ->orderBy('created_at', 'desc')
         ->get();
         return view('programs.index', ['programs' => $programs]);

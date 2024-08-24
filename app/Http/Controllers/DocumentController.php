@@ -22,7 +22,7 @@ class DocumentController extends Controller
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
         }
       
-        return view('documents.index',['documents'=>$document]);
+        return view('documents.index', ['documents'=>$document]);
     }
 
     public function folder($id) : View{
