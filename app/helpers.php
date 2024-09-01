@@ -18,6 +18,8 @@ if (!function_exists('getRole')) {
             return '<span class="label label-light-success label-inline font-weight-bold">Faculty</span>';
         }else if($id === 2){
             return '<span class="label label-light-warning label-inline font-weight-bold">Staff</span>';
+        }else if($id === 3){
+            return '<span class="label label-light-primary label-inline font-weight-bold">REICO</span>';
         }
         else{
             return '<span class="label label-light-info label-inline font-weight-bold">Administrator</span>';

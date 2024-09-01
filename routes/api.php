@@ -62,6 +62,6 @@ Route::group(['prefix' => 'archived'], function () {
     
 });
 
-Route::group(['prefix' => 'programs'], function () {
+Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [ProgramsController::class, 'add']);
 });
