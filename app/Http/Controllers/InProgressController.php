@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
+
 class InProgressController extends Controller
 {
      public function index() : View {

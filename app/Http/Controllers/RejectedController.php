@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
-class CompletedController extends Controller
+class RejectedController extends Controller
 {
     public function index() : View {
         // dd(json_encode($role));
@@ -22,6 +22,7 @@ class CompletedController extends Controller
          }
          $programs = Programs::all();
          
-         return view('completed.index', ['documents' => $document, 'programs' => $programs]);
+         return view('rejected.index', ['documents' => $document, 'programs' => $programs]);
      }
+
 }
