@@ -108,7 +108,7 @@
     <!-- jQuery Script -->
     <script>
         function handleFolderClick(id) {            
-            location.href = "/documents/"+id;
+            location.href = "/in-progress/"+id;
         }
 
         function handleCreateFolder(){

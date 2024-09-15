@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/in-progress', [InProgressController::class, 'index'])->name('in-progress');
     Route::get('/rejected', [RejectedController::class, 'index'])->name('rejected');
     Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
+    Route::get('/in-progress/{id}', [InProgressController::class, 'folder'])->name('in-progress.folder');
 });
 
 

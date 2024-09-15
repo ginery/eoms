@@ -10,10 +10,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Breadcrumbs;
 
 class InProgressController extends Controller
 {
-     public function index() : View {
+    public function index() : View {
        // dd(json_encode($role));
        $role = Auth::user()->role;
        if($role === 1 || $role === 2){
@@ -24,5 +25,11 @@ class InProgressController extends Controller
         $programs = Programs::all();
         
         return view('in-progress.index', ['documents' => $document, 'programs' => $programs]);
+    }
+    public function folder($id) : View{
+        $breadcrumbs = Breadcrumbs::generate();
+        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
+        
+        return view('in-progress.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
 }

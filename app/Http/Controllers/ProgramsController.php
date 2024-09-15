@@ -19,6 +19,7 @@ class ProgramsController extends Controller
         ->get();
         return view('programs.index', ['programs' => $programs]);
     }
+   
     public function add(Request $request) {
         $user_id = Auth::user()->id;
         $result = Programs::create([

@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Document;
+use App\Models\Programs;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,8 +30,8 @@ if (!function_exists('getRole')) {
 if (!function_exists('getFolderName')) {
     function getFolderName($id)
     {
-        $document = Document::where('id', $id)->get()->first();
-        return $document ? $document->document_name:'N/A';
+        $folder_name = Programs::where('id', $id)->get()->first();
+        return $folder_name ? $folder_name->program_name:'N/A';
     }
 }
 if (!function_exists('getUserFullName')) {
