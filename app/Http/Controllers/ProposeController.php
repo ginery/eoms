@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Breadcrumbs;
 class ProposeController extends Controller
 {
     public function index() : View {
@@ -21,5 +22,35 @@ class ProposeController extends Controller
          }
          $programs = Programs::all();
         return view('propose.index', ['documents' => $document, 'programs' => $programs]);
+    }
+    public function project($id) : View{
+        $breadcrumbs = Breadcrumbs::generate();
+        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
+        
+        return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
+    }
+    public function program($id) : View{
+        $breadcrumbs = Breadcrumbs::generate();
+        $programs = Programs::where('id', $id)->get()->first();
+        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
+        
+        // dd(json_encode($programs));
+
+        return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
+    }
+    public function create(Request $request){
+        $res = Document::create([
+            'document_name' => $request->document_name,
+            'description' => $request->description,
+            'status' => 0,
+            'user_id' => $request->user_id,
+            'path' => $request->folder_id
+        ]);
+        if($res){
+            echo 1;
+        }else{
+            echo 0;
+        }
+
     }
 }

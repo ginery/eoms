@@ -37,11 +37,11 @@
                 <!--begin::Actions-->
                     <a href="#" onclick='handleCreateFolder()' class="btn btn-light-success font-weight-bolder btn-sm mr-3">
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
-                        Folder
+                        Project
                     </a>
                     <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
-                        Document
+                        File
                     </a>
                 <!--end::Actions-->
             </div>
