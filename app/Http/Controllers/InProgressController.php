@@ -28,7 +28,8 @@ class InProgressController extends Controller
     }
     public function folder($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
-        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
+        //status 1 in-progress
+        $documents = Document::where('path', $id)->where('status', 1)->get();
         
         return view('in-progress.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }

@@ -25,7 +25,8 @@ class ProposeController extends Controller
     }
     public function project($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
-        $documents = Document::where('path', $id)->where('status','!=', 2)->get();
+        //status 0 proposed
+        $documents = Document::where('path', $id)->where('status', 0)->get();
         
         return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }

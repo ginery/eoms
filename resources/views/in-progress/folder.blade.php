@@ -55,7 +55,7 @@
         @if ($document->document_type == null)
         <div class="card card-custom mb-2" style="cursor: pointer;" >
             <div class="card-header" >
-                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
+                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->path}})">
                     <span class="card-icon">
                         <i class="fa fa-folder text-success" style="font-size:30px; "></i>
                     </span>
@@ -63,7 +63,7 @@
                         {{$document->document_name}}
                     </h3>
                     @if (Auth::user()->role === 1)
-                    <small>{{getUserFullName($document->user_id)}}</small>
+                    <small>{{getUserFullName($document->user_id)}} {{$document->status}}</small>
                     @endif
                 </div>
                 

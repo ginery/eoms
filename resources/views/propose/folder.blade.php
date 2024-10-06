@@ -39,10 +39,10 @@
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         Project
                     </a>
-                    <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
+                    {{-- <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         File
-                    </a>
+                    </a> --}}
                 <!--end::Actions-->
             </div>
             <!--end::Toolbar-->
@@ -55,7 +55,8 @@
         @if ($document->document_type == null)
         <div class="card card-custom mb-2" style="cursor: pointer;" >
             <div class="card-header" >
-                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
+                {{-- handlefolder click -> open the project created path --}}
+                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->path}})">
                     <span class="card-icon">
                         <i class="fa fa-folder text-success" style="font-size:30px; "></i>
                     </span>
