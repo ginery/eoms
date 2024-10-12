@@ -27,6 +27,13 @@ if (!function_exists('getRole')) {
         }
     }
 }
+if (!function_exists('getFolderNameDocs')) {
+    function getFolderNameDocs($id)
+    {
+        $folder_name = Document::where('id', $id)->get()->first();
+        return $folder_name ? $folder_name->document_name: 'N/A';
+    }
+}
 if (!function_exists('getFolderName')) {
     function getFolderName($id)
     {

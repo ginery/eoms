@@ -33,7 +33,7 @@
             <!--end::Info-->
 
             <!--begin::Toolbar-->
-            <div class="d-flex align-items-center">
+            {{-- <div class="d-flex align-items-center">
                 <!--begin::Actions-->
                     <a href="#" onclick='handleCreateFolder()' class="btn btn-light-success font-weight-bolder btn-sm mr-3">
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
@@ -44,7 +44,7 @@
                         File
                     </a>
                 <!--end::Actions-->
-            </div>
+            </div> --}}
             <!--end::Toolbar-->
         </div>
     </div>

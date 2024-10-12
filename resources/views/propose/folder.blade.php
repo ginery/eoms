@@ -56,7 +56,7 @@
         <div class="card card-custom mb-2" style="cursor: pointer;" >
             <div class="card-header" >
                 {{-- handlefolder click -> open the project created path --}}
-                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->path}})">
+                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
                     <span class="card-icon">
                         <i class="fa fa-folder text-success" style="font-size:30px; "></i>
                     </span>

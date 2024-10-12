@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('path')->nullable();
+            $table->integer('doc_path')->default(0);
             $table->timestamps();
             
         });

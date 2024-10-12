@@ -29,7 +29,7 @@ class DocumentController extends Controller
     public function folder($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('path', 0)->where('status','!=', 2)->get();
+        $documents = Document::where('path', $id)->whereNotNull('document_type')->whereNotNull('document_size')->get();
        
         return view('documents.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
@@ -65,7 +65,8 @@ class DocumentController extends Controller
             'description' => $request->description,
             'status' => 0,
             'user_id' => $request->user_id,
-            'path' => $request->folder_id
+            'path' => 0,
+            'doc_path' => $request->folder_id
         ]);
         if($res){
             echo 1;

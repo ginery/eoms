@@ -13,7 +13,7 @@ class Breadcrumbs
     
         foreach ($segments as $segment) {
             $url .= '/' . $segment;
-            $name = preg_match('/\d+/', $segment) ? getFolderName($segment) : ucfirst(str_replace('-', ' ', $segment));
+            $name = preg_match('/\d+/', $segment) ? getFolderNameDocs($segment) : ucfirst(str_replace('-', ' ', $segment));
             $breadcrumbs[] = [
                 'name' => $name,
                 'url' => url($url)
