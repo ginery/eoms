@@ -86,6 +86,14 @@
                                                 <span class="navi-text">Edit</span>
                                             </a>
                                         </li>
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-tasks"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Requirements</span>
+                                            </a>
+                                        </li>
                                         <!--end::Item-->
 
                                     </ul>
@@ -103,7 +111,7 @@
 
     @include('modals.create-folder-document')
     @include('modals.update-folder-document')
-
+    @include('modals.requirements-modal')
 
     <!-- jQuery Script -->
     <script>
@@ -174,6 +182,9 @@
                 }
              })
         };
+        function handleRequirements() {
+            $("#requirementsModal").modal('show')
+        }
 
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();
