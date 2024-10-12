@@ -182,8 +182,18 @@
                 }
              })
         };
-        function handleRequirements() {
-            $("#requirementsModal").modal('show')
+        function handleRequirements(id) {
+            $("#requirementsModal").modal('show');
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/view-requirements/"+id,
+               data: {},
+               success: function(response){
+                    console.log("test", response);
+                    $("#html-content-programs").html(response.program_desc)
+                }
+
+               });
         }
 
         $('#create-folder-document-form').submit(function(e){

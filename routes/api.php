@@ -64,4 +64,5 @@ Route::group(['prefix' => 'archived'], function () {
 
 Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [ProgramsController::class, 'add']);
+    Route::post('/view-requirements/{id}', [ProgramsController::class, 'get_info']);
 });

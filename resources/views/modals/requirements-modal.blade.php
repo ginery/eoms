@@ -9,8 +9,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    test
-                    
+                    <div id="html-content-programs">
+                    </div>               
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>

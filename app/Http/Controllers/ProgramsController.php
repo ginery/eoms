@@ -53,5 +53,10 @@ class ProgramsController extends Controller
         }
 
     }
+    public function get_info($id) {
+
+        $programs = Programs::where('id', $id)->get()->first();
+        return $programs;
+    }   
     
 }
