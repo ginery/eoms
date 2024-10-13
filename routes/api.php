@@ -23,10 +23,10 @@ use App\Http\Controllers\ProgramsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['prefix' => 'dashboard'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/dashboard-status', [DashboardController::class, 'getDocumentStatus']);
 });
-Route::group(['prefix' => 'documents'], function () {
+Route::group(['prefix' => 'documents',  'middleware' => 'auth:sanctum'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);
     Route::get('/get-documents', [DocumentController::class, 'getDocument']);
     Route::get('/get-documents/{user_added}', [DocumentController::class, 'getDocumentByUser']);
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'documents'], function () {
     //add another api route here. 
 });
 
-Route::group(['prefix' => 'users'], function () {
+Route::group(['prefix' => 'users', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [UserController::class, 'create']);
     Route::post('/update', [UserController::class, 'update']);
     Route::delete('/delete/{id}', [UserController::class, 'delete']);
@@ -48,15 +48,15 @@ Route::group(['prefix' => 'users'], function () {
     Route::post('/update-profile', [UserController::class, 'update_profile']);
     //add another api route here. 
 });
-Route::group(['prefix' => 'messages'], function () {
+Route::group(['prefix' => 'messages', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/send', [ChatController::class, 'sendMessage']);
     
 });
-Route::group(['prefix' => 'reports'], function () {
+Route::group(['prefix' => 'reports', 'middleware' => 'auth:sanctum'], function () {
     Route::get('/generate', [ReportsController::class, 'generate']);
     
 });
-Route::group(['prefix' => 'archived'], function () {
+Route::group(['prefix' => 'archived', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/update', [ArchivedController::class, 'update']);
     Route::post('/complete', [ArchivedController::class, 'complete']);
     
@@ -65,4 +65,6 @@ Route::group(['prefix' => 'archived'], function () {
 Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [ProgramsController::class, 'add']);
     Route::post('/view-requirements/{id}', [ProgramsController::class, 'get_info']);
+    Route::post('/view-comments/{id}', [ProgramsController::class, 'get_comments']);
 });
+

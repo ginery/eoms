@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Programs;
+use App\Models\Messages;
 use App\Models\Document;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,17 @@ class ProgramsController extends Controller
 
         $programs = Programs::where('id', $id)->get()->first();
         return $programs;
-    }   
+    }  
+    
+    public function get_comments($id) {
+        $user_id = Auth::user()->id;
+
+        $documents = Document::where('id', $id)->get()->first();
+        $messages = Messages::where('sender_id', $user_id)->get()->first();
+        return [
+            'documents' => $documents,
+            'messages' => $messages
+        ];
+    } 
     
 }

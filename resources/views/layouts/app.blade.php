@@ -85,8 +85,8 @@
       <!--begin::Header Mobile-->
       <div id="kt_header_mobile" class="header-mobile align-items-center  header-mobile-fixed " >
          <!--begin::Logo-->
-         <a href="index.html">
-         <img alt="Logo" src="{{asset('assets/media/logos/logo-light.png')}}"/>
+         <a href="{{route('dashboard')}}" class="brand-logo" style="display: block;">
+            <img alt="Logo" src="{{asset('assets/images/eoms-logo.png')}}" style="width: 27px; align-content: center;"/> <span class="font-weight-bolder text-white" style="margin-left: 10px;"> EOMS</span>
          </a>
          <!--end::Logo-->
          <!--begin::Toolbar-->
@@ -97,9 +97,6 @@
             </button>
             <!--end::Aside Mobile Toggle-->
             <!--begin::Header Menu Mobile Toggle-->
-            <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
-            <span></span>
-            </button>
             <!--end::Header Menu Mobile Toggle-->
             <!--begin::Topbar Mobile Toggle-->
             <button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">

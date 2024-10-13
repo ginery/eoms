@@ -104,6 +104,14 @@
                                     <span class="navi-text">Edit</span>
                                 </a>
                             </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleComments({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-comment"></i>
+                                    </span>
+                                    <span class="navi-text">Comments</span>
+                                </a>
+                            </li>
                             <!--end::Item-->
 
                         </ul>
@@ -165,8 +173,7 @@
                                     </span>
                                     <span class="navi-text">Delete</span>
                                 </a>
-                            </li> --}}
-                            <!--end::Item-->
+                            </li> --}}                           
 
                             @if(Auth::user()->role === 2 && Auth::user()->role === $document->user_id)
                                 <!--begin::Item-->
@@ -200,7 +207,7 @@
                                     </span>
                                     <span class="navi-text">Edit</span>
                                 </a>
-                            </li>
+                            </li>                           
                             <!--end::Item-->
                             @if(Auth::user()->role == 1)
                                 @if($document->status == 0)
@@ -299,6 +306,7 @@
     @include('modals.add-document')
     @include('modals.view-file-document')
     @include('modals.update-folder-document')
+    @include('modals.comments-modal')
     <script>
         $(document).ready(function(){
             FilePond.create(document.getElementById('filepond'));    
@@ -327,6 +335,34 @@
                 });
             });
         });
+        function getCommentsAndMessages(id){
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/view-comments/"+id,
+               data: {
+                id: id
+               },
+               success: function(response){
+                console.log("handleComments", response)
+               }
+            });
+        }
+        function handleComments(id){
+            $("#commentsModal").modal("show"); 
+            getCommentsAndMessages(id);         
+        }
+        function handleSubmitComments(){
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/view-comments/"+id,
+               data: {
+                id: id
+               },
+               success: function(response){
+                console.log("handleComments", response)
+               }
+            });
+        }
         function handleCompleteClick(id){
             $.ajax({
                type: "POST",

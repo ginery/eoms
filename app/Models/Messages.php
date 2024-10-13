@@ -16,6 +16,7 @@ class Messages extends Model
         'email',
         'phone_number',
         'password',
-        'role'
+        'role',
+        'project_id'
     ];
 }

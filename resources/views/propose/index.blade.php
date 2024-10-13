@@ -76,8 +76,6 @@
                                             </a>
                                         </li>
                                         <!--end::Item-->
-
-                                        <!--begin::Item-->
                                         <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleEditFolder({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
@@ -86,6 +84,8 @@
                                                 <span class="navi-text">Edit</span>
                                             </a>
                                         </li>
+
+                                        <!--begin::Item-->                                       
                                         <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
