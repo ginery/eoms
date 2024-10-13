@@ -20,15 +20,17 @@
                         <div class="scroll scroll-pull" data-mobile-height="350">
                             <!--begin::Messages-->
                             <div class="messages">
+
                                 <!--begin::Message In-->
                                 <div class="d-flex flex-column mb-5 align-items-start">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                            <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                                            <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
+                                            </span>
                                         </div>
                                         <div>
                                             <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>
-                                            <span class="text-muted font-size-sm">2 Hours</span>
+                                            <span class="text-muted font-size-sm">10-13-2024</span>
                                         </div>
                                     </div>
                                     <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
@@ -42,11 +44,12 @@
                                 <div class="d-flex flex-column mb-5 align-items-end">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <span class="text-muted font-size-sm">3 minutes</span>
+                                            <span class="text-muted font-size-sm">10-13-2024</span>
                                             <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                         </div>
                                         <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                            <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">

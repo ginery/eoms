@@ -67,7 +67,7 @@
                                     <!--begin::Nav-->
                                     <ul class="navi navi-hover py-4">
                                         <!--begin::Item-->
-                                        <li class="navi-item">
+                                        {{-- <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleDeleteFolder({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
                                                     <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
@@ -83,7 +83,7 @@
                                                 </span>
                                                 <span class="navi-text">Edit</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
 
                                         <!--begin::Item-->                                       
                                         <li class="navi-item">
