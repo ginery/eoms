@@ -51,8 +51,7 @@
 <!--end::Subheader-->
 <div class="card-body p-0 position-relative mt-15">
     @foreach($documents as $document)
-        <!--begin::Card-->
-        @if ($document->document_type == null)
+        <!--begin::Card-->       
         <div class="card card-custom mb-2" style="cursor: pointer;" >
             <div class="card-header" >
                 {{-- handlefolder click -> open the project created path --}}
@@ -112,6 +111,30 @@
                                     <span class="navi-text">Comments</span>
                                 </a>
                             </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Accepted</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Completed</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Rejected</span>
+                                </a>
+                            </li>
                             <!--end::Item-->
 
                         </ul>
@@ -122,183 +145,7 @@
                 <!--end::Languages-->
             </div>
         </div>
-        @else
-        <div class="card card-custom mb-2" style="cursor: pointer;">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon"> 
-                        @if ($document->document_type === 'pdf')
-                        <i class="fas fa-file-pdf" class="text-success" style="font-size:30px; color:red !important"></i>
-                        @elseif ($document->document_type === 'docx')
-                        <i class="fas fa-file-word" style="font-size:30px; color:blue !important"></i>
-                        @elseif ($document->document_type === 'xlsx')
-                        <i class="fas fa-file-excel" style="font-size:30px; color:green !important"></i>
-                        @elseif ($document->document_type === 'jpg' || $document->document_type === 'png' || $document->document_type === 'gif' || $document->document_type === 'jpeg')
-                        <i class="fas fa-image" style="font-size:30px; color:grey !important"></i>
-                        @elseif ($document->document_type === 'pptx')
-                        <i class="fas fa-file-powerpoint" style="font-size:30px; color:rgb(255, 94, 0) !important"></i>
-                        @else
-                        <i class="fas fa-file-alt" style="font-size:30px; color:rgb(146, 9, 226) !important"></i>
-                        @endif                     
-                        
-                    </span>
-                    <h3 class="card-label">
-                        {{$document->document_name}}
-                    </h3>
-                    @if (Auth::user()->role === 1)
-                        <small>{{getUserFullName($document->user_id)}}</small>
-                    @endif
-                    {!!getDocumentStatus($document->status)!!}
-                </div>
-                
-                <!--begin::Languages-->
-                <div class="dropdown mt-4" >
-                    <!--begin::Toggle-->
-                    <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-                        <div class="btn btn-icon btn-clean btn-dropdown btn-lg">
-                            <i class="fa fa-cog h-20px w-20px"></i>
-                        </div>
-                    </div>
-                    <!--end::Toggle-->
 
-                    <!--begin::Dropdown-->
-                    <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
-                        <!--begin::Nav-->
-                        <ul class="navi navi-hover py-4">
-                            <!--begin::Item-->
-                            {{-- <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                    </span>
-                                    <span class="navi-text">Delete</span>
-                                </a>
-                            </li> --}}                           
-
-                            @if(Auth::user()->role === 2 && Auth::user()->role === $document->user_id)
-                                <!--begin::Item-->
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                        </span>
-                                        <span class="navi-text">Delete</span>
-                                    </a>
-                                </li>
-                                <!--end::Item-->
-                            @elseif(Auth::user()->role === 1)
-                                <!--begin::Item-->
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                        </span>
-                                        <span class="navi-text">Delete</span>
-                                    </a>
-                                </li>
-                                <!--end::Item-->
-                            @endif
-
-                            <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Edit</span>
-                                </a>
-                            </li>                           
-                            <!--end::Item-->
-                            @if(Auth::user()->role == 1)
-                                @if($document->status == 0)
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Accepted</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-
-                                @elseif($document->status == 3 || $document->status == 1 )
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Completed</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-                                @endif  
-
-                                 <!--begin::Item-->
-                                 @if($document->status !== '-1')
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                            <span class="symbol symbol-20 mr-3">
-                                                <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
-                                            </span>
-                                            <span class="navi-text">Rejected</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                <!--end::Item-->
-                            @endif
-
-                           
-
-
-
-                            <!--begin::Item-->
-                            @if($document->status == 1)
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Archived</span>
-                                    </a>
-                                </li>
-                            @endif
-                          
-
-                            <li class="navi-item">
-                                <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-download"></i><!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Download</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-
-                            @if($document->document_type !== null)
-                            <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleView({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">View</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-                            @endif
-
-                        </ul>
-                        <!--end::Nav-->
-                    </div>
-                    <!--end::Dropdown-->
-                </div>
-                <!--end::Languages-->
-            </div>
-        </div>
-
-        @endif
         <!--end::Card-->
     @endforeach
 </div>
