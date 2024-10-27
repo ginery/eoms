@@ -1,7 +1,4 @@
 <x-app-layout>
-
-
-
     <!--begin::Body-->
     	<!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid" id="kt_subheader">
@@ -47,6 +44,9 @@
                                 <h3 class="card-label">
                                     {{$program->program_name}}
                                 </h3>
+                                <div>
+                                    <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject($program->id, 0)}}</span>                                   
+                                </div>
                                 {{-- @if (Auth::user()->role != 0)
                                     <small>{{getUserFullName($document->user_id)}}</small>
                                 @endif --}}

@@ -201,63 +201,6 @@
                                 </a>
                             </li>
                             <!--end::Item-->
-                            @if(Auth::user()->role == 1)
-                                @if($document->status == 0)
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Accepted</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-
-                                @elseif($document->status == 3 || $document->status == 1 )
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Completed</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-                                @endif  
-
-                                 <!--begin::Item-->
-                                 @if($document->status !== '-1')
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                            <span class="symbol symbol-20 mr-3">
-                                                <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
-                                            </span>
-                                            <span class="navi-text">Rejected</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                <!--end::Item-->
-                            @endif
-
-                           
-
-
-
-                            <!--begin::Item-->
-                            @if($document->status == 1)
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Archived</span>
-                                    </a>
-                                </li>
-                            @endif
-                          
-
                             <li class="navi-item">
                                 <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
                                     <span class="symbol symbol-20 mr-3">

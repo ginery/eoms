@@ -33,7 +33,7 @@ class ProposeController extends Controller
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->where('status','!=', 2)->get();
+        $documents = Document::where('doc_path', $id)->where('status', 0)->get();
         
         // dd(json_encode($programs));
 

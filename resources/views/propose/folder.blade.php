@@ -62,9 +62,10 @@
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
-                    @if (Auth::user()->role === 1)
                     <small>{{getUserFullName($document->user_id)}}</small>
-                    @endif
+                    <div>
+                        {!!getDocumentStatus($document->status)!!}
+                    </div>
                 </div>
                 
                 <!--begin::Languages-->
@@ -119,24 +120,6 @@
                                     <span class="navi-text">Accepted</span>
                                 </a>
                             </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Completed</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Rejected</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-
                         </ul>
                         <!--end::Nav-->
                     </div>
@@ -183,6 +166,7 @@
             });
         });
         function getCommentsAndMessages(id){
+            $("#comment-content").html('');
             $.ajax({
                type: "POST",
                url: baseUrl + "/api/programs/view-comments/"+id,
@@ -190,8 +174,54 @@
                 id: id
                },
                success: function(response){
-                console.log("handleComments", response)
-               }
+              
+                console.log("handleComments", response);
+                $("#project_id").val(response.documents.id)
+                $("#program_name").html(response.documents.document_name);
+                $("#program_date").html(response.documents.date_added);
+                const user_id = `{{ Auth::user()->id }}`; // Ensure this is rendered correctly
+
+                const messages_array = response.messages.map((item) => {                 
+                    
+                    if (Number(user_id) === Number(item.sender_id)) {
+                        // Message by the current user
+                        $("#comment-content").append(`
+                            <div class="d-flex flex-column mb-5 align-items-end">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <span class="text-muted font-size-sm">10-13-2024</span>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
+                                    </div>
+                                    <div class="symbol symbol-circle symbol-40 ml-3">
+                                        <span class="symbol-label font-size-h5 font-weight-bold">test</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                    ${item.message_content}
+                                </div>
+                            </div>
+                        `);
+                    } else {
+                        // Message by someone else
+                        $("#comment-content").append(`
+                            <div class="d-flex flex-column mb-5 align-items-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-circle symbol-40 mr-3">
+                                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>
+                                        <span class="text-muted font-size-sm">10-13-2024</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
+                                    ${item.message_content}
+                                </div>
+                            </div>
+                        `);
+                    }
+                });
+            }
             });
         }
         function handleComments(id){
@@ -199,136 +229,161 @@
             getCommentsAndMessages(id);         
         }
         function handleSubmitComments(){
+            var comment = $("#comments").val();
+            var document_id = $("#project_id").val();
             $.ajax({
                type: "POST",
-               url: baseUrl + "/api/programs/view-comments/"+id,
+               url: baseUrl + "/api/programs/add-comments",
                data: {
-                id: id
+                document_id: document_id,
+                comment: comment
                },
                success: function(response){
-                console.log("handleComments", response)
-               }
-            });
-        }
-        function handleCompleteClick(id){
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/archived/complete",
-               data: {
-                id: id
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Completed",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-        function handleArchivedClick(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/archived/update",
-               data: {
-                id: id
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
+                console.log("handleComments - 1", response);
+                $("#comment-content").append(`
+                <div class="d-flex flex-column mb-5 align-items-end">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <span class="text-muted font-size-sm">10-13-2024</span>
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
+                        </div>
+                        <div class="symbol symbol-circle symbol-40 ml-3">
+                            <span class="symbol-label font-size-h5 font-weight-bold">test</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">${response.message_content}
+                    </div>
+                </div>
+                `);
 
-        function handleRejected(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status:-1
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
+                var commentContent = document.getElementById("comment-content");
+                commentContent.scrollTop = commentContent.scrollHeight;
+
+                var comment = $("#comments").val('');
+
                }
             });
         }
+        // function handleCompleteClick(id){
+        //     $.ajax({
+        //        type: "POST",
+        //        url: baseUrl+"/api/archived/complete",
+        //        data: {
+        //         id: id
+        //        },
+        //        success: function(response){
+        //           console.log("test", response);
+        //           if(response == 1){
+        //             Swal.fire({
+        //                 title: "Great!",
+        //                 text: "Completed",
+        //                 icon: "success",
+        //                 buttonsStyling: false,
+        //                 confirmButtonText: "OK",
+        //                 customClass: {
+        //                     confirmButton: "btn btn-primary"
+        //                 }
+        //             }).then(function(result) {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             });
+                                    
+        //           }else{
+        //             Swal.fire({
+        //                 title: "Aw snap!",
+        //                 text: "Something went wrong.",
+        //                 icon: "error",
+        //                 timer: 1500,
+        //                 onOpen: function() {
+        //                     Swal.showLoading()
+        //                 }
+        //             });
+        //           }
+        //        }
+        //     });
+        // }
+        // function handleArchivedClick(id) {
+        //     $.ajax({
+        //        type: "POST",
+        //        url: baseUrl+"/api/archived/update",
+        //        data: {
+        //         id: id
+        //        },
+        //        success: function(response){
+        //           console.log("test", response);
+        //           if(response == 1){
+        //             Swal.fire({
+        //                 title: "Great!",
+        //                 text: "Successfully archived.",
+        //                 icon: "success",
+        //                 buttonsStyling: false,
+        //                 confirmButtonText: "OK",
+        //                 customClass: {
+        //                     confirmButton: "btn btn-primary"
+        //                 }
+        //             }).then(function(result) {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             });
+                                    
+        //           }else{
+        //             Swal.fire({
+        //                 title: "Aw snap!",
+        //                 text: "Something went wrong.",
+        //                 icon: "error",
+        //                 timer: 1500,
+        //                 onOpen: function() {
+        //                     Swal.showLoading()
+        //                 }
+        //             });
+        //           }
+        //        }
+        //     });
+        // }
+
+        // function handleRejected(id) {
+        //     $.ajax({
+        //        type: "POST",
+        //        url: baseUrl+"/api/documents/update-status",
+        //        data: {
+        //         id: id,
+        //         status:-1
+        //        },
+        //        success: function(response){
+        //           console.log("test", response);
+        //           if(response == 1){
+        //             Swal.fire({
+        //                 title: "Great!",
+        //                 text: "Successfully archived.",
+        //                 icon: "success",
+        //                 buttonsStyling: false,
+        //                 confirmButtonText: "OK",
+        //                 customClass: {
+        //                     confirmButton: "btn btn-primary"
+        //                 }
+        //             }).then(function(result) {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             });
+                                    
+        //           }else{
+        //             Swal.fire({
+        //                 title: "Aw snap!",
+        //                 text: "Something went wrong.",
+        //                 icon: "error",
+        //                 timer: 1500,
+        //                 onOpen: function() {
+        //                     Swal.showLoading()
+        //                 }
+        //             });
+        //           }
+        //        }
+        //     });
+        // }
 
         function handleAccepted(id) {
             $.ajax({
@@ -336,7 +391,7 @@
                url: baseUrl+"/api/documents/update-status",
                data: {
                 id: id,
-                status:3
+                status: 1
                },
                success: function(response){
                   console.log("test", response);

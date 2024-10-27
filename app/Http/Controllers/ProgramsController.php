@@ -64,11 +64,23 @@ class ProgramsController extends Controller
         $user_id = Auth::user()->id;
 
         $documents = Document::where('id', $id)->get()->first();
-        $messages = Messages::where('sender_id', $user_id)->get()->first();
+        $messages = Messages::where('project_id', $id)->get();
+        $documents['date_added'] = Carbon::parse($documents['date_added'])->format('Y-m-d');
+
+
         return [
             'documents' => $documents,
             'messages' => $messages
         ];
-    } 
+    }
+    public function add_comments(Request $request) {
+        $user_id = Auth::user()->id;
+        $result = Messages::create([
+            'message_content'   => $request->comment,
+            'sender_id'         => $user_id,
+            'project_id'        => $request->document_id
+        ]);
+        return $result;
+    }
     
 }

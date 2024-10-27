@@ -45,8 +45,11 @@
                                     <i class="fa fa-folder text-success" style="font-size:30px;"></i>
                                 </span>
                                 <h3 class="card-label">
-                                    {{$program->program_name}}
+                                    {{$program->program_name}} 
                                 </h3>
+                                <div>
+                                    <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject($program->id, 1) + getTotalProject($program->id, 2) + getTotalProject($program->id, 3)}}</span>                                   
+                                </div>
                                 {{-- @if (Auth::user()->role != 0)
                                     <small>{{getUserFullName($document->user_id)}}</small>
                                 @endif --}}

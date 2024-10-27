@@ -64,15 +64,17 @@ if(!function_exists('getDocumentStatus')){
         }
     }
 }
+
+
 if(!function_exists('getTotalFileStatus')){
     function getTotalFileStatus($status)
     {   
         $user_id = Auth::user()->id;
         $role = Auth::user()->role;
         if($role == 1){
-            $document = Document::where('status', $status)->where('document_size','!=', 0)->count();
+            $document = Document::where('status', $status)->where('document_size','=', 0)->count();
         }else{
-            $document = Document::where('user_id', $user_id)->where('status', $status)->where('document_size','!=', 0)->count();
+            $document = Document::where('user_id', $user_id)->where('status', $status)->where('document_size','=', 0)->count();
         }
         
         
@@ -81,4 +83,16 @@ if(!function_exists('getTotalFileStatus')){
         
     }
 }
+
+if(!function_exists('getTotalProject')){
+    function getTotalProject($program_id, $status)
+    {   
+       
+            $document = Document::where('doc_path', $program_id)->where('path', 0)->where('status', $status)->count();        
+        
+        return  $document ?  $document : 0;
+        
+    }
+}
+
 

@@ -11,12 +11,10 @@ class Messages extends Model
     protected $table = 'messages';
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone_number',
-        'password',
-        'role',
+        'message_content',
+        'sender_id',
+        'receiver_id',
         'project_id'
+
     ];
 }
