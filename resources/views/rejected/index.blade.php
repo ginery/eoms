@@ -47,9 +47,9 @@
                                 <h3 class="card-label">
                                     {{$program->program_name}}
                                 </h3>
-                                {{-- @if (Auth::user()->role != 0)
-                                    <small>{{getUserFullName($document->user_id)}}</small>
-                                @endif --}}
+                                <div>
+                                    <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject($program->id, -1)}}</span>                                   
+                                </div>
                             </div>
                             
                             <!--begin::Languages-->
