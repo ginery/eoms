@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Log;
 class DashboardController extends Controller
 {
     public function index(): View{
-        return view('dashboard');
+        // $rejected = Document::where('status', 3)->count();
+        $rejected = Document::where('status', -1)->count();
+        $completed = Document::where('status', 2)->count();
+        $inprogress = Document::where('status', 0)->count();;
+        return view('dashboard', ['completed' => $completed, 'inprogress' => $inprogress, 'rejected' => $rejected]);
     }
 
     public function getDocumentStatus(Request $request){
