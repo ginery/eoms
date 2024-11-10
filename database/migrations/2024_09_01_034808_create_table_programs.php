@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('programs', function (Blueprint $table) {
-            $table->id();
-            $table->string('program_name');
-            $table->string('program_desc');
-            $table->integer('added_by');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('programs')) {
+            Schema::create('programs', function (Blueprint $table) {
+                $table->id();
+                $table->string('program_name');
+                $table->string('program_desc');
+                $table->integer('added_by');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

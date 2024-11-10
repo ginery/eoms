@@ -66,9 +66,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
-
-
-//php artisan make:migration 2014_10_12_000000_create_users_table --table=users
