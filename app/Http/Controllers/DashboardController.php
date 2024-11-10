@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 class DashboardController extends Controller
@@ -37,6 +38,13 @@ class DashboardController extends Controller
 
             return $documents;
         
+    }
+
+    public function update_token (Request $request) {
+        $user = User::find($request->user_id);
+        $user->update([
+            'notification_token' => $request->notification_token, // Use the validated token
+        ]);
     }
     
 }

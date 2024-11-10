@@ -59,8 +59,28 @@
            vapidKey: 'BAaW0h8dgAmZzm5gRj4Lrtl52rinhFBsDNvOrzzo1mUD17hIlR2VkJVnO9diZGroF-EtxkyDODCdQ1_rfzcwxtw'
          }).then((currentToken) => {
            if (currentToken) {
+            const hasUserId = "{{ session()->has('id') ? 'true' : 'false' }}";
+            const user_id = '{{ Auth::user()->id}}';
+            console.log('currentToken: ', user_id);
+            if(hasUserId){
+
+               $.ajax({
+                  type: "POST",                  
+                  url: `api/dashboard/token`,
+                  data: {
+                     user_id: user_id,
+                     notification_token: currentToken
+                  },
+                  success: function(response){
+
+                  console.log('token : ', response);
+
+                  }
+               });
+               //insert firebase token here.
+            }
              // Send the token to your server and update the UI if necessary
-             console.log('currentToken: ', currentToken);
+            
           
              // ...
            } else {
