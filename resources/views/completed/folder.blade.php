@@ -31,21 +31,6 @@
                 <!--end::Page Heading-->
             </div>
             <!--end::Info-->
-
-            <!--begin::Toolbar-->
-            <div class="d-flex align-items-center">
-                <!--begin::Actions-->
-                    <a href="#" onclick='handleCreateFolder()' class="btn btn-light-success font-weight-bolder btn-sm mr-3">
-                        <i class="fa fa-plus text-success" style="font-size:12px;"></i>
-                        Folder
-                    </a>
-                    <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
-                        <i class="fa fa-plus text-success" style="font-size:12px;"></i>
-                        Document
-                    </a>
-                <!--end::Actions-->
-            </div>
-            <!--end::Toolbar-->
         </div>
     </div>
 <!--end::Subheader-->
@@ -88,7 +73,7 @@
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
                                     </span>
-                                    <span class="navi-text">Delete</span>
+                                    <span class="navi-text">Delete </span>
                                 </a>
                             </li>
                             <!--end::Item-->
@@ -101,6 +86,14 @@
                                         <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
                                     </span>
                                     <span class="navi-text">Edit</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Archived</span>
                                 </a>
                             </li>
                             <!--end::Item-->
@@ -200,63 +193,7 @@
                                     <span class="navi-text">Edit</span>
                                 </a>
                             </li>
-                            <!--end::Item-->
-                            @if(Auth::user()->role == 1)
-                                @if($document->status == 0)
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Accepted</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-
-                                @elseif($document->status == 3 || $document->status == 1 )
-                                    <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleCompleteClick({{$document->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Completed</span>
-                                            </a>
-                                        </li>
-                                    <!--end::Item-->
-                                @endif  
-
-                                 <!--begin::Item-->
-                                 @if($document->status !== '-1')
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                            <span class="symbol symbol-20 mr-3">
-                                                <i class="fas fa-times"></i><!-- Font Awesome edit icon -->
-                                            </span>
-                                            <span class="navi-text">Rejected</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                <!--end::Item-->
-                            @endif
-
-                           
-
-
-
-                            <!--begin::Item-->
-                            @if($document->status == 1)
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Archived</span>
-                                    </a>
-                                </li>
-                            @endif
-                          
+                         
 
                             <li class="navi-item">
                                 <a href="{{ asset('assets/uploads/' . $document->document_name) }}" class="navi-link" download="{{ $document->document_name }}">
@@ -326,6 +263,47 @@
                 });
             });
         });
+        function handleArchive(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status: 5
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+
         function handleCompleteClick(id){
             $.ajax({
                type: "POST",

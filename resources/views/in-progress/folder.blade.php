@@ -135,7 +135,7 @@
                             @endif
                             @if ($document->status === 3)
                                 <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleCompleted({{$document->id}})">
+                                    <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
                                         <span class="symbol symbol-20 mr-3">
                                             <i class="fas fa-times"></i> <!-- Font Awesome edit icon -->
                                         </span>
@@ -542,46 +542,46 @@
                }
             });
         }
-        function handleRejected(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status: -1
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
+        // function handleRejected(id) {
+        //     $.ajax({
+        //        type: "POST",
+        //        url: baseUrl+"/api/documents/update-status",
+        //        data: {
+        //         id: id,
+        //         status: -1
+        //        },
+        //        success: function(response){
+        //           console.log("test", response);
+        //           if(response == 1){
+        //             Swal.fire({
+        //                 title: "Great!",
+        //                 text: "Successfully archived.",
+        //                 icon: "success",
+        //                 buttonsStyling: false,
+        //                 confirmButtonText: "OK",
+        //                 customClass: {
+        //                     confirmButton: "btn btn-primary"
+        //                 }
+        //             }).then(function(result) {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             });
                                     
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
+        //           }else{
+        //             Swal.fire({
+        //                 title: "Aw snap!",
+        //                 text: "Something went wrong.",
+        //                 icon: "error",
+        //                 timer: 1500,
+        //                 onOpen: function() {
+        //                     Swal.showLoading()
+        //                 }
+        //             });
+        //           }
+        //        }
+        //     });
+        // }
 
         function handleCompleted(id) {
             $.ajax({

@@ -18,7 +18,8 @@ class DashboardController extends Controller
         $rejected = Document::where('status', -1)->count();
         $completed = Document::where('status', 2)->count();
         $inprogress = Document::where('status', 0)->count();
-        $projects = Roadmap::all();
+        $projects = Roadmap::orderBy('date_created', 'desc')->get();
+
         $projects->transform(function ($project) {
             if ($project->date_created) {
                 $project->formatted_date = Carbon::parse($project->date_created)->format('m/d');

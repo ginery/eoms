@@ -39,12 +39,16 @@
                                             <!--begin::Badge-->
                                             <div class="timeline-badge">
                                                 <i class="fa fa-genderless text-{{roadmapStatus($project->status)}} icon-xl"></i>
+                                                
                                             </div>
                                             <!--end::Badge-->
                         
                                             <!--begin::Text-->
                                             <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">
-                                                {{$project->name}}
+                                                {{$project->name}} --  {!!getDocumentStatus($project->status)!!}
+                  
+                                                   
+                                          
                                             </div>
                                             <!--end::Text-->
                                         </div>

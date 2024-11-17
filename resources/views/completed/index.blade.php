@@ -1,7 +1,4 @@
 <x-app-layout>
-
-
-
     <!--begin::Body-->
     	<!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid" id="kt_subheader">
@@ -20,17 +17,6 @@
                         <!--end::Page Heading-->
                     </div>
                     <!--end::Info-->
-
-                    <!--begin::Toolbar-->
-                    <div class="d-flex align-items-center">
-                        <!--begin::Actions-->
-                            <a href="#" onclick='handleCreateFolder()' class="btn btn-light-primary font-weight-bolder btn-sm">
-                                <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
-                                Project 
-                            </a>
-                        <!--end::Actions-->
-                    </div>
-                    <!--end::Toolbar-->
                 </div>
             </div>
         <!--end::Subheader-->
@@ -70,7 +56,7 @@
                                     <!--begin::Nav-->
                                     <ul class="navi navi-hover py-4">
                                         <!--begin::Item-->
-                                        <li class="navi-item">
+                                        {{-- <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleDeleteFolder({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
                                                     <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
@@ -79,14 +65,22 @@
                                             </a>
                                         </li>
                                         <!--end::Item-->
-
-                                        <!--begin::Item-->
                                         <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleEditFolder({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
                                                     <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
                                                 </span>
                                                 <span class="navi-text">Edit</span>
+                                            </a>
+                                        </li> --}}
+
+                                        <!--begin::Item-->                                       
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-tasks"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Requirements</span>
                                             </a>
                                         </li>
                                         <!--end::Item-->
@@ -106,12 +100,12 @@
 
     @include('modals.create-folder-document')
     @include('modals.update-folder-document')
-
+    @include('modals.requirements-modal')
 
     <!-- jQuery Script -->
     <script>
         function handleFolderClick(id) {            
-            location.href = "/documents/"+id;
+            location.href = "/completed/"+id;
         }
 
         function handleCreateFolder(){
@@ -177,6 +171,19 @@
                 }
              })
         };
+        function handleRequirements(id) {
+            $("#requirementsModal").modal('show');
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/view-requirements/"+id,
+               data: {},
+               success: function(response){
+                    console.log("test", response);
+                    $("#html-content-programs").html(response.program_desc)
+                }
+
+               });
+        }
 
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();

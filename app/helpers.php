@@ -145,12 +145,12 @@ if(!function_exists('roadmapStatus')){
     {
         switch ($status) {
             case 0:
-                return 'primary';
+                return 'warning';
                 break;
             
             case 1:
                 // Action for in-progress status
-                return 'warning';
+                return 'success';
                 break;
             
             case 2:
@@ -158,12 +158,15 @@ if(!function_exists('roadmapStatus')){
                 return 'success';
                 break;
                 
-            case 'approved':
-                return 'Status is approved. The document is approved.';
+            case -1:
+                return 'danger';
                 break;
             
-            case 'rejected':
-                return 'Status is rejected. Please recheck the document.';
+            case 4:
+                return 'primary';
+                break;
+            case 3:
+                return 'success';
                 break;
                 
             default:
