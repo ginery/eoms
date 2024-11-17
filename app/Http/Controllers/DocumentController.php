@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Helpers\Breadcrumbs;
 use App\Models\Programs;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class DocumentController extends Controller
 {
@@ -16,6 +17,7 @@ class DocumentController extends Controller
     public function index() : View {
         // $document  = Document::all();
         $role = Auth::user()->role;
+       
         // dd(json_encode($role));
         if($role === 1 || $role === 2){
             $document = Document::where('path', 0)->get();
@@ -196,10 +198,20 @@ class DocumentController extends Controller
     }
 
     public function updateStatus(Request $request) {
+        $user_id = Auth::user()->id;
         $data = [
             'status' => $request->status,            
         ];
         $result = Document::where('id', $request->id)->update($data);
+        $document =  Document::where('id', $request->id)->first();
+        $road_map = [
+            "name" => $document->document_name,
+            "status" => $request->status,
+            "added_by" => $user_id,
+            "user_id" => $document->user_id,
+            "date_created" => Carbon::now()
+        ];
+        insertRoadMap($road_map);
         if ($result) {
             return 1;
         } else {

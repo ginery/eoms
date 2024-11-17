@@ -4,7 +4,10 @@ use Carbon\Carbon;
 use App\Models\Document;
 use App\Models\Programs;
 use App\Models\User;
+use App\Models\Roadmap;
 use Illuminate\Support\Facades\Auth;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
 
 if (!function_exists('format_date')) {
     function format_date($date)
@@ -99,4 +102,72 @@ if(!function_exists('getTotalProject')){
     }
 }
 
+if(!function_exists('sendNotification')){
+    function sendNotification($tokens, $title, $body)
+    {
+        // Path to the service account key JSON
+        $serviceAccountPath = storage_path('app/firebase/firebase-service-account.json');
 
+        // Initialize Firebase
+        $factory = (new Factory)->withServiceAccount($serviceAccountPath);
+        $messaging = $factory->createMessaging();
+
+        // Notification payload
+        $notification = [
+            'title' => $title,
+            'body' => $body,
+        ];
+
+        // Cloud message
+        $message = CloudMessage::fromArray([
+            'notification' => $notification,
+            'token' => $tokens,
+        ]);
+
+        // Send the notification
+        try {
+            $messaging->sendMulticast($message, $tokens);
+            return ['success' => true, 'message' => 'Notification sent successfully'];
+        } catch (\Exception $e) {
+            return ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+}
+if(!function_exists('insertRoadMap')){ 
+    function insertRoadMap($data)
+    {
+        Roadmap::insert($data);
+    }
+}
+if(!function_exists('roadmapStatus')){ 
+    function roadmapStatus($status)
+    {
+        switch ($status) {
+            case 0:
+                return 'primary';
+                break;
+            
+            case 1:
+                // Action for in-progress status
+                return 'warning';
+                break;
+            
+            case 2:
+                // Action for completed status
+                return 'success';
+                break;
+                
+            case 'approved':
+                return 'Status is approved. The document is approved.';
+                break;
+            
+            case 'rejected':
+                return 'Status is rejected. Please recheck the document.';
+                break;
+                
+            default:
+                return 'primary';
+        }
+    }
+}

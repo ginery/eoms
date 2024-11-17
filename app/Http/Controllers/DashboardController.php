@@ -5,17 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\Roadmap;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index(): View{
+       
         // $rejected = Document::where('status', 3)->count();
         $rejected = Document::where('status', -1)->count();
         $completed = Document::where('status', 2)->count();
-        $inprogress = Document::where('status', 0)->count();;
-        return view('dashboard', ['completed' => $completed, 'inprogress' => $inprogress, 'rejected' => $rejected]);
+        $inprogress = Document::where('status', 0)->count();
+        $projects = Roadmap::all();
+        $projects->transform(function ($project) {
+            if ($project->date_created) {
+                $project->formatted_date = Carbon::parse($project->date_created)->format('m/d');
+            } else {
+                $project->formatted_date = null; // Handle null dates gracefully
+            }
+            return $project;
+        });
+        return view('dashboard', 
+        [
+            'completed' => $completed, 
+            'inprogress' => $inprogress, 
+            'rejected' => $rejected,
+            'projects' => $projects
+        ]);
+    }
+
+    public function test() {
+
+        $test = sendNotification('djGpK8sMPOjeEMJmtMB3Fl:APA91bHt0hmYs-r-wEV2mvifDv3tbH7DVjfwwEg6W44hjaNUr7c7ZTyvcyOQXLV7MlZdG6smZhY3ldOeiHaqcgOULp-JeCVnnWYibmJPt2RuacG1UwyRPQk','test title','test');
+        return $test;
     }
 
     public function getDocumentStatus(Request $request){

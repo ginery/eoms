@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/dashboard-status', [DashboardController::class, 'getDocumentStatus']);
     Route::post('/token', [DashboardController::class, 'update_token']);
+    Route::post('/test', [DashboardController::class, 'test']);
 });
 Route::group(['prefix' => 'documents',  'middleware' => 'auth:sanctum'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);

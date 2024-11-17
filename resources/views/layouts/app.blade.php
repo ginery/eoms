@@ -43,8 +43,11 @@
          mermaid.initialize({ startOnLoad: true });
      </script>
       <script>
+          const apiKey = "{{env('FCM_API_KEY')}}";
+          const apiTokenKey = "{{env('FIREBASE_TOKEN_KEY')}}";
+
          const firebaseConfig = {
-           apiKey: "AIzaSyCit63z3KjXYrqw4iXSVxK_SpkJEJ9MZfY",
+           apiKey: apiTokenKey,
            authDomain: "cimd-d77c0.firebaseapp.com",
            projectId: "cimd-d77c0",
            storageBucket: "cimd-d77c0.appspot.com",
@@ -54,14 +57,16 @@
          };
          const firebaseApp = firebase.initializeApp(firebaseConfig);
          const messaging = firebase.messaging();
+
+        
      
          messaging.getToken(messaging, {
-           vapidKey: 'BAaW0h8dgAmZzm5gRj4Lrtl52rinhFBsDNvOrzzo1mUD17hIlR2VkJVnO9diZGroF-EtxkyDODCdQ1_rfzcwxtw'
+           vapidKey: apiKey
          }).then((currentToken) => {
            if (currentToken) {
             const hasUserId = "{{ session()->has('id') ? 'true' : 'false' }}";
             const user_id = '{{ Auth::user()->id}}';
-            console.log('currentToken: ', user_id);
+            console.log('currentToken: ', currentToken);
             if(hasUserId){
 
                $.ajax({
@@ -73,7 +78,7 @@
                   },
                   success: function(response){
 
-                  console.log('token : ', response);
+                  // console.log('token : ', response);
 
                   }
                });
@@ -93,6 +98,7 @@
            // ...
          });
          messaging.onMessage((payload) => {
+            KTBootstrapNotifyDemo.notify(payload.notification.body, payload.notification.title, 'primary');
            console.log(payload.notification);
            
          });
@@ -473,6 +479,7 @@
         <script src="{{asset('assets/js/pages/features/miscellaneous/sweetalert2.js')}}"></script>
         <script src="{{asset('assets/js/pages/custom/chat/chat.js')}}"></script>
         <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
+        <script src="{{asset('assets/js/pages/features/miscellaneous/bootstrap-notify.js')}}"></script>
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>

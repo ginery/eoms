@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($messages as $program)
+                    @foreach ($programs as $program)
                     <tr>
                         <td>{{$program->id}}</td>
                         <td>{{$program->program_name}}</td> 
