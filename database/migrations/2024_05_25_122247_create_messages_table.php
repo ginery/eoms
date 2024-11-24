@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('message_content');
             $table->integer('sender_id');
             $table->integer('receiver_id');
-            $table->dateTime('date_added');
-            $table->integer('status');
+            $table->integer('project_id');
+            $table->dateTime('date_added')->nullable(false);
             $table->timestamps();
         });
     }
