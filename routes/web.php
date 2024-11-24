@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/in-progress/{id}', [InProgressController::class, 'program'])->name('in-progress.program');
     Route::get('/propose/{id}', [ProposeController::class, 'program'])->name('propose.program');
     Route::get('/completed/{id}', [CompletedController::class, 'program'])->name('completed.program');
+    Route::get('/archived/{id}', [ArchivedController::class, 'program'])->name('archived.program');
 });
 
 

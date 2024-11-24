@@ -67,6 +67,6 @@ class ArchivedController extends Controller
         
         // dd(json_encode($programs));
 
-        return view('completed.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
+        return view('archived.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
     }
 }
