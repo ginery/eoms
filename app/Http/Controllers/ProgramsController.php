@@ -68,27 +68,17 @@ class ProgramsController extends Controller
     
     public function get_comments($id) {
         $user_id = Auth::user()->id;
-    
-        // Retrieve the document by its ID (only the first document in this case)
-        $documents = Document::where('id', $id)->get(); // Now, it's a collection
-    
-        // Retrieve all messages for the project
+
+        $documents = Document::where('id', $id)->get()->first();
         $messages = Messages::where('project_id', $id)->get();
-    
-        // Transform the collection to format 'date_added'
-        $documents->transform(function ($document) {
-            $document->date_added = Carbon::parse($document->date_added)->format('m/d');
-            return $document;
-        });
-    
-        // Return documents and messages
+        $documents['date_added'] = Carbon::parse($documents['date_added'])->format('m/d');
+
+
         return [
             'documents' => $documents,
             'messages' => $messages
         ];
     }
-    
-    
     public function add_comments(Request $request) {
         $user_id = Auth::user()->id;
         $result = Messages::create([

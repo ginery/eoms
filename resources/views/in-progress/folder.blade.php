@@ -312,7 +312,7 @@
                url: baseUrl + "/api/programs/add-comments",
                data: {
                 document_id: document_id,
-                comment: comment
+                comment: comment ? comment: ''
                },
                success: function(response){
                 console.log("handleComments - 1", response);

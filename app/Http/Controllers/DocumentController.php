@@ -10,7 +10,7 @@ use App\Helpers\Breadcrumbs;
 use App\Models\Programs;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
-
+use App\Models\User;
 class DocumentController extends Controller
 {
     //
@@ -199,11 +199,13 @@ class DocumentController extends Controller
 
     public function updateStatus(Request $request) {
         $user_id = Auth::user()->id;
+        $token = Auth::user()->notification_token;
         $data = [
             'status' => $request->status,            
         ];
         $result = Document::where('id', $request->id)->update($data);
         $document =  Document::where('id', $request->id)->first();
+        $user_token = User::find($document->user_id);
         $road_map = [
             "name" => $document->document_name,
             "status" => $request->status,
@@ -211,6 +213,7 @@ class DocumentController extends Controller
             "user_id" => $document->user_id,
             "created_at" => Carbon::now()
         ];
+
         $notification = [
             "title" => "Project",
             "content" => $document->document_name,
@@ -222,6 +225,7 @@ class DocumentController extends Controller
         ];
         insertRoadMap($road_map);
         insertNotification($notification);
+        sendNotification( $user_token->notification_token, 'Project Update', $document->document_name);
 
 
 
