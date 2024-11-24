@@ -209,9 +209,22 @@ class DocumentController extends Controller
             "status" => $request->status,
             "added_by" => $user_id,
             "user_id" => $document->user_id,
-            "date_created" => Carbon::now()
+            "created_at" => Carbon::now()
+        ];
+        $notification = [
+            "title" => "Project",
+            "content" => $document->document_name,
+            "user_id" => $document->user_id,
+            "added_by" => $user_id,
+            "project_status" => $request->status,
+            "created_at" => Carbon::now()
+           
         ];
         insertRoadMap($road_map);
+        insertNotification($notification);
+
+
+
         if ($result) {
             return 1;
         } else {

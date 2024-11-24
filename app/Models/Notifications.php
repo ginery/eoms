@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Roadmap extends Model
+class Notifications extends Model
 {
-    protected $table = 'roadmap';
     use HasFactory;
     protected $fillable = [
         'id',
-        'name',
-        'status',
+        'title',
+        'content',
+        'user_id',
+        'added_by',
         'created_at',
-        'user_id'
+        'project_status'
     ];
 }

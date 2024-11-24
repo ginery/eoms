@@ -5,6 +5,7 @@ use App\Models\Document;
 use App\Models\Programs;
 use App\Models\User;
 use App\Models\Roadmap;
+use App\Models\Notifications;
 use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -61,9 +62,9 @@ if(!function_exists('getDocumentStatus')){
         }else if($status == -1){
             return '<span class="label label-light-danger label-inline font-weight-bold">Rejected</span>';
         }else if($status == 1){
-            return '<span class="label label-light-success label-inline font-weight-bold">In-progress</span>';
+            return '<span class="label label-light-warning label-inline font-weight-bold">In-progress</span>';
         }else if($status == 2){
-            return '<span class="label label-light-success label-inline font-weight-bold">For Review</span>';
+            return '<span class="label label-light-info label-inline font-weight-bold">Approved</span>';
         }else if($status == 3){
             return '<span class="label label-light-success label-inline font-weight-bold">Approved</span>';
         }else{
@@ -138,6 +139,12 @@ if(!function_exists('insertRoadMap')){
     function insertRoadMap($data)
     {
         Roadmap::insert($data);
+    }
+}
+if(!function_exists('insertNotification')){ 
+    function insertNotification($data)
+    {
+        Notifications::insert($data);
     }
 }
 if(!function_exists('roadmapStatus')){ 

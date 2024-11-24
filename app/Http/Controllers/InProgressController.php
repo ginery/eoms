@@ -29,19 +29,20 @@ class InProgressController extends Controller
     public function project($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         //status 0 proposed
-        $documents = Document::where('path', $id)->where('status', 1)->get();
+        $documents = Document::where('path', $id)->where(function($query) {
+            $query->where('status', 1)
+                  ->orWhere('status', 2);
+        })->get();
         
         return view('in-progress.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)
-        ->where(function($query) {
+        $documents = Document::where('doc_path', $id)->where(function($query) {
             $query->where('status', 1)
-                  ->orWhere('status', 3);
-        })
-        ->get();
+                  ->orWhere('status', 2);
+        })->get();
         
         // dd(json_encode($programs));
 

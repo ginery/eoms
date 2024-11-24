@@ -22,8 +22,8 @@ class DashboardController extends Controller
         $projects = Roadmap::orderBy('created_at', 'desc')->get();
 
         $projects->transform(function ($project) {
-            if ($project->date_created) {
-                $project->formatted_date = Carbon::parse($project->date_created)->format('m/d');
+            if ($project->created_at) {
+                $project->formatted_date = Carbon::parse($project->created_at)->format('m/d');
             } else {
                 $project->formatted_date = null; // Handle null dates gracefully
             }

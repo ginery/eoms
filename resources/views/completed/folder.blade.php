@@ -345,10 +345,11 @@
         }
         function handleArchivedClick(id) {
             $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/archived/update",
+                type: "POST",
+               url: baseUrl+"/api/documents/update-status",
                data: {
-                id: id
+                id: id,
+                status: 5
                },
                success: function(response){
                   console.log("test", response);

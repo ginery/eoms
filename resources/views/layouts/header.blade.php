@@ -33,17 +33,16 @@
              <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
                 <form>
                    <!--begin::Header-->
-                   <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url(assets/media/misc/bg-1.jpg)">
+                   <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url({{asset('assets/media/misc/bg-1.jpg')}}">
                       <!--begin::Title-->
                       <h4 class="d-flex flex-center rounded-top">
                          <span class="text-white">User Notifications</span>
-                         <span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">23 new</span>
                       </h4>
                       <!--end::Title-->
                       <!--begin::Tabs-->
                       <ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-line-transparent-white nav-tabs-line-active-border-success mt-3 px-8" role="tablist">
                          <li class="nav-item">
-                            <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications"  >Alerts</a>
+                            <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications">Alerts</a>
                          </li>
                       </ul>
                       <!--end::Tabs-->
@@ -55,6 +54,7 @@
                       <div class="tab-pane active show p-8" id="topbar_notifications_notifications" role="tabpanel">
                          <!--begin::Scroll-->
                          <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300" data-mobile-height="200">
+                           @foreach ($notificationData as $notification)
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-6">
                                <!--begin::Symbol-->
@@ -74,19 +74,19 @@
                                   </span>
                                </div>
                                <!--end::Symbol-->
-                               <!--begin::Text-->
-                               <div class="d-flex flex-column font-weight-bold">
-                                  <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Cool App</a>
-                                  <span class="text-muted">Marketing campaign planning</span>
-                               </div>
-                               <!--end::Text-->
+                            
+                                 <!--begin::Text-->
+                                 <div class="d-flex flex-column font-weight-bold">
+                                    <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$notification->title}}</a>
+                                    <span class="text-muted">{{$notification->content}}</span>
+                                 </div>
+                                 <!--end::Text-->
+                             
                             </div>
                             <!--end::Item-->
+                            @endforeach
                          </div>
                          <!--end::Scroll-->
-                         <!--begin::Action-->
-                         <div class="d-flex flex-center pt-7"><a href="#" class="btn btn-light-primary font-weight-bold text-center">See All</a></div>
-                         <!--end::Action-->
                       </div>
                       <!--end::Tabpane-->                  
                    </div>
