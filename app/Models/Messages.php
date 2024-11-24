@@ -14,7 +14,7 @@ class Messages extends Model
         'message_content',
         'sender_id',
         'receiver_id',
-        'project_id'
-
+        'project_id',
+        'date_added'
     ];
 }

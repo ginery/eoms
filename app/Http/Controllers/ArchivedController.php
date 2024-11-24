@@ -21,8 +21,14 @@ class ArchivedController extends Controller
         // } else {
             $document = Document::where('status', 2)->where('document_size','!=', 0)->get();
         // }
+
         $programs = Programs::all();
-        return view('archived.index',['documents' => $document, 'programs' => $programs]);
+
+        return view('archived.index', 
+        [
+            'documents' => $document, 
+            'programs'  => $programs
+        ]);
     }
     public function update(Request $request) {
         $data = [

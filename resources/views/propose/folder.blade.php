@@ -189,7 +189,7 @@
                             <div class="d-flex flex-column mb-5 align-items-end">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <span class="text-muted font-size-sm">10-13-2024</span>
+                                        <span class="text-muted font-size-sm">${item.date_added}</span>
                                         <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">

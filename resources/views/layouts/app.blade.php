@@ -480,6 +480,7 @@
         <script src="{{asset('assets/js/pages/custom/chat/chat.js')}}"></script>
         <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/js/pages/features/miscellaneous/bootstrap-notify.js')}}"></script>
+        <script src="{{asset('assets/js/pages/crud/forms/widgets/select2.js')}}"></script>
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>

@@ -26,6 +26,7 @@ class UserController extends Controller
             'phone_number' => $request->phone_number,
             'password' => Hash::make('123456789'),
             'role' => $request->role,
+            'notification_token' => ''
         ]);
         if($res){
             echo 1;

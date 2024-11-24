@@ -18,7 +18,13 @@ class ProgramsController extends Controller
         $programs = Programs::select('id', 'program_name', DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as created_at"))
         ->orderBy('created_at', 'desc')
         ->get();
-        return view('programs.index', ['programs' => $programs]);
+
+        $users = User::where('role', 0)->get();
+        return view('programs.index', 
+        [
+            'programs' => $programs,
+            'users'     => $users
+        ]);
     }
    
     public function add(Request $request) {
@@ -62,23 +68,34 @@ class ProgramsController extends Controller
     
     public function get_comments($id) {
         $user_id = Auth::user()->id;
-
-        $documents = Document::where('id', $id)->get()->first();
+    
+        // Retrieve the document by its ID (only the first document in this case)
+        $documents = Document::where('id', $id)->get(); // Now, it's a collection
+    
+        // Retrieve all messages for the project
         $messages = Messages::where('project_id', $id)->get();
-        $documents['date_added'] = Carbon::parse($documents['date_added'])->format('Y-m-d');
-
-
+    
+        // Transform the collection to format 'date_added'
+        $documents->transform(function ($document) {
+            $document->date_added = Carbon::parse($document->date_added)->format('m/d');
+            return $document;
+        });
+    
+        // Return documents and messages
         return [
             'documents' => $documents,
             'messages' => $messages
         ];
     }
+    
+    
     public function add_comments(Request $request) {
         $user_id = Auth::user()->id;
         $result = Messages::create([
             'message_content'   => $request->comment,
             'sender_id'         => $user_id,
-            'project_id'        => $request->document_id
+            'project_id'        => $request->document_id,
+            'date_added'        => Carbon::now()
         ]);
         return $result;
     }

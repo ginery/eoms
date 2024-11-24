@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $rejected = Document::where('status', -1)->count();
         $completed = Document::where('status', 2)->count();
         $inprogress = Document::where('status', 0)->count();
-        $archived = Document::where('status', 0)->count();
+        $archived = Document::where('status', 5)->count();
         $projects = Roadmap::orderBy('created_at', 'desc')->get();
 
         $projects->transform(function ($project) {

@@ -16,7 +16,24 @@
                                 <input type="text" class="form-control" name="program_name" placeholder="Program Name">
                             </div>                            
                         </div>
-                        
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-sm-12">Users</label>
+                                <div class="col-md-12">
+                                    <select class="form-control select2" id="kt_select2_3" name="param" multiple="multiple" style="width: 100% !important;">
+                                        
+                                            
+                                     
+                                        <optgroup label="Faculty">
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}">{{getUserFullName($user->id)}}</option>
+                                            @endforeach
+                                        </optgroup>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group col-md-12">
                             <label>Program Description <span class="text-danger">*</span></label>                       
                             <div id="program_desc"></div>

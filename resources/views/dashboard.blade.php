@@ -94,9 +94,7 @@
            },
            series: [{
                name: 'Total Documents',
-               data: [{{ $completed }}, {{$inprogress}}, {{$rejected}}, {{$archived
-                   
-               }}]
+               data: [{{ $completed }}, {{$inprogress}}, {{$rejected}}, {{$archived}}]
            }]
        });
    });
