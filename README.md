@@ -9,3 +9,6 @@
 -- php artisan event:clear
 
 
+## run seeder
+- this will insert user
+-php artisan db:seed --class=AdminUserSeeder 

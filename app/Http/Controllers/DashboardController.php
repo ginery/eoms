@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
     public function test() {
 
-        $test = sendNotification('djGpK8sMPOjeEMJmtMB3Fl:APA91bHt0hmYs-r-wEV2mvifDv3tbH7DVjfwwEg6W44hjaNUr7c7ZTyvcyOQXLV7MlZdG6smZhY3ldOeiHaqcgOULp-JeCVnnWYibmJPt2RuacG1UwyRPQk','test title','test');
+        $test = sendNotification('cZ0mSUYKE90q7VXOuQPnJg:APA91bFAGKobuE_Hup4kN8lCW5JECs73Y5O2zhYz-D35xuW3IlMQydDibvACD6JyfMYRDnbmlNAPJ-nNn2EBRsC9OylbDZ4fB9LWmGvuCMBmPp51uEh9xiQ','test title','test');
         return $test;
     }
 

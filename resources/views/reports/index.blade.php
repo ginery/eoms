@@ -30,7 +30,7 @@
             </div>          
         </div>
     <div class="card-body">
-    <table class="table table-separate table-head-custom table-checkable" id="table-reports">
+    <table class="table table-separate table-head-custom table-checkable table-responsive" id="table-reports">
         <thead>
             <tr>
                 <th scope="col">#</th>
