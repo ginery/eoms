@@ -139,7 +139,7 @@
                     @if (Auth::user()->role === 1)
                         <small>{{getUserFullName($document->user_id)}}</small>
                     @endif
-                    {!!getDocumentStatus($document->status)!!}
+                    {{-- {!!getDocumentStatus($document->status)!!} --}}
                 </div>
                 
                 <!--begin::Languages-->
