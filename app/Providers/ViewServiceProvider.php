@@ -12,7 +12,11 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $notificationData = Notifications::all(); 
-            $view->with('notificationData', $notificationData);
+            $notificationCount = $notificationData->count();
+            $view->with([
+                'notificationData' => $notificationData,
+                'notificationCount' => $notificationCount,
+            ]);
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Models\Document;
+use App\Models\Programs;
 use App\Models\Roadmap;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ class DashboardController extends Controller
     public function index(): View{
        
         // $rejected = Document::where('status', 3)->count();
+        $users = User::where('role','!=','0')->count();
+        $programs = Programs::count();
         $rejected = Document::where('status', -1)->count();
         $completed = Document::where('status', 2)->count();
         $inprogress = Document::where('status', 0)->count();
@@ -35,7 +38,9 @@ class DashboardController extends Controller
             'inprogress' => $inprogress, 
             'rejected' => $rejected,
             'archived' => $archived,
-            'projects' => $projects
+            'projects' => $projects,
+            'programs' => $programs,
+            'users'    => $users
         ]);
     }
 
