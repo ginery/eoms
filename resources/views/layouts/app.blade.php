@@ -194,7 +194,7 @@
                      {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                   </a>
                   <div class="text-muted mt-1">
-                     {{-- {!! getRole(Auth::user()->role)!!} --}}
+                     {!! getRole(Auth::user()->role)!!}
                   </div>
                   <div class="navi mt-2">
                      <a href="#" class="navi-item">
