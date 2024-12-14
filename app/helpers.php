@@ -9,6 +9,7 @@ use App\Models\Notifications;
 use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
+use Mockery\Undefined;
 
 if (!function_exists('format_date')) {
     function format_date($date)
@@ -19,6 +20,10 @@ if (!function_exists('format_date')) {
 if (!function_exists('getRole')) {
     function getRole($id)
     {
+        if ($id === null) {
+            return 'test';
+        }
+
         if($id === 0){
             return '<span class="label label-light-success label-inline font-weight-bold">Faculty</span>';
         }else if($id === 2){
