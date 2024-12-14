@@ -12,3 +12,7 @@
 ## run seeder
 - this will insert user
 -php artisan db:seed --class=AdminUserSeeder 
+
+## php version
+PHP 8.2.12
+
