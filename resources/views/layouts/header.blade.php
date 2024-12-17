@@ -81,8 +81,9 @@
                             
                                  <!--begin::Text-->
                                  <div class="d-flex flex-column font-weight-bold">
-                                    <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{$notification->title}}</a>
-                                    <span class="text-muted">{{$notification->content}}</span>
+                                    <a href="{{ url(route(getProjectStatus($notification->project_status)) . '/' . $notification->project_status) }}" 
+                                       class="text-dark text-hover-primary mb-1 font-size-lg">{{$notification->title}}</a>
+                                    <span class="text-muted">{{$notification->content}} - {{getProjectStatus($notification->project_status)}}</span>
                                  </div>
                                  <!--end::Text-->
                              

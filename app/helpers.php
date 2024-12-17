@@ -186,3 +186,39 @@ if(!function_exists('roadmapStatus')){
         }
     }
 }
+
+if(!function_exists('getProjectStatus')){
+    function getProjectStatus($status)
+    {   
+        switch ($status) {
+            case 0:
+                return 'propose';
+                break;
+            
+            case 1:
+                // Action for in-progress status
+                return 'in-progress';
+                break;
+            
+            case 2:
+                // Action for completed status
+                return 'completed';
+                break;
+                
+            case -1:
+                return 'rejected';
+                break;
+            
+            case 4:
+                return 'archived';
+                break;
+            case 3:
+                return 'in-progress';
+                break;
+                
+            default:
+                return 'propose';
+        }
+        
+    }
+}
