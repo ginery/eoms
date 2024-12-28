@@ -89,5 +89,11 @@ class ProgramsController extends Controller
         ]);
         return $result;
     }
+
+    public function get($id){
+        $getItem = Programs::where('id',$id)->first();
+        return $getItem;
+    }
+
     
 }

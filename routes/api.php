@@ -69,5 +69,6 @@ Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function 
     Route::post('/view-requirements/{id}', [ProgramsController::class, 'get_info']);
     Route::post('/view-comments/{id}', [ProgramsController::class, 'get_comments']);
     Route::post('/add-comments', [ProgramsController::class, 'add_comments']);
+    Route::get('/get/{id}', [ProgramsController::class, 'get']);
 });
 

@@ -67,7 +67,7 @@ if(!function_exists('getDocumentStatus')){
         }else if($status == -1){
             return '<span class="label label-light-danger label-inline font-weight-bold">Rejected</span>';
         }else if($status == 1){
-            return '<span class="label label-light-warning label-inline font-weight-bold">In-progress</span>';
+            return '<span class="label label-light-warning label-inline font-weight-bold">REICO</span>';
         }else if($status == 2){
             return '<span class="label label-light-info label-inline font-weight-bold">Approved</span>';
         }else if($status == 3){

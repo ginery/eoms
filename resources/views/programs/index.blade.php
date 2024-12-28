@@ -100,7 +100,7 @@
         <!--end::Card-->
     </div>
     @include('modals.create-program')
-    @include('modals.update-users')
+    @include('modals.update-program')
     <script> 
         const quill = new Quill('#program_desc', {
             theme: 'snow'
@@ -153,15 +153,15 @@
         function editItem(id){
             $.ajax({
                type: "GET",
-               url: `api/users/get/${id}`,
+               url: `api/programs/get/${id}`,
                 success: function(response){
                     console.log("test", response);
                     $("#updateModal").modal('show');
-                    $("#user-id").val(response?.id)
-                    $("#user-first-name").val(response?.first_name)
-                    $("#user-last-name").val(response?.last_name)
-                    $("#user-email").val(response?.email)
-                    $("#user-phone-number").val(response?.phone_number)
+                    $("#program-id").val(response?.id)
+                    $("#program-name").val(response?.program_name)
+                    // $("#user-last-name").val(response?.last_name)
+                    // $("#user-email").val(response?.email)
+                    // $("#user-phone-number").val(response?.phone_number)
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText); // Log the error response for debugging

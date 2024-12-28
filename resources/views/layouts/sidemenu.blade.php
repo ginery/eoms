@@ -96,7 +96,7 @@
                         </g>
                     </svg><!--end::Svg Icon--></span>
                   </span>
-                  <span class="menu-text">In-progress</span>
+                  <span class="menu-text">REICO</span>
                </a>
             </li>
             <li class="<?= $currentPageName === "completed" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">

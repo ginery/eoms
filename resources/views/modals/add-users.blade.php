@@ -35,8 +35,7 @@
                             <select name="role" class="form-control" id="exampleSelect1">
                                 <option value="0">Faculty</option>
                                 <option value="2">Staff</option>
-                                <option value="1">Administrator</option>
-                                <option value="3">REICO</option>                      
+                                <option value="1">Administrator</option>                
                             </select>
                         </div>
                     

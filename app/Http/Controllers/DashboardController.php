@@ -14,7 +14,8 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index(): View{
-       
+        $user_id = Auth::user()->id;
+        $user_role = Auth::user()->role;
         // $rejected = Document::where('status', 3)->count();
         $users = User::where('role','!=','0')->count();
         $programs = Programs::count();
@@ -22,6 +23,7 @@ class DashboardController extends Controller
         $completed = Document::where('status', 2)->count();
         $inprogress = Document::where('status', 0)->count();
         $archived = Document::where('status', 5)->count();
+
         $projects = Roadmap::orderBy('created_at', 'desc')->get();
 
         $projects->transform(function ($project) {
