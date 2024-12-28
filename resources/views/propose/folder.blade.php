@@ -601,7 +601,7 @@
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();
              var data = $(this).serialize();
-             console.log("data serialize========",baseUrl+"api/documents/add-documents")
+            //  console.log("data serialize========",baseUrl+"api/documents/add-documents")
 
             $.ajax({
                type: "POST",

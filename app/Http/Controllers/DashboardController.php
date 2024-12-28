@@ -24,7 +24,12 @@ class DashboardController extends Controller
         $inprogress = Document::where('status', 0)->count();
         $archived = Document::where('status', 5)->count();
 
-        $projects = Roadmap::orderBy('created_at', 'desc')->get();
+        if($user_role != 1){
+            $projects = Roadmap::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+        }else{
+            $projects = Roadmap::orderBy('created_at', 'desc')->get();
+        }
+      
 
         $projects->transform(function ($project) {
             if ($project->created_at) {
