@@ -105,10 +105,18 @@
         const quill = new Quill('#program_desc', {
             theme: 'snow'
         });
+
+        const quill_1 = new Quill('#update_program_desc', {
+            theme: 'snow'
+        });
                 // --- for users
         $(document).ready(function(){
             // alert("test");
             $('#table-users').DataTable();
+            $("#update_users_involve").select2({
+                placeholder: "Select users",
+                allowClear: true
+            });
         });
         function handleAddModalClick(){
             $("#createProgram").modal('show');
@@ -125,7 +133,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "DELETE",
-                        url: `api/users/delete/${id}`,
+                        url: `api/programs/delete/${id}`,
                             success: function(response){
                                 console.log("test-----------", response);
                                 Swal.fire(
@@ -151,14 +159,21 @@
         }
 
         function editItem(id){
+            // const quillContent = quill_1.root.innerHTML;
+            // document.getElementById('update_program_desc_html').value = quillContent;
             $.ajax({
                type: "GET",
                url: `api/programs/get/${id}`,
                 success: function(response){
-                    console.log("test", response);
+                    
                     $("#updateModal").modal('show');
                     $("#program-id").val(response?.id)
                     $("#program-name").val(response?.program_name)
+                    const selectedUsers = JSON.parse(response?.users_involve || "[]"); // Example: [1, 3, 5]
+                    $("#update_users_involve").val(selectedUsers).trigger("change");
+
+                    quill_1.root.innerHTML = response?.program_desc || '';
+                    // console.log("test", response, selectedUsers);
                     // $("#user-last-name").val(response?.last_name)
                     // $("#user-email").val(response?.email)
                     // $("#user-phone-number").val(response?.phone_number)
@@ -225,11 +240,13 @@
 
          $('#update-user-form').submit(function(e){
              e.preventDefault();
+             const quillContent = quill_1.root.innerHTML;
+             document.getElementById('update_program_desc_html').value = quillContent;
              var data = $(this).serialize();
 
              $.ajax({
                type: "POST",
-               url: "api/users/update",
+               url: "api/programs/update",
                data: data,
                success: function(response){
                   console.log("test", response);

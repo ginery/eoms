@@ -11,25 +11,30 @@
                 <div class="modal-body">
                     
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            {{-- <div class="form-group col-md-12">
                                 <label>Program Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="program_name" placeholder="Program Name">
-                            </div>                            
+                            </div>                             --}}
+                            <div class="form-group col-md-12">
+                                <label for="exampleSelect1">Program Name <span class="text-danger">*</span></label>
+                                <select name="program_name" class="form-control" id="exampleSelect1">
+                                    <option value="CCS">CCS</option>
+                                    <option value="COE">COE</option>
+                                    <option value="CIT">CIT</option>      
+                                    <option value="COENG">COENG</option>           
+                                </select>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="col-sm-12">Users</label>
                                 <div class="col-md-12">
-                                    <select class="form-control select2" id="kt_select2_3" name="param" multiple="multiple" style="width: 100% !important;">
-                                        
-                                            
-                                     
+                                    <select class="form-control select2" id="kt_select2_3" name="users_involve[]" multiple="multiple" style="width: 100% !important;">
                                         <optgroup label="Faculty">
                                             @foreach($users as $user)
                                                 <option value="{{$user->id}}">{{getUserFullName($user->id)}}</option>
                                             @endforeach
                                         </optgroup>
-
                                     </select>
                                 </div>
                             </div>

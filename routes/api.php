@@ -23,11 +23,13 @@ use App\Http\Controllers\ProgramsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// dashboard
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/dashboard-status', [DashboardController::class, 'getDocumentStatus']);
     Route::post('/token', [DashboardController::class, 'update_token']);
     Route::post('/test', [DashboardController::class, 'test']);
 });
+// documents
 Route::group(['prefix' => 'documents',  'middleware' => 'auth:sanctum'], function () {
     Route::post('/add-documents', [DocumentController::class, 'create']);
     Route::get('/get-documents', [DocumentController::class, 'getDocument']);
@@ -41,7 +43,7 @@ Route::group(['prefix' => 'documents',  'middleware' => 'auth:sanctum'], functio
     Route::post('/update-status', [DocumentController::class, 'updateStatus']);
     //add another api route here. 
 });
-
+// users
 Route::group(['prefix' => 'users', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [UserController::class, 'create']);
     Route::post('/update', [UserController::class, 'update']);
@@ -50,25 +52,29 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:sanctum'], function () 
     Route::post('/update-profile', [UserController::class, 'update_profile']);
     //add another api route here. 
 });
+// messages
 Route::group(['prefix' => 'messages', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/send', [ChatController::class, 'sendMessage']);
     
 });
+
 Route::group(['prefix' => 'reports', 'middleware' => 'auth:sanctum'], function () {
     Route::get('/generate', [ReportsController::class, 'generate']);
     
 });
+
 Route::group(['prefix' => 'archived', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/update', [ArchivedController::class, 'update']);
     Route::post('/complete', [ArchivedController::class, 'complete']);
     
 });
-
+// programs
 Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/add', [ProgramsController::class, 'add']);
     Route::post('/view-requirements/{id}', [ProgramsController::class, 'get_info']);
     Route::post('/view-comments/{id}', [ProgramsController::class, 'get_comments']);
     Route::post('/add-comments', [ProgramsController::class, 'add_comments']);
     Route::get('/get/{id}', [ProgramsController::class, 'get']);
+    Route::post('/update', [ProgramsController::class, 'update']);
 });
 

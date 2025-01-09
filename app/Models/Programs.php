@@ -14,6 +14,7 @@ class Programs extends Model
         'program_name',
         'program_desc',
         'added_by',
+        'users_involve',
         'created_at'
 
     ];

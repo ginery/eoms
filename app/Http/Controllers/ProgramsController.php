@@ -32,6 +32,7 @@ class ProgramsController extends Controller
         $result = Programs::create([
             'program_name' => $request->program_name,
             'program_desc' => $request->program_desc_html,
+            'users_involve' => json_encode($request->users_involve), // select multiple
             'added_by' => $user_id
         ]);
         if($result){
@@ -93,6 +94,25 @@ class ProgramsController extends Controller
     public function get($id){
         $getItem = Programs::where('id',$id)->first();
         return $getItem;
+    }
+
+    public function delete($id) {      
+
+        $deleteItem = Programs::where('id', $id)->delete();
+        return $deleteItem;
+      
+    }
+
+    public function update(Request $request){
+        $data = [
+            'program_name' => $request->program_name,
+            'program_desc' => $request->update_program_desc_html,
+            'users_involve' => json_encode($request->users_involve), // select multiple
+        ];
+
+        $res = Programs::where('id', $request->id)->update($data);
+
+        return $res;
     }
 
     

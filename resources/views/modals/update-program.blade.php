@@ -10,14 +10,42 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" class="form-control" name="id" placeholder="id" id="program-id">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="first_name" placeholder="Program Name" id="program-name">
+                    <div class="form-group col-md-12">
+                        <label for="program-name">Program Name <span class="text-danger">*</span></label>
+                        <select name="program_name" class="form-control" id="program-name">
+                            <option value="CCS">CCS</option>
+                            <option value="COE">COE</option>
+                            <option value="CIT">CIT</option>      
+                            <option value="COENG">COENG</option>           
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-sm-12">Users</label>
+                            <div class="col-md-12">
+                                <select 
+                                    class="form-control select2" 
+                                    id="update_users_involve" 
+                                    name="users_involve[]" 
+                                    multiple="multiple" 
+                                    style="width: 100% !important;"
+                                >
+                                    <optgroup label="Faculty">
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{getUserFullName($user->id)}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
                         </div>
-                    
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Program Description <span class="text-danger">*</span></label>                       
+                        <div id="update_program_desc"></div>
+                        <input type="hidden" name="update_program_desc_html" id="update_program_desc_html">
+                    </div>  
                 </div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary font-weight-bold">Save</button>
