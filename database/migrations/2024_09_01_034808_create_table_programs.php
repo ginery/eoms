@@ -18,6 +18,7 @@ return new class extends Migration
                 $table->id();
                 $table->string('program_name');
                 $table->string('program_desc');
+                $table->longText('users_involve');
                 $table->integer('added_by');
                 $table->timestamps();
             });

@@ -109,7 +109,7 @@
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-comment"></i>
                                     </span>
-                                    <span class="navi-text">Comments</span>
+                                    <span class="navi-text">Messages</span>
                                 </a>
                             </li>
                             <li class="navi-item">
@@ -207,10 +207,10 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
+                                        <span class="symbol-label font-size-h5 font-weight-bold">${item.sender_name.substring(0, 1)}</span>
                                     </div>
                                     <div>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_name}</a>
                                         <span class="text-muted font-size-sm">10-13-2024</span>
                                     </div>
                                 </div>

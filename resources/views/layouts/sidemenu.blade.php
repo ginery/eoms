@@ -85,6 +85,20 @@
                   <span class="menu-text">Propose</span>
                </a>
             </li>
+            <li class="<?= $currentPageName === "review" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
+               <a href="{{route('in-progress')}}" class="menu-link menu-toggle">
+                  <span class="svg-icon menu-icon">
+                     <span class="svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Files\Group-folders.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                           <rect x="0" y="0" width="24" height="24"/>
+                           <path d="M2,13.1500272 L2,5.5 C2,4.67157288 2.67157288,4 3.5,4 L6.37867966,4 C6.77650439,4 7.15803526,4.15803526 7.43933983,4.43933983 L10,7 L20.5,7 C21.3284271,7 22,7.67157288 22,8.5 L22,19.5 C22,20.3284271 21.3284271,21 20.5,21 L10.9835977,21 C10.9944753,20.8347382 11,20.6680143 11,20.5 C11,16.3578644 7.64213562,13 3.5,13 C2.98630124,13 2.48466491,13.0516454 2,13.1500272 Z" fill="#000000"/>
+                           <path d="M4.5,16 C5.05228475,16 5.5,16.4477153 5.5,17 L5.5,19 C5.5,19.5522847 5.05228475,20 4.5,20 C3.94771525,20 3.5,19.5522847 3.5,19 L3.5,17 C3.5,16.4477153 3.94771525,16 4.5,16 Z M4.5,23 C3.94771525,23 3.5,22.5522847 3.5,22 C3.5,21.4477153 3.94771525,21 4.5,21 C5.05228475,21 5.5,21.4477153 5.5,22 C5.5,22.5522847 5.05228475,23 4.5,23 Z" fill="#000000" opacity="0.3"/>
+                       </g>
+                    </svg><!--end::Svg Icon--></span>
+                  </span>
+                  <span class="menu-text">Technical Review</span>
+               </a>
+            </li>
             <li class="<?= $currentPageName === "in-progress" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">
                <a href="{{route('in-progress')}}" class="menu-link menu-toggle">
                   <span class="svg-icon menu-icon">

@@ -109,7 +109,7 @@
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-comment"></i>
                                     </span>
-                                    <span class="navi-text">Comments</span>
+                                    <span class="navi-text">Messages</span>
                                 </a>
                             </li>
                             <!--end::Item-->
@@ -284,11 +284,11 @@
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
                                         <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>
+                                    </div><div>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">{{item.sender_id}}</a>
                                         <span class="text-muted font-size-sm">10-13-2024</span>
                                     </div>
+                                    
                                 </div>
                                 <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
                                     ${item.message_content}

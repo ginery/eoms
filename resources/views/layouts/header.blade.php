@@ -15,7 +15,7 @@
              <!--begin::Toggle-->
              <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
-                   <span class="svg-icon svg-icon-xl svg-icon-success">
+                   <span class="svg-icon svg-icon-xl svg-icon-success" onclick="handleSeenNotification()">
                         @if ($notificationCount > 0)
                         <span class="label label-rounded label-danger" style="position: absolute;right: 0; top: 0;">{{$notificationCount}}</span>
                         @endif
@@ -118,3 +118,22 @@
     <!--end::Container-->
  </div>
  <!--end::Header-->
+
+ <script>
+   function handleSeenNotification() {
+      console.log("pressed.")
+      //update seen
+      $.ajax({
+               type: "POST",
+               url: "api/notification/update",
+               data: { id: 0},
+               success: function(response){
+                  console.log("test", response);
+                 
+               }, 
+               error: function(error) {
+                  console.log("test", error);
+               }
+             })
+   }
+ </script>

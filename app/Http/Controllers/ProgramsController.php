@@ -71,8 +71,12 @@ class ProgramsController extends Controller
         $user_id = Auth::user()->id;
 
         $documents = Document::where('id', $id)->get()->first();
-        $messages = Messages::where('project_id', $id)->get();
         $documents['date_added'] = Carbon::parse($documents['date_added'])->format('m/d');
+        $messages = Messages::where('project_id', $id)->get()->map(function($message) {
+            // Add sender full name using a helper or model relationship
+            $message->sender_name = getUserFullName($message->sender_id); 
+            return $message;
+        });
 
 
         return [
