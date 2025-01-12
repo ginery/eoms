@@ -4,6 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Notifications; 
 
 
@@ -15,6 +16,8 @@ class ViewServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $user_id = Auth::user()->id;
                 $user_role = Auth::user()->role;
+                $notificationCount = new Collection(); // Default empty collection
+                $notificationData = new Collection(); // Default empty collection
                 
                 if($user_role != 1){
                     $notificationCount = Notifications::query()
@@ -36,7 +39,11 @@ class ViewServiceProvider extends ServiceProvider
             }else{
                 $notificationData = Notifications::query()->get(); 
             }
+            if (Auth::check()) {
             $count = $notificationCount->count();
+            } else {
+                $count = 0;
+            }
             $view->with([
                 'notificationData' => $notificationData,
                 'notificationCount' => $count,
