@@ -15,6 +15,7 @@ use App\Http\Controllers\InProgressController;
 use App\Http\Controllers\RejectedController;
 use App\Http\Controllers\CompletedController;
 use App\Http\Controllers\TechnicalReviewController;
+use App\Http\Controllers\ImplementationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +60,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/technical-review', [TechnicalReviewController::class, 'index'])->name('technical-review');
     Route::get('/technical-review/{id}', [TechnicalReviewController::class, 'program'])->name('technical-review.program');
+
+    Route::get('/implementation', [TechnicalReviewController::class, 'index'])->name('implementation');
+    Route::get('/implementation/{id}', [TechnicalReviewController::class, 'program'])->name('implementation.program');
 });
 
 

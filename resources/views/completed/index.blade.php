@@ -95,6 +95,61 @@
                     </div>
                     <!--end::Card-->
                 @endforeach
+
+                <div class="card card-custom mb-2" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                            <span class="card-icon">
+                                <i class="fa fa-folder text-info" style="font-size:30px;"></i>
+                            </span>
+                            <h3 class="card-label">
+                                Terminal Report
+                            </h3>
+                            <div>
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                            </div>
+                        </div>
+                        
+                       
+                        <!--end::Languages-->
+                    </div>
+                </div>
+                <div class="card card-custom mb-2" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                            <span class="card-icon">
+                                <i class="fa fa-folder text-info" style="font-size:30px;"></i>
+                            </span>
+                            <h3 class="card-label">
+                                Documentation
+                            </h3>
+                            <div>
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                            </div>
+                        </div>
+                        
+                       
+                        <!--end::Languages-->
+                    </div>
+                </div>
+                <div class="card card-custom mb-2" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                            <span class="card-icon">
+                                <i class="fa fa-folder text-info" style="font-size:30px;"></i>
+                            </span>
+                            <h3 class="card-label">
+                                Assessment
+                            </h3>
+                            <div>
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                            </div>
+                        </div>
+                        
+                       
+                        <!--end::Languages-->
+                    </div>
+                </div>
             </div>
     <!--end::Body-->
 
