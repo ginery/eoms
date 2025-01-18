@@ -43,8 +43,9 @@
          mermaid.initialize({ startOnLoad: true });
      </script>
       <script>
-          const apiKey = "{{env('FCM_API_KEY')}}";
-          const apiTokenKey = "{{env('FIREBASE_TOKEN_KEY')}}";
+         const appUrl = "{{ url('/') }}";
+         const apiKey = "{{env('FCM_API_KEY')}}";
+         const apiTokenKey = "{{env('FIREBASE_TOKEN_KEY')}}";
 
          const firebaseConfig = {
            apiKey: apiTokenKey,
@@ -71,7 +72,7 @@
 
                $.ajax({
                   type: "POST",                  
-                  url: `api/dashboard/token`,
+                  url: appUrl+`/api/dashboard/token`,
                   data: {
                      user_id: user_id,
                      notification_token: currentToken

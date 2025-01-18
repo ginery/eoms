@@ -33,36 +33,36 @@
             <!--end::Info-->
 
             <!--begin::Toolbar-->
-            <div class="d-flex align-items-center">
+            {{-- <div class="d-flex align-items-center">
                 <!--begin::Actions-->
                     <a href="#" onclick='handleCreateFolder()' class="btn btn-light-success font-weight-bolder btn-sm mr-3">
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         Project
                     </a>
-                    {{-- <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
+                    <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         File
-                    </a> --}}
+                    </a>
                 <!--end::Actions-->
-            </div>
+            </div> --}}
             <!--end::Toolbar-->
         </div>
     </div>
 <!--end::Subheader-->
 <div class="card-body p-0 position-relative mt-15">
     @foreach($documents as $document)
-        <!--begin::Card-->       
+        <!--begin::Card-->
+        @if ($document->document_type == null)
         <div class="card card-custom mb-2" style="cursor: pointer;" >
             <div class="card-header" >
-                {{-- handlefolder click -> open the project created path --}}
-                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->id}})">
+                <div class="card-title" style="width: 90%;" onclick="handleFolderClick({{$document->path}})">
                     <span class="card-icon">
                         <i class="fa fa-folder text-success" style="font-size:30px; "></i>
                     </span>
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
-                    <small>{{getUserFullName($document->user_id)}}</small>
+                    <small>{{getUserFullName($document->user_id)}} </small>
                     <div>
                         {!!getDocumentStatus($document->status)!!}
                     </div>
@@ -83,7 +83,7 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if(Auth::user()->role != 0 or Auth::user()->id === $document->user_id)
+                            @if (Auth::user()->role === 1)
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -112,24 +112,47 @@
                                     <span class="navi-text">Messages</span>
                                 </a>
                             </li>
+                            <!--end::Item-->
+                            <!--begin::Item-->
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDetails({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleModification({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-info-circle"></i>
+                                        <i class="fas fa-wrench"></i> <!-- Font Awesome edit icon -->
                                     </span>
-                                    <span class="navi-text">Details</span>
+                                    <span class="navi-text">For Revision</span>
                                 </a>
                             </li>
-                            @if(Auth::user()->role != 0)
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Accepted</span>
-                                </a>
-                            </li>
+                            @if ($document->status === 1)
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
+                                        <span class="symbol symbol-20 mr-3">
+                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                        </span>
+                                        <span class="navi-text">Approved</span>
+                                    </a>
+                                </li>
                             @endif
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-times"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Rejected</span>
+                                </a>
+                            </li>
+                            @if ($document->status === 2)
+                       
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link" onclick="handleCompleted({{$document->id}})">
+                                        <span class="symbol symbol-20 mr-3">
+                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                        </span>
+                                        <span class="navi-text">Completed</span>
+                                    </a>
+                                </li>
+                            @endif
+                            <!--end::Item-->
+
                         </ul>
                         <!--end::Nav-->
                     </div>
@@ -138,7 +161,50 @@
                 <!--end::Languages-->
             </div>
         </div>
+        @else
+        <div class="card card-custom mb-2" style="cursor: pointer;">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon"> 
+                        @if ($document->document_type === 'pdf')
+                        <i class="fas fa-file-pdf" class="text-success" style="font-size:30px; color:red !important"></i>
+                        @elseif ($document->document_type === 'docx')
+                        <i class="fas fa-file-word" style="font-size:30px; color:blue !important"></i>
+                        @elseif ($document->document_type === 'xlsx')
+                        <i class="fas fa-file-excel" style="font-size:30px; color:green !important"></i>
+                        @elseif ($document->document_type === 'jpg' || $document->document_type === 'png' || $document->document_type === 'gif' || $document->document_type === 'jpeg')
+                        <i class="fas fa-image" style="font-size:30px; color:grey !important"></i>
+                        @elseif ($document->document_type === 'pptx')
+                        <i class="fas fa-file-powerpoint" style="font-size:30px; color:rgb(255, 94, 0) !important"></i>
+                        @else
+                        <i class="fas fa-file-alt" style="font-size:30px; color:rgb(146, 9, 226) !important"></i>
+                        @endif                     
+                        
+                    </span>
+                    <h3 class="card-label">
+                        {{$document->document_name}}
+                    </h3>
+                    @if (Auth::user()->role === 1)
+                        <small>{{getUserFullName($document->user_id)}}</small>
+                    @endif
+                    {!!getDocumentStatus($document->status)!!}
+                </div>
+                
+                <!--begin::Languages-->
+                <div class="dropdown mt-4" >
+                    <!--begin::Toggle-->
+                    <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                        <div class="btn btn-icon btn-clean btn-dropdown btn-lg">
+                            <i class="fa fa-cog h-20px w-20px"></i>
+                        </div>
+                    </div>
+                    <!--end::Toggle-->
+                </div>
+                <!--end::Languages-->
+            </div>
+        </div>
 
+        @endif
         <!--end::Card-->
     @endforeach
 </div>
@@ -147,7 +213,6 @@
     @include('modals.view-file-document')
     @include('modals.update-folder-document')
     @include('modals.comments-modal')
-    @include('modals.project-details-modal')
     <script>
         $(document).ready(function(){
             FilePond.create(document.getElementById('filepond'));    
@@ -200,7 +265,7 @@
                             <div class="d-flex flex-column mb-5 align-items-end">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <span class="text-muted font-size-sm">${item.date_added}</span>
+                                        <span class="text-muted font-size-sm">10-13-2024</span>
                                         <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">
@@ -218,12 +283,12 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">${item.sender_name.substring(0, 1)}</span>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_name}</a>
+                                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
+                                    </div><div>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_id}</a>
                                         <span class="text-muted font-size-sm"></span>
                                     </div>
+                                    
                                 </div>
                                 <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
                                     ${item.message_content}
@@ -239,50 +304,6 @@
             $("#commentsModal").modal("show"); 
             getCommentsAndMessages(id);         
         }
-
-        function handleDetails(id){
-            $("#detailsModal").modal("show"); 
-            getProjectDetails(id)    
-        }
-        function getProjectDetails(id){
-            $.ajax({
-               type: "POST",
-               url: baseUrl + "/api/propose/details/"+id,
-               data: {
-                id: id
-               },
-               success: function(response){
-                $("#project-title").html(response?.program_name);
-                $("#details-content").html(`
-                        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
-                            <tbody>
-                                <tr>
-                                    <th style="text-align: left; width: 40%;">Project ID</th>
-                                    <td>${response?.id}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Project Name</th>
-                                    <td>${response?.program_name}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Start Date</th>
-                                    <td>${response?.formatted_date}</td>
-                                </tr>                               
-                                <tr>
-                                    <th style="text-align: left;">Status</th>
-                                    <td>${response?.status_text}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Description</th>
-                                    <td>${response?.description}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                `)
-                console.log("getProjectDetails", response);
-            }
-            });
-        }
         function handleSubmitComments(){
             var comment = $("#comments").val();
             var document_id = $("#project_id").val();
@@ -291,7 +312,7 @@
                url: baseUrl + "/api/programs/add-comments",
                data: {
                 document_id: document_id,
-                comment: comment
+                comment: comment ? comment: ''
                },
                success: function(response){
                 console.log("handleComments - 1", response);
@@ -320,125 +341,166 @@
                }
             });
         }
-        // function handleCompleteClick(id){
-        //     $.ajax({
-        //        type: "POST",
-        //        url: baseUrl+"/api/archived/complete",
-        //        data: {
-        //         id: id
-        //        },
-        //        success: function(response){
-        //           console.log("test", response);
-        //           if(response == 1){
-        //             Swal.fire({
-        //                 title: "Great!",
-        //                 text: "Completed",
-        //                 icon: "success",
-        //                 buttonsStyling: false,
-        //                 confirmButtonText: "OK",
-        //                 customClass: {
-        //                     confirmButton: "btn btn-primary"
-        //                 }
-        //             }).then(function(result) {
-        //                 if (result.value) {
-        //                     location.reload();
-        //                 }
-        //             });
+        function handleCompleteClick(id){
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/archived/complete",
+               data: {
+                id: id
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Completed",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
                                     
-        //           }else{
-        //             Swal.fire({
-        //                 title: "Aw snap!",
-        //                 text: "Something went wrong.",
-        //                 icon: "error",
-        //                 timer: 1500,
-        //                 onOpen: function() {
-        //                     Swal.showLoading()
-        //                 }
-        //             });
-        //           }
-        //        }
-        //     });
-        // }
-        // function handleArchivedClick(id) {
-        //     $.ajax({
-        //        type: "POST",
-        //        url: baseUrl+"/api/archived/update",
-        //        data: {
-        //         id: id
-        //        },
-        //        success: function(response){
-        //           console.log("test", response);
-        //           if(response == 1){
-        //             Swal.fire({
-        //                 title: "Great!",
-        //                 text: "Successfully archived.",
-        //                 icon: "success",
-        //                 buttonsStyling: false,
-        //                 confirmButtonText: "OK",
-        //                 customClass: {
-        //                     confirmButton: "btn btn-primary"
-        //                 }
-        //             }).then(function(result) {
-        //                 if (result.value) {
-        //                     location.reload();
-        //                 }
-        //             });
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+        function handleArchivedClick(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/archived/update",
+               data: {
+                id: id
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
                                     
-        //           }else{
-        //             Swal.fire({
-        //                 title: "Aw snap!",
-        //                 text: "Something went wrong.",
-        //                 icon: "error",
-        //                 timer: 1500,
-        //                 onOpen: function() {
-        //                     Swal.showLoading()
-        //                 }
-        //             });
-        //           }
-        //        }
-        //     });
-        // }
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
 
-        // function handleRejected(id) {
-        //     $.ajax({
-        //        type: "POST",
-        //        url: baseUrl+"/api/documents/update-status",
-        //        data: {
-        //         id: id,
-        //         status:-1
-        //        },
-        //        success: function(response){
-        //           console.log("test", response);
-        //           if(response == 1){
-        //             Swal.fire({
-        //                 title: "Great!",
-        //                 text: "Successfully archived.",
-        //                 icon: "success",
-        //                 buttonsStyling: false,
-        //                 confirmButtonText: "OK",
-        //                 customClass: {
-        //                     confirmButton: "btn btn-primary"
-        //                 }
-        //             }).then(function(result) {
-        //                 if (result.value) {
-        //                     location.reload();
-        //                 }
-        //             });
+        function handleRejected(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status:-1
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
                                     
-        //           }else{
-        //             Swal.fire({
-        //                 title: "Aw snap!",
-        //                 text: "Something went wrong.",
-        //                 icon: "error",
-        //                 timer: 1500,
-        //                 onOpen: function() {
-        //                     Swal.showLoading()
-        //                 }
-        //             });
-        //           }
-        //        }
-        //     });
-        // }
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+
+        function handleModification(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status: 0
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
 
         function handleAccepted(id) {
             $.ajax({
@@ -446,7 +508,88 @@
                url: baseUrl+"/api/documents/update-status",
                data: {
                 id: id,
-                status: 1
+                status: 2
+               },
+               success: function(response){
+                  console.log("test", response);
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully archived.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
+        // function handleRejected(id) {
+        //     $.ajax({
+        //        type: "POST",
+        //        url: baseUrl+"/api/documents/update-status",
+        //        data: {
+        //         id: id,
+        //         status: -1
+        //        },
+        //        success: function(response){
+        //           console.log("test", response);
+        //           if(response == 1){
+        //             Swal.fire({
+        //                 title: "Great!",
+        //                 text: "Successfully archived.",
+        //                 icon: "success",
+        //                 buttonsStyling: false,
+        //                 confirmButtonText: "OK",
+        //                 customClass: {
+        //                     confirmButton: "btn btn-primary"
+        //                 }
+        //             }).then(function(result) {
+        //                 if (result.value) {
+        //                     location.reload();
+        //                 }
+        //             });
+                                    
+        //           }else{
+        //             Swal.fire({
+        //                 title: "Aw snap!",
+        //                 text: "Something went wrong.",
+        //                 icon: "error",
+        //                 timer: 1500,
+        //                 onOpen: function() {
+        //                     Swal.showLoading()
+        //                 }
+        //             });
+        //           }
+        //        }
+        //     });
+        // }
+
+        function handleCompleted(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/documents/update-status",
+               data: {
+                id: id,
+                status: 4
                },
                success: function(response){
                   console.log("test", response);
@@ -656,7 +799,7 @@
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();
              var data = $(this).serialize();
-            //  console.log("data serialize========",baseUrl+"api/documents/add-documents")
+             console.log("data serialize========",baseUrl+"api/documents/add-documents")
 
             $.ajax({
                type: "POST",

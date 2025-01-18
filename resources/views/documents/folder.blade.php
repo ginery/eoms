@@ -167,18 +167,7 @@
                             </li> --}}
                             <!--end::Item-->
 
-                            @if(Auth::user()->role === 2 && Auth::user()->role === $document->user_id)
-                                <!--begin::Item-->
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                        </span>
-                                        <span class="navi-text">Delete</span>
-                                    </a>
-                                </li>
-                                <!--end::Item-->
-                            @elseif(Auth::user()->role === 1)
+                            @if(Auth::user()->role != 0 or Auth::user()->id === $document->user_id)
                                 <!--begin::Item-->
                                 <li class="navi-item">
                                     <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}},'{{$document->document_type}}','{{$document->document_name}}')">
@@ -190,6 +179,7 @@
                                 </li>
                                 <!--end::Item-->
                             @endif
+                            
 
                             <!--begin::Item-->
                             <li class="navi-item">

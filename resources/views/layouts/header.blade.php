@@ -16,9 +16,9 @@
              <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
                    <span class="svg-icon svg-icon-xl svg-icon-success" onclick="handleSeenNotification()">
-                        @if ($notificationCount > 0)
-                        <span class="label label-rounded label-danger" style="position: absolute;right: 0; top: 0;">{{$notificationCount}}</span>
-                        @endif
+                     
+                        <span class="label label-rounded label-danger" id="notif-counter" style="position: absolute;right: 0; top: 0; {{$notificationCount > 0 ? 'display: block;':'display: none;'}}">{{$notificationCount}}</span>
+                      
                        
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -121,18 +121,20 @@
 
  <script>
    function handleSeenNotification() {
-      console.log("pressed.")
+      var baseUrl = "{{ url('/') }}";
+      console.log("handleSeenNotification pressed.", baseUrl+"/api/notification/update")
       //update seen
       $.ajax({
                type: "POST",
-               url: "api/notification/update",
+               url: baseUrl+"/api/notification/update",
                data: { id: 0},
                success: function(response){
-                  console.log("test", response);
+                  console.log("handleSeenNotification", response);
+                  $("#notif-counter").hide();
                  
                }, 
                error: function(error) {
-                  console.log("test", error);
+                  console.log("handleSeenNotification", error.message);
                }
              })
    }

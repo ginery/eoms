@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('added_by');
             $table->string('project_status');
             $table->integer('is_seen')->default(0);
+            $table->integer('is_seen_admin')->default(0);
             $table->timestamps();
         });
     }

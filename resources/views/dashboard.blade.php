@@ -11,7 +11,9 @@
               <div class="container">                
                  <!--begin::Dashboard-->
                  <!--begin::Row-->
+                
                  <div class="row">
+                    @if(Auth::user()->role != 0)
                     <div class="col-lg-12">
                         <div class="row m-0">
                             <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
@@ -49,6 +51,7 @@
                             </div>                      
                         </div>
                     </div>
+                  
                     {{-- programs counter --}}
                     <div class="col-lg-12">
                         <div class="row m-0">
@@ -65,7 +68,7 @@
                                     <a href="{{route('programs')}}" class="text-info font-weight-bold font-size-h6">
                                         CCS
                                     </a>
-                                    <h1 class="text-info">{{$programs}}</h1>
+                                    <h1 class="text-info">{{$programs_css}}</h1>
                                 </div> 
                             </div>
                             <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
@@ -80,7 +83,7 @@
                                     <a href="{{route('users')}}" class="text-info font-weight-bold font-size-h6 mt-2">
                                         COE
                                     </a>
-                                    <h1 class="text-info">{{$users}}</h1>
+                                    <h1 class="text-info">{{$programs_coe}}</h1>
                                 </div>                                                      
                             </div>  
                             <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
@@ -95,7 +98,7 @@
                                     <a href="{{route('users')}}" class="text-info font-weight-bold font-size-h6 mt-2">
                                         CIT
                                     </a>
-                                    <h1 class="text-info">{{$users}}</h1>
+                                    <h1 class="text-info">{{$programs_cit}}</h1>
                                 </div>                                                      
                             </div>   
                             <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
@@ -110,11 +113,12 @@
                                     <a href="{{route('users')}}" class="text-info font-weight-bold font-size-h6 mt-2">
                                         COENG
                                     </a>
-                                    <h1 class="text-info">{{$users}}</h1>
+                                    <h1 class="text-info">{{$programs_coeng}}</h1>
                                 </div>                                                      
                             </div>                       
                         </div>
                     </div>
+                    @endif
                     <div id="bar-chart" class="col-lg-6" style="height: 300px"></div>
                     <div class="col-lg-6" style="height: 325px">
                        <!--begin::List Widget 9-->

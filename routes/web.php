@@ -14,6 +14,7 @@ use App\Http\Controllers\ProgramsController;
 use App\Http\Controllers\InProgressController;
 use App\Http\Controllers\RejectedController;
 use App\Http\Controllers\CompletedController;
+use App\Http\Controllers\TechnicalReviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/propose/{id}', [ProposeController::class, 'program'])->name('propose.program');
     Route::get('/completed/{id}', [CompletedController::class, 'program'])->name('completed.program');
     Route::get('/archived/{id}', [ArchivedController::class, 'program'])->name('archived.program');
+
+    Route::get('/technical-review', [TechnicalReviewController::class, 'index'])->name('technical-review');
+    Route::get('/technical-review/{id}', [TechnicalReviewController::class, 'program'])->name('technical-review.program');
 });
 
 

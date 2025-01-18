@@ -19,7 +19,7 @@ class ViewServiceProvider extends ServiceProvider
                 $notificationCount = new Collection(); // Default empty collection
                 $notificationData = new Collection(); // Default empty collection
                 
-                if($user_role != 1){
+                if($user_role === 0){
                     $notificationCount = Notifications::query()
                     ->where('user_id', $user_id)
                     ->where('is_seen', 0)

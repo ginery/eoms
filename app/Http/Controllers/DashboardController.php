@@ -24,6 +24,27 @@ class DashboardController extends Controller
         $inprogress = Document::where('status', 0)->count();
         $archived = Document::where('status', 5)->count();
 
+        $CCS = Document::join('programs', 'documents.doc_path', '=', 'programs.id')
+                ->select('documents.*', 'programs.*')
+                ->where('programs.program_name', 'CCS') // Select columns you need
+                ->count();
+
+        $COE = Document::join('programs', 'documents.doc_path', '=', 'programs.id')
+                ->select('documents.*', 'programs.*')
+                ->where('programs.program_name', 'COE') // Select columns you need
+                ->count();
+
+        $CIT = Document::join('programs', 'documents.doc_path', '=', 'programs.id')
+                ->select('documents.*', 'programs.*')
+                ->where('programs.program_name', 'CIT') // Select columns you need
+                ->count();
+
+        $COENG = Document::join('programs', 'documents.doc_path', '=', 'programs.id')
+                ->select('documents.*', 'programs.*')
+                ->where('programs.program_name', 'COENG') // Select columns you need
+                ->count();
+        
+
         if($user_role != 1){
             $projects = Roadmap::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
         }else{
@@ -47,7 +68,11 @@ class DashboardController extends Controller
             'archived' => $archived,
             'projects' => $projects,
             'programs' => $programs,
-            'users'    => $users
+            'users'    => $users,
+            'programs_css' => $CCS,
+            'programs_coe' => $COE,
+            'programs_cit' => $CIT,
+            'programs_coeng' => $COENG
         ]);
     }
 

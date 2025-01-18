@@ -10,6 +10,7 @@ use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProgramsController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProposeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -82,4 +83,9 @@ Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function 
 // notification
 Route::group(['prefix' => 'notification', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/update', [NotificationController::class, 'update']);
+});
+
+// propose
+Route::group(['prefix' => 'propose', 'middleware' => 'auth:sanctum'], function () {
+    Route::post('/details/{id}', [ProposeController::class, 'view_details']);
 });

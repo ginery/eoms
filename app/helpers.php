@@ -224,3 +224,12 @@ if(!function_exists('getProjectStatus')){
         
     }
 }
+
+if (!function_exists('getProjectName')) {
+    function getProjectName($id)
+    {   
+        $document = Document::where('id', $id)->first();        
+        return $document ? $document->document_name : 'N/A';
+    }
+}
+
