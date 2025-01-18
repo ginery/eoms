@@ -16,8 +16,9 @@
                                 <input type="text" class="form-control" name="program_name" placeholder="Program Name">
                             </div>                             --}}
                             <div class="form-group col-md-12">
-                                <label for="exampleSelect1">Program Name <span class="text-danger">*</span></label>
-                                <select name="program_name" class="form-control" id="exampleSelect1">
+                                <label for="program-select">Program Name <span class="text-danger">*</span></label>
+                                <select name="program_name" class="form-control" id="program-select">
+                                    <option value="">--Select Program--</option>
                                     <option value="CCS">CCS</option>
                                     <option value="COE">COE</option>
                                     <option value="CIT">CIT</option>      
@@ -30,11 +31,7 @@
                                 <label class="col-sm-12">Users</label>
                                 <div class="col-md-12">
                                     <select class="form-control select2" id="kt_select2_3" name="users_involve[]" multiple="multiple" style="width: 100% !important;">
-                                        <optgroup label="Faculty">
-                                            @foreach($users as $user)
-                                                <option value="{{$user->id}}">{{getUserFullName($user->id)}}</option>
-                                            @endforeach
-                                        </optgroup>
+                                        
                                     </select>
                                 </div>
                             </div>

@@ -35,7 +35,16 @@
                             <select name="role" class="form-control" id="exampleSelect1">
                                 <option value="0">Faculty</option>
                                 <option value="2">Staff</option>
-                                <option value="1">Administrator</option>                
+                                {{-- <option value="1">Administrator</option>                 --}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleSelect1">Assign Program<span class="text-danger">*</span></label>
+                            <select name="program_assigned" class="form-control" id="exampleSelect1">
+                                <option value="CCS">CCS</option>
+                                    <option value="COE">COE</option>
+                                    <option value="CIT">CIT</option>      
+                                    <option value="COENG">COENG</option>                
                             </select>
                         </div>
                     

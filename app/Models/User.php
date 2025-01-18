@@ -24,7 +24,8 @@ class User extends Authenticatable
         'phone_number',
         'password',
         'role',
-        'notification_token'
+        'notification_token',
+        'program_assigned'
     ];
 
     /**

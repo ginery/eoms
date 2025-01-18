@@ -203,9 +203,6 @@
                                         <span class="text-muted font-size-sm">${item.date_added}</span>
                                         <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
-                                    <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">test</span>
-                                    </div>
                                 </div>
                                 <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
                                     ${item.message_content}

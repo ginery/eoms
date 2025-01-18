@@ -29,6 +29,13 @@ class ProgramsController extends Controller
    
     public function add(Request $request) {
         $user_id = Auth::user()->id;
+
+        $existingProgramName = Programs::where('program_name', $request->program_name)->first();
+    
+        if ($existingProgramName) {
+            echo 2;
+            return;
+        }
         $result = Programs::create([
             'program_name' => $request->program_name,
             'program_desc' => $request->program_desc_html,
@@ -46,6 +53,12 @@ class ProgramsController extends Controller
     public function create(Request $request){
         // $user = User::all();
         // return $user;
+        $existingDocument = Document::where('document_name', $request->document_name)->first();
+    
+        if ($existingDocument) {
+            echo 2;
+            return;
+        }
 
         $res = Document::create([
             'document_name' => $request->document_name,
@@ -66,6 +79,11 @@ class ProgramsController extends Controller
         $programs = Programs::where('id', $id)->get()->first();
         return $programs;
     }  
+    public function get_user($id) {
+
+        $user = User::where('program_assigned', $id)->get();
+        return $user;
+    } 
     
     public function get_comments($id) {
         $user_id = Auth::user()->id;

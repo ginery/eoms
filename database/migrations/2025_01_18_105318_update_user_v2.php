@@ -50,8 +50,11 @@ return new class extends Migration
                 if (!Schema::hasColumn('users', 'notification_token')) {
                     $table->string('notification_token');
                 }
-                if (!Schema::hasColumn('users', 'created_at')) {
+                if (!Schema::hasColumn('users', 'program_assigned')) {
                     $table->timestamp('created_at')->nullable();
+                }
+                if (!Schema::hasColumn('users', 'created_at')) {
+                    $table->text('program_assigned');
                 }
                 if (!Schema::hasColumn('users', 'updated_at')) {
                     $table->timestamp('updated_at')->nullable();
@@ -67,8 +70,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

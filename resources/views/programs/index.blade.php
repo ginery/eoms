@@ -125,7 +125,7 @@
         function deleteItem(id){
             Swal.fire({
                 title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                text: "You won't be able to revert this!"+id,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Yes, delete it!"
@@ -133,7 +133,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "DELETE",
-                        url: `api/programs/delete/${id}`,
+                        url: `/api/programs/delete/${id}`,
                             success: function(response){
                                 console.log("test-----------", response);
                                 Swal.fire(
@@ -190,6 +190,35 @@
              })
         }
 
+        $('#program-select').change(function () {
+            var selectedProgram = $(this).val();
+            
+            $.ajax({
+               type: "GET",
+               url: "api/programs/get_users/"+selectedProgram,
+               success: function(response){
+                $('#kt_select2_3').empty();
+                console.log("selectedProgram", response);
+                if (response && response.length > 0) {
+                    // Populate Users dropdown with the fetched data
+                    response.forEach(function (user) {
+                        var fullName = `${user.first_name} ${user.last_name}`;
+                        var newOption = new Option(fullName, user.id, false, false);
+                        $('#kt_select2_3').append(newOption);
+                    });
+
+                    // Refresh Select2 to show the new options
+                    $('#kt_select2_3').trigger('change');
+                } else {
+                    // If no users are found, add a placeholder option
+                    var noUserOption = new Option("No users available", "", false, false);
+                    $('#kt_select2_3').append(noUserOption);
+                }
+               }
+            });
+        })
+
+
 
         $('#add-user-form').submit(function(e){
              e.preventDefault();
@@ -203,7 +232,7 @@
                url: "api/programs/add",
                data: data,
                success: function(response){
-                  if(response == 1){
+                  if(response === '1'){
                    
                     Swal.fire({
                         title: "Great!",
@@ -223,6 +252,16 @@
                    
                     //  getUserData();  
                     //  $("#addModal").modal('hide');                  
+                  }else if(response === '2') {
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Program already exist.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
                   }else{
                     Swal.fire({
                         title: "Aw snap!",

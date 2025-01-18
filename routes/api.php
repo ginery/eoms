@@ -77,7 +77,9 @@ Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function 
     Route::post('/view-comments/{id}', [ProgramsController::class, 'get_comments']);
     Route::post('/add-comments', [ProgramsController::class, 'add_comments']);
     Route::get('/get/{id}', [ProgramsController::class, 'get']);
+    Route::delete('/delete/{id}', [ProgramsController::class, 'delete']);
     Route::post('/update', [ProgramsController::class, 'update']);
+    Route::get('/get_users/{id}', [ProgramsController::class, 'get_user']);
 });
 
 // notification

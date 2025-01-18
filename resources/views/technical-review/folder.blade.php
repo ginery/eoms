@@ -258,18 +258,14 @@
                 const user_id = `{{ Auth::user()->id }}`; // Ensure this is rendered correctly
 
                 const messages_array = response.messages.map((item) => {                 
-                    
                     if (Number(user_id) === Number(item.sender_id)) {
                         // Message by the current user
                         $("#comment-content").append(`
                             <div class="d-flex flex-column mb-5 align-items-end">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <span class="text-muted font-size-sm">10-13-2024</span>
+                                        <span class="text-muted font-size-sm">${item.date_added}</span>
                                         <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
-                                    </div>
-                                    <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">test</span>
                                     </div>
                                 </div>
                                 <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
@@ -283,12 +279,12 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name, 0, 1) }}</span>
-                                    </div><div>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_id}</a>
+                                        <span class="symbol-label font-size-h5 font-weight-bold">${item.sender_name.substring(0, 1)}</span>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_name}</a>
                                         <span class="text-muted font-size-sm"></span>
                                     </div>
-                                    
                                 </div>
                                 <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
                                     ${item.message_content}
