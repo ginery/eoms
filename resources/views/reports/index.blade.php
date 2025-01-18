@@ -23,9 +23,49 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="input-group date">
+
+                    <select class="form-control users-report select2" id="kt_select2_3" name="users"  style="width: 100% !important;">
+                        <optgroup label="users">
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                            @endforeach
+                        </optgroup>
+                    </select>          
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group date">
+
+                    <select class="form-control programs-report select2" id="kt_select2_2" name="programs" style="width: 100% !important;">
+                        <optgroup label="programs">
+                            @foreach($programs as $program)
+                                <option value="{{$program->id}}">{{$program->program_name}}</option>
+                            @endforeach
+                        </optgroup>
+                    </select>          
+                </div>
+            </div>
+            <div class="col-md-3 mt-3">
+                <div class="input-group date">
+
+                    <select class="form-control status-report select2" id="kt_select2_1" name="status" style="width: 100% !important;">
+                        <optgroup label="status">
+                            <option value="0">Pending</option>
+                            <option value="1">Technical Review</option>
+                            <option value="2">REICO</option>
+                            <option value="3">Implementation</option>
+                            <option value="4">Completed</option>
+                            <option value="-1">Rejected</option>
+                            <option value="5">Archived</option>
+                        </optgroup>
+                    </select>          
+                </div>
+            </div>
             <input type="hidden" value="{{Auth::id()}}" id="user_id"/>
             <input type="hidden" value="{{Auth::user()->role}}" id="role_id"/>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
                 <button type="button" onclick="generateReport()" class="btn btn-success font-weight-bold">Generate</button>
             </div>          
         </div>
@@ -61,9 +101,12 @@
         function generateReport(id){
             var start_date =  $('.start_date').val();
             var end_date = $('.end_date').val();
-            var user_id = $("#user_id").val();
+            var user_id = $(".users-report").val();
+            // var user_id = $("#user_id").val() ? $("#user_id").val():users;
             var role_id = $("#role_id").val();
-            console.log(start_date);
+          
+            console.log("generateReport", user_id);
+            // return;
             $("#table-reports").DataTable().destroy();
             $("#table-reports").DataTable({
                 dom: 'Bfrtip',
@@ -90,7 +133,7 @@
                     { data: 'document_type' },
                     { data: 'document_size' },
                     { data: 'description' },
-                    { data: 'user_id' },
+                    { data: 'user_name' },
                     { data: 'status' },
                     { data: 'date_added' }
                 ],   

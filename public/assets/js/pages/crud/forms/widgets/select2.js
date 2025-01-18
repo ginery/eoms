@@ -23,6 +23,10 @@ var KTSelect2 = function() {
             allowClear: true
         });
 
+        $('#kt_select2_5').select2({
+            placeholder: 'Select a state',
+        });
+
         // loading data from array
         var data = [{
             id: 0,
