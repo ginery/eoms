@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Breadcrumbs;
-
+// this is REICO
 class InProgressController extends Controller
 {
     public function index() : View {
@@ -30,7 +30,7 @@ class InProgressController extends Controller
         $breadcrumbs = Breadcrumbs::generate();
         //status 0 proposed
         $documents = Document::where('path', $id)->where(function($query) {
-            $query->where('status', 1)
+            $query->where('status', 2)
                   ->orWhere('status', 2);
         })->get();
         
@@ -40,7 +40,7 @@ class InProgressController extends Controller
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
         $documents = Document::where('doc_path', $id)->where(function($query) {
-            $query->where('status', 1)
+            $query->where('status', 2)
                   ->orWhere('status', 2);
         })->get();
         

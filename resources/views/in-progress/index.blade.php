@@ -13,7 +13,7 @@
                         <div class="d-flex align-items-baseline flex-wrap mr-5">
                             <!--begin::Page Title-->
                             <h5 class="text-dark font-weight-bold my-1 mr-5">
-                                In Progress
+                                REICO
                             </h5>
                             <!--end::Page Title-->
                         </div>
@@ -48,7 +48,7 @@
                                     {{$program->program_name}} 
                                 </h3>
                                 <div>
-                                    <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject($program->id, 1) + getTotalProject($program->id, 2) + getTotalProject($program->id, 3)}}</span>                                   
+                                    <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject($program->id, 2)}}</span>                                   
                                 </div>
                                 {{-- @if (Auth::user()->role != 0)
                                     <small>{{getUserFullName($document->user_id)}}</small>
