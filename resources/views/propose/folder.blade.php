@@ -265,7 +265,7 @@
                                     <td>${response?.program_name}</td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: left;">Start Date</th>
+                                    <th style="text-align: left;">Date</th>
                                     <td>${response?.formatted_date}</td>
                                 </tr>                               
                                 <tr>
@@ -664,7 +664,8 @@
                data: data,
                success: function(response){
                   console.log("test", response);
-                  if(response == 1){
+                //   return;
+                  if(response === '1'){
                     $("#createFolderModal").modal('hide');
                     Swal.fire({
                         title: "Great!",
@@ -681,6 +682,16 @@
                         }
                     });
                                     
+                  }else if(response === '2') {
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Name Already exist!",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
                   }else{
                     Swal.fire({
                         title: "Aw snap!",

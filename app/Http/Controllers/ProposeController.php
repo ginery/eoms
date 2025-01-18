@@ -40,18 +40,33 @@ class ProposeController extends Controller
         return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
     }
     public function create(Request $request){
-        $res = Document::create([
-            'document_name' => $request->document_name,
-            'description' => $request->description,
-            'status' => 0,
-            'user_id' => $request->user_id,
-            'doc_path' => $request->folder_id
-        ]);
-        if($res){
-            echo 1;
-        }else{
-            echo 0;
-        }
+
+        
+            $existingDocument = Document::where('document_name', $request->document_name)->first();
+    
+            if ($existingDocument) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Document name already exists'
+                ], 422);
+            }
+            // Create the document if validation passes
+            $res = Document::create([
+                'document_name' => $request->document_name,
+                'description' => $request->description,
+                'status' => 0,
+                'user_id' => $request->user_id,
+                'doc_path' => $request->folder_id
+            ]);
+    
+            // Check if document was created successfully
+            if ($res) {
+                echo 1; // Success
+            } else {
+                echo 0; // Failure
+            }
+    
+         
 
     }
     public function view_details($id){

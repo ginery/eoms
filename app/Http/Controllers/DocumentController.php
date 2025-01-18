@@ -62,6 +62,13 @@ class DocumentController extends Controller
         // $user = User::all();
         // return $user;
 
+        $existingDocument = Document::where('document_name', $request->document_name)->first();
+    
+        if ($existingDocument) {
+            echo 2;
+            return;
+        }
+
         $res = Document::create([
             'document_name' => $request->document_name,
             'description' => $request->description,
