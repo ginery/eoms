@@ -10,7 +10,9 @@
                 </div>
                 <div class="modal-body">
                     <div id="html-content-programs">
-                    </div>               
+                    </div>
+                    <div id="users-tagged">
+                    </div>           
                 </div>               
             </div>
         </form>

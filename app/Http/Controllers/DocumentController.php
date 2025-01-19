@@ -227,7 +227,8 @@ class DocumentController extends Controller
             "user_id" => $user_id,
             "added_by" => $user_id,
             "project_status" => $request->status,
-            "created_at" => Carbon::now()
+            "project_id" => $document->doc_path,
+            "created_at" => Carbon::now(),
            
         ];
         insertRoadMap($road_map);

@@ -16,6 +16,7 @@ class Notifications extends Model
         'added_by',
         'created_at',
         'project_status',
+        'program_id',
         'is_seen',
         'is_seen_admin'
     ];
