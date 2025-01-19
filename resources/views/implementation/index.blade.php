@@ -111,7 +111,7 @@
     <!-- jQuery Script -->
     <script>
         function handleFolderClick(id) {            
-            location.href = "/technical-review/"+id;
+            location.href = "/implementation/"+id;
         }
 
         function handleCreateFolder(){

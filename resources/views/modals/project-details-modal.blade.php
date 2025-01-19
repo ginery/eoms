@@ -3,7 +3,7 @@
         <form id="update-user-form">
             <div class="modal-content">           
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Project Details - <span id="project-title">Project Name</span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Project </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>

@@ -67,29 +67,9 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role === 1)
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                    </span>
-                                    <span class="navi-text">Delete </span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-                            @endif
                            
-                            <!--begin::Item-->
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Edit</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleArchivedClick({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 5)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
                                     </span>

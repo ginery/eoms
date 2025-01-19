@@ -15,13 +15,16 @@ class ProposeController extends Controller
 {
     public function index() : View {
         $role = Auth::user()->role;
-        if($role === 1 || $role === 2){
-         $document = Document::where('path', 0)->get();
+        $user_id = (string)Auth::user()->id;
+        if($role != 0){
+            $programs = Programs::all();
+            $document = Document::where('path', 0)->get();
          } else {
-             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
+            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])->get();
+            $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
          }
-         $programs = Programs::all();
-        return view('propose.index', ['documents' => $document, 'programs' => $programs]);
+       
+        return view('propose.index', ['documents' => $document, 'programs' => $programs, 'user_id' => $user_id]);
     }
     public function project($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
@@ -69,14 +72,15 @@ class ProposeController extends Controller
          
 
     }
-    public function view_details($id){
-        $documents = Document::where('id', $id)->where('status', 0)->first();
+    public function view_details(Request $request){
+        $documents = Document::where('id', $request->id)->where('status', $request->status)->first();
 
         if ($documents) {
             // Mutate or transform the data
             $documents->program_name = getProjectName($documents->id); // Add a formatted date
             $documents->formatted_date = $documents->created_at->format('d-m-Y');
             $documents->status_text = getDocumentStatus($documents->status);
+            $documents->user_name = getUserFullName($documents->user_id);
         }
 
         return $documents;

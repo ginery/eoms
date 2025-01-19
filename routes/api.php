@@ -89,5 +89,5 @@ Route::group(['prefix' => 'notification', 'middleware' => 'auth:sanctum'], funct
 
 // propose
 Route::group(['prefix' => 'propose', 'middleware' => 'auth:sanctum'], function () {
-    Route::post('/details/{id}', [ProposeController::class, 'view_details']);
+    Route::post('/details', [ProposeController::class, 'view_details']);
 });

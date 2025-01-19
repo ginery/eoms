@@ -83,27 +83,7 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role === 1)
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                    </span>
-                                    <span class="navi-text">Delete</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-                            @endif
                            
-                            <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Edit</span>
-                                </a>
-                            </li>
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleComments({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -112,47 +92,32 @@
                                     <span class="navi-text">Messages</span>
                                 </a>
                             </li>
-                            <!--end::Item-->
-                            <!--begin::Item-->
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleModification({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', 1)">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-info-circle"></i>
+                                    </span>
+                                    <span class="navi-text">Details</span>
+                                </a>
+                            </li>
+                            @if(Auth::user()->role != 0)
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 2)">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Accepted</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 0)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-wrench"></i> <!-- Font Awesome edit icon -->
                                     </span>
                                     <span class="navi-text">For Revision</span>
                                 </a>
                             </li>
-                            @if ($document->status === 1)
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Approved</span>
-                                    </a>
-                                </li>
                             @endif
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-times"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Rejected</span>
-                                </a>
-                            </li>
-                            @if ($document->status === 2)
-                       
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleCompleted({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Completed</span>
-                                    </a>
-                                </li>
-                            @endif
-                            <!--end::Item-->
-
                         </ul>
                         <!--end::Nav-->
                     </div>
@@ -212,7 +177,6 @@
     @include('modals.add-document')
     @include('modals.view-file-document')
     @include('modals.update-folder-document')
-    @include('modals.comments-modal')
     <script>
         $(document).ready(function(){
             FilePond.create(document.getElementById('filepond'));    
@@ -241,384 +205,8 @@
                 });
             });
         });
-        function getCommentsAndMessages(id){
-            $("#comment-content").html('');
-            $.ajax({
-               type: "POST",
-               url: baseUrl + "/api/programs/view-comments/"+id,
-               data: {
-                id: id
-               },
-               success: function(response){
-              
-                console.log("handleComments", response);
-                $("#project_id").val(response.documents.id)
-                $("#program_name").html(response.documents.document_name);
-                $("#program_date").html(response.documents.date_added);
-                const user_id = `{{ Auth::user()->id }}`; // Ensure this is rendered correctly
-
-                const messages_array = response.messages.map((item) => {                 
-                    if (Number(user_id) === Number(item.sender_id)) {
-                        // Message by the current user
-                        $("#comment-content").append(`
-                            <div class="d-flex flex-column mb-5 align-items-end">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <span class="text-muted font-size-sm">${item.date_added}</span>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
-                                    </div>
-                                </div>
-                                <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
-                                    ${item.message_content}
-                                </div>
-                            </div>
-                        `);
-                    } else {
-                        // Message by someone else
-                        $("#comment-content").append(`
-                            <div class="d-flex flex-column mb-5 align-items-start">
-                                <div class="d-flex align-items-center">
-                                    <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <span class="symbol-label font-size-h5 font-weight-bold">${item.sender_name.substring(0, 1)}</span>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_name}</a>
-                                        <span class="text-muted font-size-sm"></span>
-                                    </div>
-                                </div>
-                                <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
-                                    ${item.message_content}
-                                </div>
-                            </div>
-                        `);
-                    }
-                });
-            }
-            });
-        }
-        function handleComments(id){
-            $("#commentsModal").modal("show"); 
-            getCommentsAndMessages(id);         
-        }
-        function handleSubmitComments(){
-            var comment = $("#comments").val();
-            var document_id = $("#project_id").val();
-            $.ajax({
-               type: "POST",
-               url: baseUrl + "/api/programs/add-comments",
-               data: {
-                document_id: document_id,
-                comment: comment ? comment: ''
-               },
-               success: function(response){
-                console.log("handleComments - 1", response);
-                $("#comment-content").append(`
-                <div class="d-flex flex-column mb-5 align-items-end">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <span class="text-muted font-size-sm">10-13-2024</span>
-                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
-                        </div>
-                        <div class="symbol symbol-circle symbol-40 ml-3">
-                            <span class="symbol-label font-size-h5 font-weight-bold">test</span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">${response.message_content}
-                    </div>
-                </div>
-                `);
-
-                var commentContent = document.getElementById("comment-content");
-                commentContent.scrollTop = commentContent.scrollHeight;
-
-                var comment = $("#comments").val('');
-
-               }
-            });
-        }
-        function handleCompleteClick(id){
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/archived/complete",
-               data: {
-                id: id
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Completed",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-        function handleArchivedClick(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/archived/update",
-               data: {
-                id: id
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-
-        function handleRejected(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status:-1
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-
-        function handleModification(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status: 0
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-
-        function handleAccepted(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status: 2
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
-        // function handleRejected(id) {
-        //     $.ajax({
-        //        type: "POST",
-        //        url: baseUrl+"/api/documents/update-status",
-        //        data: {
-        //         id: id,
-        //         status: -1
-        //        },
-        //        success: function(response){
-        //           console.log("test", response);
-        //           if(response == 1){
-        //             Swal.fire({
-        //                 title: "Great!",
-        //                 text: "Successfully archived.",
-        //                 icon: "success",
-        //                 buttonsStyling: false,
-        //                 confirmButtonText: "OK",
-        //                 customClass: {
-        //                     confirmButton: "btn btn-primary"
-        //                 }
-        //             }).then(function(result) {
-        //                 if (result.value) {
-        //                     location.reload();
-        //                 }
-        //             });
-                                    
-        //           }else{
-        //             Swal.fire({
-        //                 title: "Aw snap!",
-        //                 text: "Something went wrong.",
-        //                 icon: "error",
-        //                 timer: 1500,
-        //                 onOpen: function() {
-        //                     Swal.showLoading()
-        //                 }
-        //             });
-        //           }
-        //        }
-        //     });
-        // }
-
-        function handleCompleted(id) {
-            $.ajax({
-               type: "POST",
-               url: baseUrl+"/api/documents/update-status",
-               data: {
-                id: id,
-                status: 4
-               },
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully archived.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-            });
-        }
+        
+      
 
         function handleEditFolder(id){
             $.ajax({

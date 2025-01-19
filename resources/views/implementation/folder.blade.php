@@ -83,27 +83,7 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                            @if (Auth::user()->role === 1)
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
-                                    </span>
-                                    <span class="navi-text">Delete</span>
-                                </a>
-                            </li>
-                            <!--end::Item-->
-                            @endif
                            
-                            <!--begin::Item-->
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleEditFolder({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Edit</span>
-                                </a>
-                            </li>
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleComments({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
@@ -112,47 +92,32 @@
                                     <span class="navi-text">Messages</span>
                                 </a>
                             </li>
-                            <!--end::Item-->
-                            <!--begin::Item-->
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleModification({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', 3)">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-info-circle"></i>
+                                    </span>
+                                    <span class="navi-text">Details</span>
+                                </a>
+                            </li>
+                            @if(Auth::user()->role != 0)
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 4)">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Complete</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 3)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-wrench"></i> <!-- Font Awesome edit icon -->
                                     </span>
                                     <span class="navi-text">For Revision</span>
                                 </a>
                             </li>
-                            @if ($document->status === 1)
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleAccepted({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Approved</span>
-                                    </a>
-                                </li>
                             @endif
-                            <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleRejected({{$document->id}})">
-                                    <span class="symbol symbol-20 mr-3">
-                                        <i class="fas fa-times"></i> <!-- Font Awesome edit icon -->
-                                    </span>
-                                    <span class="navi-text">Rejected</span>
-                                </a>
-                            </li>
-                            @if ($document->status === 2)
-                       
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link" onclick="handleCompleted({{$document->id}})">
-                                        <span class="symbol symbol-20 mr-3">
-                                            <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
-                                        </span>
-                                        <span class="navi-text">Completed</span>
-                                    </a>
-                                </li>
-                            @endif
-                            <!--end::Item-->
-
                         </ul>
                         <!--end::Nav-->
                     </div>

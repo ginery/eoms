@@ -61,8 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/technical-review', [TechnicalReviewController::class, 'index'])->name('technical-review');
     Route::get('/technical-review/{id}', [TechnicalReviewController::class, 'program'])->name('technical-review.program');
 
-    Route::get('/implementation', [TechnicalReviewController::class, 'index'])->name('implementation');
-    Route::get('/implementation/{id}', [TechnicalReviewController::class, 'program'])->name('implementation.program');
+    Route::get('/implementation', [ImplementationController::class, 'index'])->name('implementation');
+    Route::get('/implementation/{id}', [ImplementationController::class, 'program'])->name('implementation.program');
 });
 
 

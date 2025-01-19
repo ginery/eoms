@@ -69,27 +69,14 @@
                                 <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
                                     <!--begin::Nav-->
                                     <ul class="navi navi-hover py-4">
-                                        <!--begin::Item-->
                                         <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleDeleteFolder({{$program->id}})">
+                                            <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
+                                                    <i class="fas fa-tasks"></i> <!-- Font Awesome edit icon -->
                                                 </span>
-                                                <span class="navi-text">Delete</span>
+                                                <span class="navi-text">Requirements</span>
                                             </a>
                                         </li>
-                                        <!--end::Item-->
-
-                                        <!--begin::Item-->
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleEditFolder({{$program->id}})">
-                                                <span class="symbol symbol-20 mr-3">
-                                                    <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                                </span>
-                                                <span class="navi-text">Edit</span>
-                                            </a>
-                                        </li>
-                                        <!--end::Item-->
 
                                     </ul>
                                     <!--end::Nav-->
@@ -113,165 +100,6 @@
         function handleFolderClick(id) {            
             location.href = "/in-progress/"+id;
         }
-
-        function handleCreateFolder(){
-            $("#createFolderModal").modal('show');
-        }
-
-        function handleDeleteFolder(id){
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!"
-            }).then(function(result) {
-                if (result.value) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: `api/documents/delete-documents`,
-                        data:{id:id},
-                            success: function(response){
-                                console.log("test-----------", response);
-                                Swal.fire(
-                                    "Deleted!",
-                                    "Your file has been deleted.",
-                                    "success"
-                                )
-                                location.reload();
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(xhr.responseText); // Log the error response for debugging
-                                Swal.fire(
-                                    "Error!",
-                                    "An error occurred while deleting the item.",
-                                    "error"
-                                );
-                                // Optionally, you can provide more specific error messages to the user based on the error status.
-                            }
-                    })
-                  
-                }
-            });
-        }
-
-        function handleEditFolder(id){
-            $.ajax({
-               type: "GET",
-               url: `api/documents/get-documentstoedit/${id}`,
-                success: function(response){
-                    console.log("test", response[0]);
-                    $("#updateFolderModal").modal('show');
-                    $("#document-id").val(response[0]?.id)
-                    $("#document-name").val(response[0]?.document_name)
-                    $("#document-description").val(response[0]?.description)
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText); // Log the error response for debugging
-                    Swal.fire(
-                        "Error!",
-                        "An error occurred while deleting the item.",
-                        "error"
-                    );
-                    // Optionally, you can provide more specific error messages to the user based on the error status.
-                }
-             })
-        };
-
-        $('#create-folder-document-form').submit(function(e){
-             e.preventDefault();
-             var data = $(this).serialize();
-             console.log("data serialize========",data)
-
-             $.ajax({
-               type: "POST",
-               url: "api/documents/add-documents",
-               data: data,
-               success: function(response){
-                  console.log("test", response);
-                  if(response == 1){
-                    $("#createFolderModal").modal('hide');
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully created.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                                    
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-             })
-        });
-
-        $('#update-folder-document-form').submit(function(e){
-             e.preventDefault();
-             var data = $(this).serialize();
-
-             console.log("|data=====",data)
-
-             $.ajax({
-               type: "POST",
-               url: "api/documents/update-documents",
-               data: data,
-               success: function(response){
-                  console.log("test-------", response);
-                  if(response == 1){
-                   
-                    Swal.fire({
-                        title: "Great!",
-                        text: "Successfully saved.",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "OK",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function(result) {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                     
-                   
-                    //  getUserData();  
-                    //  $("#addModal").modal('hide');                  
-                  }else{
-                    Swal.fire({
-                        title: "Aw snap!",
-                        text: "Something went wrong.",
-                        icon: "error",
-                        timer: 1500,
-                        onOpen: function() {
-                            Swal.showLoading()
-                        }
-                    });
-                  }
-               }
-             })
-         });
-
-
-
-
-
 
     </script>
 </x-app-layout>

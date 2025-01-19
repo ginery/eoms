@@ -62,18 +62,16 @@ if(!function_exists('getDocumentStatus')){
     {
         if($status == 0){
             return '<span class="label label-light-warning label-inline font-weight-bold">Pending</span>';
-        }else if($status == 4){
-            return '<span class="label label-light-primary label-inline font-weight-bold">Completed</span>';
         }else if($status == -1){
             return '<span class="label label-light-danger label-inline font-weight-bold">Rejected</span>';
         }else if($status == 1){
-            return '<span class="label label-light-warning label-inline font-weight-bold">REICO</span>';
+            return '<span class="label label-light-warning label-inline font-weight-bold">Technical Review</span>';
         }else if($status == 4){
-            return '<span class="label label-light-dark label-inline font-weight-bold">Technical Review</span>';
+            return '<span class="label label-light-dark label-inline font-weight-bold">Completed</span>';
         }else if($status == 2){
-            return '<span class="label label-light-info label-inline font-weight-bold">Approved</span>';
+            return '<span class="label label-light-info label-inline font-weight-bold">REICO</span>';
         }else if($status == 3){
-            return '<span class="label label-light-success label-inline font-weight-bold">Approved</span>';
+            return '<span class="label label-light-success label-inline font-weight-bold">Implemented</span>';
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';
         }
@@ -199,23 +197,26 @@ if(!function_exists('getProjectStatus')){
             
             case 1:
                 // Action for in-progress status
-                return 'in-progress';
+                return 'technical-review';
                 break;
             
             case 2:
                 // Action for completed status
-                return 'completed';
+                return 'in-progress';
                 break;
                 
             case -1:
                 return 'rejected';
-                break;
+                break;            
             
-            case 4:
-                return 'archived';
-                break;
             case 3:
-                return 'in-progress';
+                return 'implementation';
+                break;
+            case 4:
+                return 'completed';
+                break;
+            case 5:
+                return 'archived';
                 break;
                 
             default:

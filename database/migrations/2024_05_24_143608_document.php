@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('document_name')->nullable();
             $table->string('document_type')->nullable();
             $table->integer('document_size')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->dateTime('date_added')->useCurrent();
             $table->integer('status')->nullable();
             $table->integer('user_id')->nullable();

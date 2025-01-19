@@ -10,7 +10,7 @@
                         <div class="d-flex align-items-baseline flex-wrap mr-5">
                             <!--begin::Page Title-->
                             <h5 class="text-dark font-weight-bold my-1 mr-5">
-                                Proposed
+                                Proposed {{$user_id}}
                             </h5>
                             <!--end::Page Title-->
                         </div>
@@ -94,14 +94,14 @@
                                                 <span class="navi-text">Requirements</span>
                                             </a>
                                         </li>
-                                        <li class="navi-item">
+                                        {{-- <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
                                                     <i class="fas fa-info-circle"></i> <!-- Font Awesome edit icon -->
                                                 </span>
                                                 <span class="navi-text">Details</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <!--end::Item-->
 
                                     </ul>
@@ -119,7 +119,7 @@
 
     @include('modals.create-folder-document')
     @include('modals.update-folder-document')
-    @include('modals.requirements-modal')
+    
 
     <!-- jQuery Script -->
     <script>
@@ -190,19 +190,6 @@
                 }
              })
         };
-        function handleRequirements(id) {
-            $("#requirementsModal").modal('show');
-            $.ajax({
-               type: "POST",
-               url: baseUrl + "/api/programs/view-requirements/"+id,
-               data: {},
-               success: function(response){
-                    console.log("test", response);
-                    $("#html-content-programs").html(response.program_desc)
-                }
-
-               });
-        }
 
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();

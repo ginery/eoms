@@ -27,6 +27,7 @@ class ViewServiceProvider extends ServiceProvider
 
                     $notificationData = Notifications::query()
                     ->where('user_id', $user_id)
+                    ->orderBy('created_at', 'desc')
                     ->get(); 
                 }else{
                     $notificationCount = Notifications::query()
@@ -34,6 +35,7 @@ class ViewServiceProvider extends ServiceProvider
                     ->get(); 
 
                     $notificationData = Notifications::query()
+                    ->orderBy('created_at', 'desc')
                     ->get(); 
                 }
             }else{

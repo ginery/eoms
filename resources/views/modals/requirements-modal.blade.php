@@ -11,11 +11,7 @@
                 <div class="modal-body">
                     <div id="html-content-programs">
                     </div>               
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary font-weight-bold">Save</button>
-                </div>
+                </div>               
             </div>
         </form>
     </div>
