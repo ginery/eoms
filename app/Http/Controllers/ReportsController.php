@@ -23,15 +23,23 @@ class ReportsController extends Controller
           
         $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->format('Y-m-d');
         $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->format('Y-m-d');
-
+        $min_id = Programs::min('id');
             if($request->role_id != 2){    
-                if($request->user_id){
+                if($request->user_id != "" && $request->program_id != "" && $request->status_id != ""){
                     $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->where('document_size','!=', 0)->get(); 
+                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
+                    ->where('user_id', $request->user_id)
+                    ->where('document_size','!=', 0)
+                    ->where('doc_path', $request->program_id)
+                    ->where('status', $request->status_id)
+                    ->get(); 
                 }else{
                    
                     $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('document_size','!=', 0)
+                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
+                    ->where('document_size','!=', 0)
+                    ->where('status', '0')
+                    ->where('doc_path', $min_id)
                     ->get();
                 }
                 
@@ -54,6 +62,13 @@ class ReportsController extends Controller
                 return $document;
             });
        
-        return response()->json(['data' => $documents]);
+        return response()->json([
+            'data' => $documents,
+            'payload' => [
+              'program_id' => $request->program_id,
+              'status_id' =>  $request->status_id,
+              'user_id' =>  $request->user_id
+            ]
+        ]);
     }
 }

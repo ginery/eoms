@@ -102,10 +102,12 @@
             var start_date =  $('.start_date').val();
             var end_date = $('.end_date').val();
             var user_id = $(".users-report").val();
+            var program_id = $(".programs-report").val();
+            var status_id = $(".status-report").val();
             // var user_id = $("#user_id").val() ? $("#user_id").val():users;
             var role_id = $("#role_id").val();
           
-            console.log("generateReport", user_id);
+            console.log("generateReport", status_id);
             // return;
             $("#table-reports").DataTable().destroy();
             $("#table-reports").DataTable({
@@ -124,7 +126,9 @@
                         start_date: start_date,
                         end_date: end_date,
                         user_id: user_id,
-                        role_id: role_id
+                        role_id: role_id,
+                        program_id: program_id,
+                        status_id: status_id
                     },                   
                 },
                 columns: [
@@ -145,7 +149,9 @@
                     start_date: start_date,
                     end_date: end_date,
                     user_id: user_id,
-                    role_id: role_id
+                    role_id: role_id,
+                    program_id: program_id,
+                    status_id: status_id
                 },success: function(e){
                     console.log(e);
                 },
