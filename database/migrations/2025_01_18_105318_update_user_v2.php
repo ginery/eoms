@@ -23,7 +23,7 @@ return new class extends Migration
                 $table->string('password');
                 $table->integer('role');
                 $table->string('notification_token');
-                $table->text('program_assigned');
+                $table->text('program_assigned')->default(0);
                 $table->timestamps();
             });
         }else{
@@ -51,7 +51,7 @@ return new class extends Migration
                     $table->string('notification_token');
                 }
                 if (!Schema::hasColumn('users', 'program_assigned')) {
-                    $table->text('program_assigned');
+                    $table->text('program_assigned')->default(0);
                 }
                 if (!Schema::hasColumn('users', 'created_at')) {
                     $table->timestamp('created_at')->nullable();

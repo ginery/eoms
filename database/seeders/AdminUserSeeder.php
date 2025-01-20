@@ -16,7 +16,8 @@ class AdminUserSeeder extends Seeder
             'password' => Hash::make('password'), 
             'role' => 1,
             'phone_number' => 123456789,
-            'notification_token' => ''
+            'notification_token' => '',
+            'program_assigned'  => '0'
         ]);
     }
 }

@@ -23,7 +23,6 @@ return new class extends Migration
                 $table->string('password');
                 $table->integer('role');
                 $table->string('notification_token');
-                $table->text('program_assigned');
                 $table->timestamps();
             });
         }else{
