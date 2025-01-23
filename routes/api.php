@@ -43,6 +43,7 @@ Route::group(['prefix' => 'documents',  'middleware' => 'auth:sanctum'], functio
     Route::delete('/delete-file', [DocumentController::class, 'deleteFile']);
     Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
     Route::post('/update-status', [DocumentController::class, 'updateStatus']);
+    Route::post('/send-email', [DocumentController::class, 'sendEmail']);
     //add another api route here. 
 });
 // users

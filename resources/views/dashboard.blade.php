@@ -172,7 +172,7 @@
                  </div>
                  <!--end::Row-->
                  <!--end::Dashboard-->
-                 {{-- <a href="javascript:;" id="kt_notify_btn" onclick="test()" class="btn btn-success">Test</a> --}}
+                 <a href="javascript:;" id="kt_notify_btn" onclick="test()" class="btn btn-success">Test</a>
               </div>
               <!--end::Container-->
            </div>  
@@ -209,7 +209,7 @@
      // KTBootstrapNotifyDemo.notify('Your custom message here', 'Custom Title', 'danger');
      $.ajax({
         type: "POST",
-        url: "api/dashboard/test",
+        url: "api/documents/send-email",
         data: {
            test: 'test'
         },

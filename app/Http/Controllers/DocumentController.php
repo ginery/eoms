@@ -11,6 +11,8 @@ use App\Models\Programs;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\MailTrapMailer;
+use Illuminate\Support\Facades\Mail;
 class DocumentController extends Controller
 {
     //
@@ -244,5 +246,10 @@ class DocumentController extends Controller
         }
 
     }
+    public function sendEmail() {
+        Mail::to('songalingginery@gmail.com')->send(new MailTrapMailer('John Doe'));
+    }
+    
+
 
 }
