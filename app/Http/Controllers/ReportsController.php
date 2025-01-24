@@ -21,38 +21,50 @@ class ReportsController extends Controller
     }
     public function generate(Request $request){
           
-        $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->format('Y-m-d');
-        $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->format('Y-m-d');
+        $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->startOfDay()->toDateTimeString();
+        $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->endOfDay()->toDateTimeString();
         $min_id = Programs::min('id');
-            if($request->role_id != 2){    
-                if($request->user_id != "" && $request->program_id != "" && $request->status_id != ""){
-                    $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
-                    ->where('user_id', $request->user_id)
-                    ->where('document_size','!=', 0)
-                    ->where('doc_path', $request->program_id)
-                    ->where('status', $request->status_id)
-                    ->get(); 
-                }else{
+            // if($request->role_id != 2){    
+            //     if($request->user_id != "" && $request->program_id != "" && $request->status_id != ""){
+            //         $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
+            //         ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
+            //         ->where('user_id', $request->user_id)
+            //         ->where('document_size','!=', 0)
+            //         ->where('doc_path', $request->program_id)
+            //         ->where('status', $request->status_id)
+            //         ->get(); 
+            //     }else{
                    
-                    $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                    ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
-                    ->where('document_size','!=', 0)
-                    ->where('status', '0')
-                    ->where('doc_path', $min_id)
-                    ->get();
+                   
+            //     }
+
+            $documents = Document::whereBetween('date_added', [$start_date, $end_date])
+            ->whereNotNull('document_size');
+          if($request->role_id != 2) {
+
+            if ($request->user_id || $request->program_id || $request->status_id) {
+                // Apply specific filters if provided
+                if ($request->user_id) {
+                    $documents->where('user_id', $request->user_id);
                 }
-                
+                if ($request->program_id) {
+                    $documents->where('doc_path', $request->program_id);
+                }
+                if ($request->status_id) {
+                    $documents->where('status', $request->status_id);
+                }
+            } 
 
-            }else{
-                $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-                ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)->where('user_id', $request->user_id)->where('document_size','!=', 0)->get(); 
-            }
+          }else {
+            $documents->where('user_id', $request->user_id);
+          }
+       
 
-          
+  
+            $document_data = $documents->get();    
 
             $counter = 0;
-            $documents->transform(function($document) use (&$counter){
+            $document_data->transform(function($document) use (&$counter){
                 $counter++;
                 $document->date_added = \Carbon\Carbon::parse($document->date_added)->format('m-d-Y');
                 $document->status = getDocumentStatus($document->status);
@@ -63,7 +75,7 @@ class ReportsController extends Controller
             });
        
         return response()->json([
-            'data' => $documents,
+            'data' => $document_data,
             'payload' => [
               'program_id' => $request->program_id,
               'status_id' =>  $request->status_id,

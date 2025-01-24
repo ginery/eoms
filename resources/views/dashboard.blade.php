@@ -172,7 +172,7 @@
                  </div>
                  <!--end::Row-->
                  <!--end::Dashboard-->
-                 <a href="javascript:;" id="kt_notify_btn" onclick="test()" class="btn btn-success">Test</a>
+                 {{-- <a href="javascript:;" id="kt_notify_btn" onclick="test()" class="btn btn-success">Test</a> --}}
               </div>
               <!--end::Container-->
            </div>  

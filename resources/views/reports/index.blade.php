@@ -28,6 +28,7 @@
 
                     <select class="form-control users-report select2" id="kt_select2_3" name="users"  style="width: 100% !important;">
                         <optgroup label="users">
+                            <option value="0">All</option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
                             @endforeach
@@ -40,6 +41,7 @@
 
                     <select class="form-control programs-report select2" id="kt_select2_2" name="programs" style="width: 100% !important;">
                         <optgroup label="programs">
+                            <option value="0">All</option>
                             @foreach($programs as $program)
                                 <option value="{{$program->id}}">{{$program->program_name}}</option>
                             @endforeach
@@ -52,6 +54,7 @@
 
                     <select class="form-control status-report select2" id="kt_select2_1" name="status" style="width: 100% !important;">
                         <optgroup label="status">
+                            <option value="0">All</option>
                             <option value="0">Pending</option>
                             <option value="1">Technical Review</option>
                             <option value="2">REICO</option>
