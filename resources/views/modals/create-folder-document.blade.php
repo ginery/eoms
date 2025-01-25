@@ -32,22 +32,32 @@
                             </div> --}}
                         </div>
                         {{-- <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Email Address <span class="text-danger">*</span></label>
-                                <input type="email" name="email" class="form-control" placeholder="Email Address">
+                            <div class="form-group col-md-12">
+                                <label class="col-sm-12">Project Leader</label>
+                                <div class="col-md-12">
+                                    <select class="form-control select2" id="kt_select2_3" name="assigned_leader" style="width: 100% !important;">
+                                        <option>No User Selected</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Phone Number <span class="text-danger">*</span></label>
-                                <input type="number" name="phone_number" class="form-control" placeholder="Phone Number">
+                        </div> --}}
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-sm-12">Project Members</label>
+                                <div class="col-md-12">
+                                    <select class="form-control select2" id="kt_select2_1" name="users_involved[]" multiple="multiple" style="width: 100% !important;">
+                                        
+                                        @if (isset($programs) && $programs && !empty($programs->user_details))
+                                            @foreach ($programs->user_details as $user)
+                                                <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                            @endforeach
+                                        @else
+                                            <option>No User Selected</option>
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleSelect1">Select Role <span class="text-danger">*</span></label>
-                            <select name="role" class="form-control" id="exampleSelect1">
-                                <option value="0">Staff/Faculty</option>
-                                <option value="1">Administrator</option>                       
-                            </select>
-                        </div> --}}
                     
                 </div>
                 <div class="modal-footer">
