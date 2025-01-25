@@ -31,7 +31,7 @@ use App\Http\Controllers\ImplementationController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     {/*
     * With auth middle where
     * Routes for Profiling

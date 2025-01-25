@@ -29,6 +29,13 @@
    <!--end::Head-->
    <!--begin::Body-->
    <body  id="kt_body"  class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading"  >
+      @php
+         // Redirect to dashboard if the user is logged in and OTP is verified
+         if (Auth::check() && session('otp_verified')) {
+               header('Location: ' . route('dashboard'));
+               exit;
+         }
+      @endphp
       <!--begin::Main-->
       <div class="d-flex flex-column flex-root">
          <!--begin::Login-->
@@ -47,8 +54,14 @@
                      <!--begin::Form-->
                     <!-- resources/views/auth/verify-otp.blade.php -->
 
-                        <form method="POST" action="{{ route('verify.otp') }}">
+                        <form method="POST" action="{{ route('verify-otp-submit') }}">
                             @csrf
+                            @if ($errors->has('otp'))
+                              <div class="alert alert-danger">
+                                 {{ $errors->first('otp') }}
+                              </div>
+                           @endif
+
                             <div class="form-group">
                                 <label for="otp">OTP</label>
                                 <input type="text" name="otp" id="otp" class="form-control" required>

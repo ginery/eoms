@@ -63,6 +63,7 @@ class DocumentController extends Controller
     public function create(Request $request){
         // $user = User::all();
         // return $user;
+        $user_id = Auth::user()->id;
 
         $existingDocument = Document::where('document_name', $request->document_name)->first();
     
@@ -77,7 +78,10 @@ class DocumentController extends Controller
             'status' => 0,
             'user_id' => $request->user_id,
             'path' => 0,
-            'doc_path' => $request->folder_id
+            'doc_path' => $request->folder_id,
+            'assigned_leader' => $user_id,
+            'users_involved' => json_encode($request->users_involved),
+
         ]);
         if($res){
             echo 1;
@@ -219,14 +223,14 @@ class DocumentController extends Controller
             "name" => $document->document_name,
             "status" => $request->status,
             "added_by" => $user_id,
-            "user_id" => $user_id,
+            "user_id" => $document->user_id,
             "created_at" => Carbon::now()
         ];
 
         $notification = [
             "title" => "Project",
             "content" => $document->document_name,
-            "user_id" => $user_id,
+            "user_id" => $document->user_id,
             "added_by" => $user_id,
             "project_status" => $request->status,
             "project_id" => $document->doc_path,

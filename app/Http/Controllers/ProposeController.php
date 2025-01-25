@@ -24,26 +24,60 @@ class ProposeController extends Controller
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
          }
        
-        return view('propose.index', ['documents' => $document, 'programs' => $programs, 'user_id' => $user_id]);
+        return view('propose.index', 
+        [
+            'documents' => $document, 
+            'programs' => $programs, 
+            'user_id' => $user_id
+        ]);
     }
     public function project($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
+        $role = Auth::user()->role;
+        $user_id = (string)Auth::user()->id;
         //status 0 proposed
-        $documents = Document::where('path', $id)->where('status', 0)->get();
+        if($role != 0){
+            $documents = Document::where('path', $id)->where('status', 0)->get();
+        }else{
+            $documents = Document::whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])->where('path', $id)->where('status', 0)->get();
+        }
+
+       
         
         return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
     public function program($id) : View{
+        $role = Auth::user()->role;
+        $user_id = (string)Auth::user()->id;
+
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->where('status', 0)->get();
-        
+        $userIds = json_decode($programs->users_involve);
+        if($role != 0){
+            $documents = Document::where('doc_path', $id)->where('status', 0)->get();
+         } else {
+            $documents = Document::where('doc_path', $id)->where('status', 0)->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])->get();
+         }
+        // $documents = Document::where('doc_path', $id)->where('status', 0)->get();
+        // ->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])
+        $userDetails  = array_map(function ($userId) {
+            return [
+                'id' => $userId,
+                'name' => getUserFullName($userId) // Call your helper function here
+            ];// Call your helper function here
+        }, $userIds);
+
+        $programs->user_details  = $userDetails;
+
+
+
+
         // dd(json_encode($programs));
 
         return view('propose.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
     }
     public function create(Request $request){
-
+            $user_id = Auth::user()->id;
         
             $existingDocument = Document::where('document_name', $request->document_name)->first();
     
@@ -59,7 +93,9 @@ class ProposeController extends Controller
                 'description' => $request->description,
                 'status' => 0,
                 'user_id' => $request->user_id,
-                'doc_path' => $request->folder_id
+                'doc_path' => $request->folder_id,
+                'assigned_leader' => $user_id,
+                'users_involved' => json_encode($request->users_involve),
             ]);
     
             // Check if document was created successfully
@@ -76,12 +112,26 @@ class ProposeController extends Controller
         $documents = Document::where('id', $request->id)->where('status', $request->status)->first();
 
         if ($documents) {
+            $userIds = json_decode($documents->users_involved);
+            // dd(json_encode($userIds));
             // Mutate or transform the data
             $documents->program_name = getProjectName($documents->id); // Add a formatted date
             $documents->formatted_date = $documents->created_at->format('d-m-Y');
             $documents->status_text = getDocumentStatus($documents->status);
             $documents->user_name = getUserFullName($documents->user_id);
+            $userDetails  = array_map(function ($userId) {
+                return [
+                    'id' => $userId,
+                    'name' => getUserFullName($userId) // Call your helper function here
+                ];// Call your helper function here
+            }, $userIds);
+    
+            $documents->user_details  = $userDetails;
+
+
         }
+
+        // dd(json_encode($documents));
 
         return $documents;
     }

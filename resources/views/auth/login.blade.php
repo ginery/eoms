@@ -29,6 +29,13 @@
    <!--end::Head-->
    <!--begin::Body-->
    <body  id="kt_body"  class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading"  >
+      @php
+         // Redirect to dashboard if the user is logged in and OTP is verified
+         if (Auth::check() && session('otp_verified')) {
+               header('Location: ' . route('dashboard'));
+               exit;
+         }
+      @endphp
       <!--begin::Main-->
       <div class="d-flex flex-column flex-root">
          <!--begin::Login-->

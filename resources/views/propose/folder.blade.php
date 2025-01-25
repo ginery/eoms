@@ -113,7 +113,7 @@
                                 </a>
                             </li>
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', 0)">
+                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', '0')">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-info-circle"></i>
                                     </span>

@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerate();
         
             // Generate and send OTP
-            $otp = Str::random(6); // Generate a 6-character OTP
+            $otp = random_int(100000, 999999);  // Generate a 6-character OTP
             $user = Auth::user(); // Get the authenticated user
         
             // Save the OTP in the user's session
@@ -68,7 +68,7 @@ class AuthenticatedSessionController extends Controller
 
     public function sendOtp(Request $request)
     {
-        $otp = Str::random(6); // Generate a 6-character OTP
+        $otp = random_int(100000, 999999); // Generate a 6-character OTP
         $user = Auth::user(); // Get the authenticated user
 
         // Save the OTP in the user's session or database
@@ -89,15 +89,15 @@ class AuthenticatedSessionController extends Controller
         $otp = $request->input('otp');
         
         // Check if the OTP matches the one stored in the session
-        if ($otp === session('otp')) {
-            // OTP is correct, log the user in
-            session()->forget('otp');
+        if ($otp === (string)session('otp')) {
+            // OTP is correct, set session as verified
+            session()->forget('otp'); // Clear the OTP
+            session(['otp_verified' => true]); // Mark as verified
+
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
             // OTP is incorrect
             return back()->withErrors(['otp' => 'Invalid OTP']);
         }
-
-
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -60,9 +61,19 @@ Route::middleware('auth')->group(function () {
 
    // OTP Routes
    Route::post('/send-otp', [AuthenticatedSessionController::class, 'sendOtp'])->name('send.otp');
-   Route::post('/verify-otp', [AuthenticatedSessionController::class, 'verifyOtp'])->name('verify.otp');
-   Route::get('/verify-otp', function() {
-       return view('auth.verify-otp');
-   })->name('verify.otp');
+   Route::get('/verify-otp', function () {
+        if (!Auth::check() && !session('otp_verified')) {
+            return redirect()->route('login');
+        }
+
+        if (session('otp_verified')) {
+            return redirect()->route('dashboard'); // Redirect to dashboard if already verified
+        }
+
+        return view('auth.verify-otp');
+    })->name('verify.otp');
+
+    // New POST route for OTP submission
+    Route::post('/verify-otp-submit', [AuthenticatedSessionController::class, 'verifyOtp'])->name('verify-otp-submit');
 
 });

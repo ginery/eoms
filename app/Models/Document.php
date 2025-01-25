@@ -28,7 +28,9 @@ class Document extends Authenticatable {
         'status', // 1 complete, 0 - in-progress, 2 - archived.
         'user_id',
         'path',
-        'doc_path'
+        'doc_path',
+        'assigned_leader',
+        'users_involved'
     ];
 
     /**

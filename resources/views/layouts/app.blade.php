@@ -532,6 +532,7 @@
 
         function handleDetails(id, status){
             $("#detailsModal").modal("show"); 
+            console.log("handleDetails", id, status)
             getProjectDetails(id, status)    
         }
         function getProjectDetails(id, status){
@@ -546,32 +547,71 @@
                success: function(response){
                   console.log("getProjectDetails", response);
                 $("#project-title").html(response?.program_name);
-                $("#details-content").html(`
-                        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
-                            <tbody>                               
-                                <tr>
-                                    <th style="text-align: left;">Project Name</th>
-                                    <td>${response?.program_name}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Date</th>
-                                    <td>${response?.formatted_date}</td>
-                                </tr>                               
-                                <tr>
-                                    <th style="text-align: left;">Status</th>
-                                    <td>${response?.status_text}</td>
-                                </tr>
-                                 <tr>
-                                    <th style="text-align: left;">Created by</th>
-                                    <td>${response?.user_name}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Description</th>
-                                    <td>${response?.description}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                `)
+                if (response?.user_details && Array.isArray(response.user_details)) {
+                  let userDetailsText = response.user_details.map(user => user.name).join(', ');
+                  $("#details-content").html(`
+                     <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+                           <tbody>                               
+                              <tr>
+                                 <th style="text-align: left;">Project Name</th>
+                                 <td>${response?.program_name}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Date</th>
+                                 <td>${response?.formatted_date}</td>
+                              </tr>                               
+                              <tr>
+                                 <th style="text-align: left;">Status</th>
+                                 <td>${response?.status_text}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Project leader</th>
+                                 <td>${response?.user_name}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Description</th>
+                                 <td>${response?.description}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Project Members</th>
+                                 <td>${userDetailsText}</td>
+                              </tr>
+                           </tbody>
+                     </table>
+                  `);
+               } else {
+                  $("#details-content").html(`
+                     <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+                           <tbody>                               
+                              <tr>
+                                 <th style="text-align: left;">Project Name</th>
+                                 <td>${response?.program_name}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Date</th>
+                                 <td>${response?.formatted_date}</td>
+                              </tr>                               
+                              <tr>
+                                 <th style="text-align: left;">Status</th>
+                                 <td>${response?.status_text}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Project leader</th>
+                                 <td>${response?.user_name}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Description</th>
+                                 <td>${response?.description}</td>
+                              </tr>
+                              <tr>
+                                 <th style="text-align: left;">Project Members</th>
+                                 <td>No Project Members</td>
+                              </tr>
+                           </tbody>
+                     </table>
+                  `);
+               }
+
                 
             },
             error: function(error){
