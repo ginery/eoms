@@ -41,7 +41,7 @@ class InProgressController extends Controller
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->where(function($query) {
+        $documents = Document::where('doc_path', $id)->whereNull('document_size')->where(function($query) {
             $query->where('status', 3)
                   ->orWhere('status', 3);
         })->get();

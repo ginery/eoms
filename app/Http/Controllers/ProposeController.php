@@ -54,7 +54,7 @@ class ProposeController extends Controller
         $programs = Programs::where('id', $id)->get()->first();
         $userIds = json_decode($programs->users_involve);
         if($role != 0){
-            $documents = Document::where('doc_path', $id)->where('status', 0)->get();
+            $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', 0)->get();
          } else {
             $documents = Document::where('doc_path', $id)->where('status', 0)->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])->get();
          }

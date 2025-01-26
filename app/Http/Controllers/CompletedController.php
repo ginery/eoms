@@ -35,7 +35,7 @@ class CompletedController extends Controller
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->where('status', 5)->get();
+        $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', 5)->get();
         
         // dd(json_encode($programs));
 
