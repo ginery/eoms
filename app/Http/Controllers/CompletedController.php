@@ -28,14 +28,14 @@ class CompletedController extends Controller
      public function project($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         //status 0 proposed
-        $documents = Document::where('path', $id)->where('status', 4)->get();
+        $documents = Document::where('path', $id)->where('status', 5)->get();
         
         return view('completed.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
     }
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->where('status', 4)->get();
+        $documents = Document::where('doc_path', $id)->where('status', 5)->get();
         
         // dd(json_encode($programs));
 

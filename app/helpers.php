@@ -66,11 +66,13 @@ if(!function_exists('getDocumentStatus')){
             return '<span class="label label-light-danger label-inline font-weight-bold">Rejected</span>';
         }else if($status == 1){
             return '<span class="label label-light-warning label-inline font-weight-bold">Technical Review</span>';
-        }else if($status == 4){
+        }else if($status == 5){
             return '<span class="label label-light-dark label-inline font-weight-bold">Completed</span>';
         }else if($status == 2){
-            return '<span class="label label-light-info label-inline font-weight-bold">REICO</span>';
+            return '<span class="label label-light-primary label-inline font-weight-bold">In-house</span>';
         }else if($status == 3){
+            return '<span class="label label-light-info label-inline font-weight-bold">REICO</span>';
+        }else if($status == 4){
             return '<span class="label label-light-success label-inline font-weight-bold">Implemented</span>';
         }else{
             return '<span class="label label-light-info label-inline font-weight-bold">Archived</span>';
@@ -129,7 +131,6 @@ if(!function_exists('sendNotification')){
             'notification' => $notification,
             'token' => $tokens,
         ]);
-
         // Send the notification
         try {
             $messaging->sendMulticast($message, $tokens);
@@ -193,8 +194,7 @@ if(!function_exists('getProjectStatus')){
         switch ($status) {
             case 0:
                 return 'propose';
-                break;
-            
+                break;            
             case 1:
                 // Action for in-progress status
                 return 'technical-review';
@@ -202,20 +202,23 @@ if(!function_exists('getProjectStatus')){
             
             case 2:
                 // Action for completed status
-                return 'in-progress';
+                return 'in-house';
                 break;
                 
             case -1:
                 return 'rejected';
-                break;            
-            
+                break;  
             case 3:
+                return 'in-progress';
+                break;          
+            
+            case 4:
                 return 'implementation';
                 break;
-            case 4:
+            case 5:
                 return 'completed';
                 break;
-            case 5:
+            case 6:
                 return 'archived';
                 break;
                 

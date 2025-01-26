@@ -32,8 +32,8 @@ class InProgressController extends Controller
         $breadcrumbs = Breadcrumbs::generate();
         //status 0 proposed
         $documents = Document::where('path', $id)->where(function($query) {
-            $query->where('status', 2)
-                  ->orWhere('status', 2);
+            $query->where('status', 3)
+                  ->orWhere('status', 3);
         })->get();
         
         return view('in-progress.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id]);
@@ -42,8 +42,8 @@ class InProgressController extends Controller
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
         $documents = Document::where('doc_path', $id)->where(function($query) {
-            $query->where('status', 2)
-                  ->orWhere('status', 2);
+            $query->where('status', 3)
+                  ->orWhere('status', 3);
         })->get();
         
         // dd(json_encode($programs));

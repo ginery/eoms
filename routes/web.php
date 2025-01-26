@@ -16,6 +16,7 @@ use App\Http\Controllers\RejectedController;
 use App\Http\Controllers\CompletedController;
 use App\Http\Controllers\TechnicalReviewController;
 use App\Http\Controllers\ImplementationController;
+use App\Http\Controllers\InHouseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/technical-review', [TechnicalReviewController::class, 'index'])->name('technical-review');
     Route::get('/technical-review/{id}', [TechnicalReviewController::class, 'program'])->name('technical-review.program');
+
+    Route::get('/in-house', [InHouseController::class, 'index'])->name('in-house');
+    Route::get('/in-house/{id}', [InHouseController::class, 'program'])->name('in-house.program');
 
     Route::get('/implementation', [ImplementationController::class, 'index'])->name('implementation');
     Route::get('/implementation/{id}', [ImplementationController::class, 'program'])->name('implementation.program');

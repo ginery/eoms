@@ -93,7 +93,7 @@
                                 </a>
                             </li>
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', 3)">
+                                <a href="#" class="navi-link" onclick="handleDetails('{{$document->id}}', 4)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-info-circle"></i>
                                     </span>
@@ -102,7 +102,7 @@
                             </li>
                             @if(Auth::user()->role != 0)
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 4)">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 5)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
                                     </span>

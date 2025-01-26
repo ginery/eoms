@@ -69,7 +69,7 @@
                             <!--begin::Item-->
                            
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 5)">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 6)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-archive"></i> <!-- Font Awesome edit icon -->
                                     </span>

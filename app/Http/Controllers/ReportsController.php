@@ -24,19 +24,6 @@ class ReportsController extends Controller
         $start_date = Carbon::createFromFormat('m/d/Y', $request->start_date)->startOfDay()->toDateTimeString();
         $end_date = Carbon::createFromFormat('m/d/Y', $request->end_date)->endOfDay()->toDateTimeString();
         $min_id = Programs::min('id');
-            // if($request->role_id != 2){    
-            //     if($request->user_id != "" && $request->program_id != "" && $request->status_id != ""){
-            //         $documents = Document::where(\DB::raw('DATE(date_added)'), '>=', $start_date)
-            //         ->where(\DB::raw('DATE(date_added)'), '<=', $end_date)
-            //         ->where('user_id', $request->user_id)
-            //         ->where('document_size','!=', 0)
-            //         ->where('doc_path', $request->program_id)
-            //         ->where('status', $request->status_id)
-            //         ->get(); 
-            //     }else{
-                   
-                   
-            //     }
 
             $documents = Document::whereBetween('date_added', [$start_date, $end_date])
             ->whereNotNull('document_size');
@@ -48,7 +35,7 @@ class ReportsController extends Controller
                     $documents->where('user_id', $request->user_id);
                 }
                 if ($request->program_id) {
-                    $documents->where('doc_path', $request->program_id);
+                    $documents->where('doc_path', $request->program_id)->where('path', '!=', 0);
                 }
                 if ($request->status_id) {
                     $documents->where('status', $request->status_id);
@@ -58,11 +45,12 @@ class ReportsController extends Controller
           }else {
             $documents->where('user_id', $request->user_id);
           }
-       
+          
+        
 
   
             $document_data = $documents->get();    
-
+            // dd(json_encode(($document_data)));
             $counter = 0;
             $document_data->transform(function($document) use (&$counter){
                 $counter++;

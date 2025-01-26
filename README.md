@@ -16,3 +16,9 @@
 ## php version
 PHP 8.2.12
 
+
+
+## if says in-house undefined run this command.
+- php artisan route:clear
+then run this
+- php artisan serve
