@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Programs;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class ReportsController extends Controller
 
 {
@@ -27,8 +28,9 @@ class ReportsController extends Controller
 
             $documents = Document::whereBetween('date_added', [$start_date, $end_date])
             ->whereNotNull('document_size');
-          if($request->role_id != 2) {
 
+            $role = Auth::user()->role;
+          if($role != 2) {
             if ($request->user_id || $request->program_id || $request->status_id) {
                 // Apply specific filters if provided
                 if ($request->user_id) {

@@ -23,6 +23,8 @@
                     </div>
                 </div>
             </div>
+            @if (Auth::user()->role != 0)
+                
             <div class="col-md-3">
                 <div class="input-group date">
 
@@ -49,7 +51,9 @@
                     </select>          
                 </div>
             </div>
-            <div class="col-md-3 mt-3">
+           
+            @endif
+            <div class="col-md-3 {{Auth::user()->role != 0 ? 'mt-3':''}}">
                 <div class="input-group date">
 
                     <select class="form-control status-report select2" id="kt_select2_1" name="status" style="width: 100% !important;">
@@ -68,7 +72,7 @@
             </div>
             <input type="hidden" value="{{Auth::id()}}" id="user_id"/>
             <input type="hidden" value="{{Auth::user()->role}}" id="role_id"/>
-            <div class="col-md-3 mt-3">
+            <div class="col-md-3 {{Auth::user()->role != 0 ? 'mt-3':''}}">
                 <button type="button" onclick="generateReport()" class="btn btn-success font-weight-bold">Generate</button>
             </div>          
         </div>
@@ -102,15 +106,21 @@
             generateReport();
         });
         function generateReport(id){
+            var role = "{{Auth::user()->role}}";
             var start_date =  $('.start_date').val();
             var end_date = $('.end_date').val();
-            var user_id = $(".users-report").val();
+            if(role === '0'){
+                var user_id = $("#user_id").val();              
+            }else{
+                var user_id = $(".users-report").val();
+            }
+           
             var program_id = $(".programs-report").val();
             var status_id = $(".status-report").val();
             // var user_id = $("#user_id").val() ? $("#user_id").val():users;
             var role_id = $("#role_id").val();
           
-            console.log("generateReport", status_id);
+            console.log("generateReport", role);
             // return;
             $("#table-reports").DataTable().destroy();
             $("#table-reports").DataTable({
