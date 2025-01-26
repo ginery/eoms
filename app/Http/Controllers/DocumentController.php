@@ -132,6 +132,8 @@ class DocumentController extends Controller
         if ($request->hasFile('files')) {
             $uploadedFiles = [];
 
+            $document  = Document::where('id', $request->folder_id)->first();
+
             foreach ($request->file('files') as $file) {
                 if ($file->isValid()) {
                     $originalName = $file->getClientOriginalName();
@@ -150,7 +152,8 @@ class DocumentController extends Controller
                         'description' => '',
                         'status' => 0,
                         'user_id' => $request->user_id,
-                        'path' => $request->folder_id
+                        'path' => $request->folder_id,
+                        'doc_path' => $document->doc_path,
                     ]);
 
                     $uploadedFiles[] = [
