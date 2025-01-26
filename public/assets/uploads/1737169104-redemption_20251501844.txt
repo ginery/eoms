@@ -1,2 +1,0 @@
-member_code,sales,receipt_reference_code
-MBR-1734043197003-9885,50000,ORD-11111111
