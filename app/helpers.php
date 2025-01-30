@@ -44,10 +44,25 @@ if (!function_exists('getFolderNameDocs')) {
     }
 }
 if (!function_exists('getFolderName')) {
-    function getFolderName($id)
+    function getFolderName($id)        
     {
-        $folder_name = Programs::where('id', $id)->get()->first();
-        return $folder_name ? $folder_name->program_name:'N/A';
+      
+        if($id === '-40'){
+            $folder_name = "Terminal Report";
+            return $folder_name; 
+        }else  if($id === '-41'){
+            $folder_name = "Documentation";
+            return $folder_name;
+        }else  if($id === '-42'){
+            $folder_name = "Assessment";
+            return $folder_name;
+        }else{
+            $folder_name_data = Programs::where('id', $id)->get()->first();
+            $folder_name = $folder_name_data->program_name;
+            return $folder_name_data ? $folder_name:'N/A';
+        }
+        
+       
     }
 }
 if (!function_exists('getUserFullName')) {
@@ -100,10 +115,13 @@ if(!function_exists('getTotalFileStatus')){
 }
 
 if(!function_exists('getTotalProject')){
-    function getTotalProject($program_id, $status)
-    {   
-       
+    function getTotalProject($program_id, $status){   
+        if($program_id === '-40' || $program_id === '-41' || $program_id === '-42'){
+            $document = Document::where('doc_path', $program_id)->where('status', 0)->count();        
+        }else{
             $document = Document::where('doc_path', $program_id)->where('path', 0)->where('status', $status)->count();        
+        }
+         
         
         return  $document ?  $document : 0;
         

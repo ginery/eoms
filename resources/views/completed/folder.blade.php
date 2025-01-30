@@ -31,6 +31,12 @@
                 <!--end::Page Heading-->
             </div>
             <!--end::Info-->
+            <div class="d-flex align-items-center">              
+                    <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
+                        <i class="fa fa-plus text-success" style="font-size:12px;"></i>
+                        Document
+                    </a>
+            </div>
         </div>
     </div>
 <!--end::Subheader-->

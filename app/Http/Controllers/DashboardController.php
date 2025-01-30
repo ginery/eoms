@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $user_id = Auth::user()->id;
         $user_role = Auth::user()->role;
         // $rejected = Document::where('status', 3)->count();
-        $users = User::where('role','!=','0')->count();
+        $users = User::where('role','0')->count();
         $programs = Programs::count();
         $rejected = Document::where('status', -1)->count();
         $completed = Document::where('status', 2)->count();

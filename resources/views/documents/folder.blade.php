@@ -206,6 +206,15 @@
                             </li>
                             <!--end::Item-->
                             @endif
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleComments({{$document->id}})">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-comment"></i>
+                                    </span>
+                                    <span class="navi-text">Messages</span>
+                                </a>
+                            </li>
+                            
 
                         </ul>
                         <!--end::Nav-->

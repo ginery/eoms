@@ -98,7 +98,7 @@
 
                 <div class="card card-custom mb-2" style="cursor: pointer;">
                     <div class="card-header">
-                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick('-40')">
                             <span class="card-icon">
                                 <i class="fa fa-folder text-info" style="font-size:30px;"></i>
                             </span>
@@ -106,7 +106,7 @@
                                 Terminal Report
                             </h3>
                             <div>
-                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-40', 0)}}</span>                                   
                             </div>
                         </div>
                         
@@ -116,7 +116,7 @@
                 </div>
                 <div class="card card-custom mb-2" style="cursor: pointer;">
                     <div class="card-header">
-                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(-41)">
                             <span class="card-icon">
                                 <i class="fa fa-folder text-info" style="font-size:30px;"></i>
                             </span>
@@ -124,7 +124,7 @@
                                 Documentation
                             </h3>
                             <div>
-                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-41', 0)}}</span>                                   
                             </div>
                         </div>
                         
@@ -134,7 +134,7 @@
                 </div>
                 <div class="card card-custom mb-2" style="cursor: pointer;">
                     <div class="card-header">
-                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(0)">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(-42)">
                             <span class="card-icon">
                                 <i class="fa fa-folder text-info" style="font-size:30px;"></i>
                             </span>
@@ -142,7 +142,7 @@
                                 Assessment
                             </h3>
                             <div>
-                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject(-4, -4)}}</span>                                   
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-42', 0)}}</span>                                   
                             </div>
                         </div>
                         

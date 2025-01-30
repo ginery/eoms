@@ -35,7 +35,12 @@ class CompletedController extends Controller
     public function program($id) : View{
         $breadcrumbs = Breadcrumbs::generate();
         $programs = Programs::where('id', $id)->get()->first();
-        $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', 5)->get();
+        if($id === '-40' || $id === '-41' || $id === '-42'){
+            $documents = Document::where('doc_path', $id)->whereNotNull('document_size')->where('status', 0)->get(); // terminal
+        }else{
+            $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', 5)->get();
+        }
+        
         
         // dd(json_encode($programs));
 

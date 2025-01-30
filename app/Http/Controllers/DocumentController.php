@@ -131,8 +131,19 @@ class DocumentController extends Controller
     public function upload(Request $request){
         if ($request->hasFile('files')) {
             $uploadedFiles = [];
+            $doc_path = 0;
+            if($request->folder_id === '-40'){
+                $doc_path = '-40';
+            }else if($request->folder_id === '-41'){ 
+                $doc_path = '-41';
+            }else if($request->folder_id === '-42'){ 
+                $doc_path = '-42';
+            }else{
+                $document  = Document::where('id', $request->folder_id)->first();
+                $doc_path = $document->doc_path;
+            }
 
-            $document  = Document::where('id', $request->folder_id)->first();
+           
 
             foreach ($request->file('files') as $file) {
                 if ($file->isValid()) {
@@ -153,7 +164,7 @@ class DocumentController extends Controller
                         'status' => 0,
                         'user_id' => $request->user_id,
                         'path' => $request->folder_id,
-                        'doc_path' => $document->doc_path,
+                        'doc_path' => $doc_path,
                     ]);
 
                     $uploadedFiles[] = [

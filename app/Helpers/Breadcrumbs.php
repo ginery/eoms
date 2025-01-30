@@ -13,11 +13,20 @@ class Breadcrumbs
     
         foreach ($segments as $segment) {
             $url .= '/' . $segment;
-            $name = preg_match('/\d+/', $segment) ? getFolderNameDocs($segment) : ucfirst(str_replace('-', ' ', $segment));
-            $breadcrumbs[] = [
-                'name' => $name,
-                'url' => url($url)
-            ];
+            if($segment === '-40'){
+                $name = "Terminal Report";
+            }else  if($segment === '-41'){
+                $name = "Documentation";
+            }else  if($segment === '-42'){
+                $name = "Assessment";
+            }else{
+                $name = preg_match('/\d+/', $segment) ? getFolderNameDocs($segment) : ucfirst(str_replace('-', ' ', $segment));
+            }
+              
+                $breadcrumbs[] = [
+                    'name' => $name,
+                    'url' => url($url)
+                ];
         }
     
         return $breadcrumbs;
