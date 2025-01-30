@@ -145,11 +145,18 @@
                 <!--begin::Languages-->
                 <div class="dropdown mt-4" >
                     <!--begin::Toggle-->
-                    <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-                        <div class="btn btn-icon btn-clean btn-dropdown btn-lg">
-                            <i class="fa fa-cog h-20px w-20px"></i>
+                    <div class="row">
+                        <div class="topbar-item" onclick="handleComments1({{$document->id}})">
+                            <div class="btn btn-icon btn-clean btn-dropdown btn-lg">
+                                <i class="fas fa-comments h-20px w-20px"></i>
+                            </div>
                         </div>
-                    </div>
+                        <!--begin::Toggle-->
+                        <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                            <div class="btn btn-icon btn-clean btn-dropdown btn-lg">
+                                <i class="fa fa-cog h-20px w-20px"></i>
+                            </div>
+                        </div>
                     <!--end::Toggle-->
 
                     <!--begin::Dropdown-->
@@ -206,18 +213,19 @@
                             </li>
                             <!--end::Item-->
                             @endif
-                            <li class="navi-item">
+                            {{-- <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleComments({{$document->id}})">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-comment"></i>
                                     </span>
                                     <span class="navi-text">Messages</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             
 
                         </ul>
                         <!--end::Nav-->
+                    </div>
                     </div>
                     <!--end::Dropdown-->
                 </div>

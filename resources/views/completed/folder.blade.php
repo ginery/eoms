@@ -115,10 +115,12 @@
                     <h3 class="card-label">
                         {{$document->document_name}}
                     </h3>
-                    @if (Auth::user()->role === 1)
+                    @if (Auth::user()->role != 0)
                         <small>{{getUserFullName($document->user_id)}}</small>
                     @endif
-                    {!!getDocumentStatus($document->status)!!}
+                    @if ($document->path != '-40' && $document->path != '-41' && $document->path != '-42')
+                        {!! getDocumentStatus($document->status) !!}
+                    @endif
                 </div>
                 
                 <!--begin::Languages-->

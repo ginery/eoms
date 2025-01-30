@@ -346,6 +346,7 @@
       <!--end::Scrolltop-->
       @include('modals.requirements-modal')
       @include('modals.comments-modal')
+      @include('modals.comments-modal1')
       @include('modals.project-details-modal')
       
       <script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
@@ -525,9 +526,69 @@
             }
             });
         }
+        function getCommentsAndMessages1(id){
+            $("#comment-content1").html('');
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/view-comments/"+id,
+               data: {
+                id: id
+               },
+               success: function(response){
+              
+                console.log("handleComments", response);
+                $("#project_id1").val(response.documents.id)
+                $("#program_name1").html(response.documents.document_name);
+                $("#program_date1").html(response.documents.date_added);
+                const user_id = `{{ Auth::user()->id }}`; // Ensure this is rendered correctly
+
+                const messages_array = response.messages.map((item) => {                 
+                    
+                    if (Number(user_id) === Number(item.sender_id)) {
+                        // Message by the current user
+                        $("#comment-content1").append(`
+                            <div class="d-flex flex-column mb-5 align-items-end">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <span class="text-muted font-size-sm">${item.date_added}</span>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
+                                    </div>
+                                </div>
+                                <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                    ${item.message_content}
+                                </div>
+                            </div>
+                        `);
+                    } else {
+                        // Message by someone else
+                        $("#comment-content1").append(`
+                            <div class="d-flex flex-column mb-5 align-items-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-circle symbol-40 mr-3">
+                                        <span class="symbol-label font-size-h5 font-weight-bold">${item.sender_name.substring(0, 1)}</span>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${item.sender_name}</a>
+                                        <span class="text-muted font-size-sm"></span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
+                                    ${item.message_content}
+                                </div>
+                            </div>
+                        `);
+                    }
+                });
+            }
+            });
+        }
         function handleComments(id){
             $("#commentsModal").modal("show"); 
             getCommentsAndMessages(id);         
+        }
+        function handleComments1(id){
+            $("#commentsModal1").modal("show"); 
+            getCommentsAndMessages1(id);         
         }
 
         function handleDetails(id, status){
@@ -650,6 +711,42 @@
                 commentContent.scrollTop = commentContent.scrollHeight;
 
                 var comment = $("#comments").val('');
+
+               }
+            });
+        }
+
+        function handleSubmitComments1(){
+            var comment = $("#comments1").val();
+            var document_id = $("#project_id1").val();
+            $.ajax({
+               type: "POST",
+               url: baseUrl + "/api/programs/add-comments",
+               data: {
+                document_id: document_id,
+                comment: comment
+               },
+               success: function(response){
+                console.log("handleComments ", response);
+                $("#comment-content1").append(`
+                <div class="d-flex flex-column mb-5 align-items-end">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <span class="text-muted font-size-sm">10-13-2024</span>
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
+                        </div>
+                        <div class="symbol symbol-circle symbol-40 ml-3">                           
+                        </div>
+                    </div>
+                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">${response.message_content}
+                    </div>
+                </div>
+                `);
+
+                var commentContent = document.getElementById("comment-content1");
+                commentContent.scrollTop = commentContent.scrollHeight;
+
+                var comment = $("#comments1").val('');
 
                }
             });
