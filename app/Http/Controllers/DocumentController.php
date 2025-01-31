@@ -251,6 +251,9 @@ class DocumentController extends Controller
             "created_at" => Carbon::now(),
            
         ];
+        if (!empty($document->id)) {
+            $update_file = Document::where('path', $document->id)->update($data);
+        }
         insertRoadMap($road_map);
         insertNotification($notification);
         sendNotification( $user_token->notification_token, 'Project Update', $document->document_name);
