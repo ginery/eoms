@@ -19,14 +19,14 @@
                     <!--end::Info-->
 
                     <!--begin::Toolbar-->
-                    {{-- <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center">
                         <!--begin::Actions-->
-                            <a href="#" onclick='handleCreateFolder()' class="btn btn-light-primary font-weight-bolder btn-sm">
+                            <a href="#" onclick='handleDocumentClick(0)' class="btn btn-light-primary font-weight-bolder btn-sm">
                                 <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
-                                Project 
+                                Document 
                             </a>
                         <!--end::Actions-->
-                    </div> --}}
+                    </div>
                     <!--end::Toolbar-->
                 </div>
             </div>
@@ -119,6 +119,7 @@
 
     @include('modals.create-folder-document')
     @include('modals.update-folder-document')
+    {{-- @include('modals.add-document') --}}
     
 
     <!-- jQuery Script -->
@@ -190,6 +191,10 @@
                 }
              })
         };
+
+        function handleDocumentClick(id){
+            $("#addDocumentModal").modal('show');
+        }
 
         $('#create-folder-document-form').submit(function(e){
              e.preventDefault();

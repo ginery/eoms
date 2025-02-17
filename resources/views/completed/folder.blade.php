@@ -73,7 +73,14 @@
                         <!--begin::Nav-->
                         <ul class="navi navi-hover py-4">
                             <!--begin::Item-->
-                           
+                            <li class="navi-item">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', -1)">
+                                    <span class="symbol symbol-20 mr-3">
+                                        <i class="fas fa-times"></i> <!-- Font Awesome edit icon -->
+                                    </span>
+                                    <span class="navi-text">Terminate</span>
+                                </a>
+                            </li>
                             <li class="navi-item">
                                 <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 6)">
                                     <span class="symbol symbol-20 mr-3">

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Breadcrumbs;
 class RejectedController extends Controller
 {
     public function index() : View {
@@ -24,5 +25,14 @@ class RejectedController extends Controller
          
          return view('rejected.index', ['documents' => $document, 'programs' => $programs]);
      }
+     public function program($id) : View{
+        $breadcrumbs = Breadcrumbs::generate();
+        $programs = Programs::where('id', $id)->get()->first();
+        $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', -1)->get();
+        
+        // dd(json_encode($programs));
+
+        return view('implementation.folder', ['breadcrumbs' => $breadcrumbs, 'documents' => $documents, 'folder_id' => $id, 'programs' => $programs]);
+    }
 
 }

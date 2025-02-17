@@ -105,7 +105,7 @@
     <!-- jQuery Script -->
     <script>
         function handleFolderClick(id) {            
-            location.href = "/completed/"+id;
+            location.href = "/rejected/"+id;
         }
 
         function handleCreateFolder(){

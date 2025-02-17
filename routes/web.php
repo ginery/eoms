@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/propose', [ProposeController::class, 'index'])->name('propose');
     Route::get('/programs', [ProgramsController::class, 'index'])->name('programs');
     Route::get('/in-progress', [InProgressController::class, 'index'])->name('in-progress');
+    Route::get('/rejected/{id}', [RejectedController::class, 'program'])->name('rejected');
     Route::get('/rejected', [RejectedController::class, 'index'])->name('rejected');
     Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
     Route::get('/in-progress/{id}', [InProgressController::class, 'program'])->name('in-progress.program');

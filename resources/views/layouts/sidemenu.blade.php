@@ -151,7 +151,7 @@
                         </g>
                     </svg><!--end::Svg Icon--></span>
                   </span>
-                  <span class="menu-text">Rejected</span>
+                  <span class="menu-text">Rejected/Terminated</span>
                </a>
             </li>
              <li class="<?= $currentPageName === "archived" ? 'menu-item  menu-item-active': 'menu-item  menu-item-submenu'?>" aria-haspopup="true"  data-menu-toggle="hover">

@@ -134,7 +134,7 @@
                         
                     </span>
                     <h3 class="card-label">
-                        {{$document->document_name}}
+                        {{$document->document_name}} | <span style="font-size:8px; color:rgb(146, 9, 226) !important" >{{$document->date_added}}</span>
                     </h3>
                     @if (Auth::user()->role === 1)
                         <small>{{getUserFullName($document->user_id)}}</small>
