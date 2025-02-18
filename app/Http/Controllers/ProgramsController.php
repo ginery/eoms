@@ -84,6 +84,12 @@ class ProgramsController extends Controller
         $user = User::where('program_assigned', $id)->get();
         return $user;
     } 
+
+    public function get_user_tag() {
+
+        $user = User::all();
+        return $user;
+    } 
     
     public function get_comments($id) {
         $user_id = Auth::user()->id;

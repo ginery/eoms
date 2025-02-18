@@ -11,11 +11,11 @@
                 <div class="modal-body">
                     
                         <div class="row">
-                            {{-- <div class="form-group col-md-12">
+                            <div class="form-group col-md-12">
                                 <label>Program Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="program_name" placeholder="Program Name">
-                            </div>                             --}}
-                            <div class="form-group col-md-12">
+                            </div>                            
+                            {{-- <div class="form-group col-md-12">
                                 <label for="program-select">Program Name <span class="text-danger">*</span></label>
                                 <select name="program_name" class="form-control" id="program-select">
                                     <option value="">--Select Program--</option>
@@ -24,7 +24,7 @@
                                     <option value="CIT">CIT</option>      
                                     <option value="COENG">COENG</option>           
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">

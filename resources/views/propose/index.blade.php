@@ -19,12 +19,18 @@
                     <!--end::Info-->
 
                     <!--begin::Toolbar-->
+                    
                     <div class="d-flex align-items-center">
                         <!--begin::Actions-->
+                            <a href="#" onclick='handleCreateFolder(0)' class="btn btn-light-primary font-weight-bolder btn-sm mr-2">
+                                <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
+                                Program 
+                            </a>
+{{-- 
                             <a href="#" onclick='handleDocumentClick(0)' class="btn btn-light-primary font-weight-bolder btn-sm">
                                 <i class="fa fa-plus text-primary" style="font-size:12px; color:#047940 !important"></i>
                                 Document 
-                            </a>
+                            </a> --}}
                         <!--end::Actions-->
                     </div>
                     <!--end::Toolbar-->
@@ -94,6 +100,14 @@
                                                 <span class="navi-text">Requirements</span>
                                             </a>
                                         </li>
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
+                                                <span class="symbol symbol-20 mr-3">
+                                                    <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
+                                                </span>
+                                                <span class="navi-text">Approve Program</span>
+                                            </a>
+                                        </li>
                                         {{-- <li class="navi-item">
                                             <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
@@ -119,18 +133,46 @@
 
     @include('modals.create-folder-document')
     @include('modals.update-folder-document')
+    @include('modals.create-program')
     {{-- @include('modals.add-document') --}}
     
 
     <!-- jQuery Script -->
     <script>
+         const quill = new Quill('#program_desc', {
+            theme: 'snow'
+        });
         function handleFolderClick(id) {            
             location.href = "/propose/"+id;
         }
 
         function handleCreateFolder(){
-            $("#createFolderModal").modal('show');
+            $("#createProgram").modal('show');
+            $.ajax({
+               type: "GET",
+               url: "api/programs/get_user_tag",
+               success: function(response){
+                $('#kt_select2_3').empty();
+                console.log("selectedProgram", response);
+                if (response && response.length > 0) {
+                    // Populate Users dropdown with the fetched data
+                    response.forEach(function (user) {
+                        var fullName = `${user.first_name} ${user.last_name}`;
+                        var newOption = new Option(fullName, user.id, false, false);
+                        $('#kt_select2_3').append(newOption);
+                    });
+
+                    // Refresh Select2 to show the new options
+                    $('#kt_select2_3').trigger('change');
+                } else {
+                    // If no users are found, add a placeholder option
+                    var noUserOption = new Option("No users available", "", false, false);
+                    $('#kt_select2_3').append(noUserOption);
+                }
+               }
+            });
         }
+
 
         function handleDeleteFolder(id){
             Swal.fire({
@@ -284,7 +326,64 @@
                   }
                }
              })
-         });
+        });
+
+        $('#add-user-form').submit(function(e){
+             e.preventDefault();
+             const quillContent = quill.root.innerHTML;
+             document.getElementById('program_desc_html').value = quillContent;
+
+             var data = $(this).serialize();
+
+             $.ajax({
+               type: "POST",
+               url: "api/programs/add",
+               data: data,
+               success: function(response){
+                  if(response === '1'){
+                   
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully saved.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                     
+                   
+                    //  getUserData();  
+                    //  $("#addModal").modal('hide');                  
+                  }else if(response === '2') {
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Program already exist.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+             })
+        });
 
 
 

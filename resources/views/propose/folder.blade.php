@@ -39,10 +39,10 @@
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         Project
                     </a>
-                    {{-- <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
+                    <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         File
-                    </a> --}}
+                    </a>
                 <!--end::Actions-->
             </div>
             <!--end::Toolbar-->

@@ -81,6 +81,7 @@ Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function 
     Route::delete('/delete/{id}', [ProgramsController::class, 'delete']);
     Route::post('/update', [ProgramsController::class, 'update']);
     Route::get('/get_users/{id}', [ProgramsController::class, 'get_user']);
+    Route::get('/get_user_tag', [ProgramsController::class, 'get_user_tag']);
 });
 
 // notification

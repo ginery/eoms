@@ -20,7 +20,8 @@ class ProposeController extends Controller
             $programs = Programs::all();
             $document = Document::where('path', 0)->get();
          } else {
-            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])->get();
+            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])->where('is_approve', 1)->get();
+           
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
          }
        
@@ -56,7 +57,8 @@ class ProposeController extends Controller
         if($role != 0){
             $documents = Document::where('doc_path', $id)->whereNull('document_size')->where('status', 0)->get();
          } else {
-            $documents = Document::where('doc_path', $id)->where('status', 0)->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])->get();
+            $documents = Document::where('doc_path', $id)->where('status', 0)->get();
+            //  $documents = Document::where('doc_path', $id)->where('status', 0)->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])->get();
          }
         // $documents = Document::where('doc_path', $id)->where('status', 0)->get();
         // ->whereRaw('JSON_CONTAINS(users_involved, ?)', [json_encode($user_id)])

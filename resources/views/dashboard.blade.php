@@ -53,7 +53,7 @@
                     </div>
                   
                     {{-- programs counter --}}
-                    <div class="col-lg-12">
+                    {{-- <div class="col-lg-12">
                         <div class="row m-0">
                             <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
                                 <span class="svg-icon svg-icon-3x svg-icon-info d-block my-2"><!--begin::Svg Icon | path:assets/media/svg/icons/Media/Equalizer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -117,7 +117,7 @@
                                 </div>                                                      
                             </div>                       
                         </div>
-                    </div>
+                    </div> --}}
                     @endif
                     <div id="bar-chart" class="col-lg-6" style="height: 300px"></div>
                     <div class="col-lg-6" style="height: 325px">

@@ -20,13 +20,13 @@ class DocumentController extends Controller
         // $document  = Document::all();
         $role = Auth::user()->role;
        
-        // dd(json_encode($role));
+        
         if($role === 1 || $role === 2){
             $document = Document::where('path', 0)->get();
         } else {
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
         }
-      
+    //   dd(json_encode($document));
         return view('documents.index', ['documents'=>$document]);
     }
 
@@ -140,7 +140,7 @@ class DocumentController extends Controller
                 $doc_path = '-42';
             }else{
                 $document  = Document::where('id', $request->folder_id)->first();
-                $doc_path = $document->doc_path;
+                $doc_path = $document ? $document->doc_path:0;
             }
 
            
