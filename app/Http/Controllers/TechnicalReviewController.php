@@ -19,7 +19,15 @@ class TechnicalReviewController extends Controller
             $programs = Programs::all();
             $document = Document::where('path', 0)->get();
          } else {
-            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])->get();
+            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])
+            ->where(function ($query) use ($user_id) {
+                $query->where('is_approve', 1)
+                      ->orWhere(function ($query) use ($user_id) {
+                          $query->where('is_approve', 0)
+                                ->where('added_by', $user_id);
+                      });
+            })
+            ->get();
             $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
          }
         return view('technical-review.index', ['documents' => $document, 'programs' => $programs]);

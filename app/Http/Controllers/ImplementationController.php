@@ -14,12 +14,22 @@ class ImplementationController extends Controller
     // function here
     public function index(): View {
         $role = Auth::user()->role;
+        $user_id = (string)Auth::user()->id;
         if($role === 1 || $role === 2){
          $document = Document::where('path', 0)->get();
          } else {
              $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
+             $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])
+            ->where(function ($query) use ($user_id) {
+                $query->where('is_approve', 1)
+                      ->orWhere(function ($query) use ($user_id) {
+                          $query->where('is_approve', 0)
+                                ->where('added_by', $user_id);
+                      });
+            })
+            ->get();
          }
-         $programs = Programs::all();
+        //  $programs = Programs::all();
         return view('implementation.index', ['documents' => $document, 'programs' => $programs]);
     }
 

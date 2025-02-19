@@ -16,12 +16,21 @@ class CompletedController extends Controller
     public function index() : View {
         // dd(json_encode($role));
         $role = Auth::user()->role;
+        $user_id = (string)Auth::user()->id;
         if($role === 1 || $role === 2){
          $document = Document::where('path', 0)->get();
          } else {
+            $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])
+            ->where(function ($query) use ($user_id) {
+                $query->where('is_approve', 1)
+                      ->orWhere(function ($query) use ($user_id) {
+                          $query->where('is_approve', 0)
+                                ->where('added_by', $user_id);
+                      });
+            })
+            ->get();
              $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
          }
-         $programs = Programs::all();
          
          return view('completed.index', ['documents' => $document, 'programs' => $programs]);
      }
