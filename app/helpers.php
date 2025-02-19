@@ -51,10 +51,16 @@ if (!function_exists('getFolderName')) {
             $folder_name = "Terminal Report";
             return $folder_name; 
         }else  if($id === '-41'){
-            $folder_name = "Documentation";
+            $folder_name = "Assessment";
             return $folder_name;
         }else  if($id === '-42'){
-            $folder_name = "Assessment";
+            $folder_name = "Completed Extension";
+            return $folder_name;
+        }else  if($id === '-43'){
+            $folder_name = "Impact Study";
+            return $folder_name;
+        }else  if($id === '-44'){
+            $folder_name = "Sustainability";
             return $folder_name;
         }else{
             $folder_name_data = Programs::where('id', $id)->get()->first();

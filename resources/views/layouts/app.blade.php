@@ -796,6 +796,49 @@
                }
             });
         }
+        function handleProgramUpdateStatus(id) {
+            $.ajax({
+               type: "POST",
+               url: baseUrl+"/api/programs/update-program-status",
+               data: {
+                id: id
+               },
+               success: function(response){
+                  console.log("handleProgramUpdateStatus", response, 
+               {
+                  id: id,
+                  status: status
+               });
+                  if(response == 1){
+                    Swal.fire({
+                        title: "Great!",
+                        text: "Successfully updated.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "OK",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function(result) {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                                    
+                  }else{
+                    Swal.fire({
+                        title: "Aw snap!",
+                        text: "Something went wrong.",
+                        icon: "error",
+                        timer: 1500,
+                        onOpen: function() {
+                            Swal.showLoading()
+                        }
+                    });
+                  }
+               }
+            });
+        }
         
 
        </script>

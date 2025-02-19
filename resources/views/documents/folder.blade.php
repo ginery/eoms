@@ -1,8 +1,11 @@
 <x-app-layout>
     <!--begin::Subheader-->
+
     @php
         $currentPath = request()->path();
         $urlPath = explode('/', $currentPath);
+        $currentPageName = Route::current()->getName();
+        // echo $currentPageName;
     @endphp
     <div class="subheader py-2 py-lg-6  subheader-solid" id="kt_subheader">
         <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -32,6 +35,9 @@
             </div>
             <!--end::Info-->
 
+            @if (getProjectStatus($urlPath[1]) === 'propose')
+                
+
             <!--begin::Toolbar-->
             <div class="d-flex align-items-center">
                 <!--begin::Actions-->
@@ -39,12 +45,16 @@
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
                         Folder
                     </a> --}}
+                    {{-- @if ($currentPageName === 'propose')                         --}}
+                 
                     <a href="#" onclick='handleDocumentClick()' class="btn btn-light-success font-weight-bolder btn-sm" >
                         <i class="fa fa-plus text-success" style="font-size:12px;"></i>
-                        Document
+                        Document 
                     </a>
+                    {{-- @endif --}}
                 <!--end::Actions-->
             </div>
+            @endif
             <!--end::Toolbar-->
         </div>
     </div>

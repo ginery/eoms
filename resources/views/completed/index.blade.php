@@ -116,12 +116,12 @@
                 </div>
                 <div class="card card-custom mb-2" style="cursor: pointer;">
                     <div class="card-header">
-                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(-41)">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick('-41')">
                             <span class="card-icon">
                                 <i class="fa fa-folder text-info" style="font-size:30px;"></i>
                             </span>
                             <h3 class="card-label">
-                                Documentation
+                                Assessment
                             </h3>
                             <div>
                                 <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-41', 0)}}</span>                                   
@@ -134,12 +134,48 @@
                 </div>
                 <div class="card card-custom mb-2" style="cursor: pointer;">
                     <div class="card-header">
-                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick(-42)">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick('-42')">
                             <span class="card-icon">
                                 <i class="fa fa-folder text-info" style="font-size:30px;"></i>
                             </span>
                             <h3 class="card-label">
-                                Assessment
+                                Completed Extension
+                            </h3>
+                            <div>
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-42', 0)}}</span>                                   
+                            </div>
+                        </div>
+                        
+                       
+                        <!--end::Languages-->
+                    </div>
+                </div>
+                <div class="card card-custom mb-2" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick('-43')">
+                            <span class="card-icon">
+                                <i class="fa fa-folder text-info" style="font-size:30px;"></i>
+                            </span>
+                            <h3 class="card-label">
+                                Impact Study
+                            </h3>
+                            <div>
+                                <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-42', 0)}}</span>                                   
+                            </div>
+                        </div>
+                        
+                       
+                        <!--end::Languages-->
+                    </div>
+                </div>
+                <div class="card card-custom mb-2" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title" style="width: 90%;" onclick="handleFolderClick('-44')">
+                            <span class="card-icon">
+                                <i class="fa fa-folder text-info" style="font-size:30px;"></i>
+                            </span>
+                            <h3 class="card-label">
+                                Sustainability
                             </h3>
                             <div>
                                 <span class="label label-light-info label-inline font-weight-bold"> {{getTotalProject('-42', 0)}}</span>                                   

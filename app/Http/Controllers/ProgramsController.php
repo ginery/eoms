@@ -124,6 +124,23 @@ class ProgramsController extends Controller
         return $getItem;
     }
 
+    public function update_program_status(Request $request){
+        $data = [
+            'is_approve' => 1,            
+        ];
+
+        $update_file = "";
+        if (!empty($request->id)) {
+            $update_file = Programs::where('id', $request->id)->update($data);
+        }
+
+        if ($update_file) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public function delete($id) {      
 
         $deleteItem = Programs::where('id', $id)->delete();

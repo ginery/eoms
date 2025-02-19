@@ -101,7 +101,7 @@
                                             </a>
                                         </li>
                                         <li class="navi-item">
-                                            <a href="#" class="navi-link" onclick="handleRequirements({{$program->id}})">
+                                            <a href="#" class="navi-link" onclick="handleProgramUpdateStatus({{$program->id}})">
                                                 <span class="symbol symbol-20 mr-3">
                                                     <i class="fas fa-check"></i> <!-- Font Awesome edit icon -->
                                                 </span>

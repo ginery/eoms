@@ -82,6 +82,7 @@ Route::group(['prefix' => 'programs', 'middleware' => 'auth:sanctum'], function 
     Route::post('/update', [ProgramsController::class, 'update']);
     Route::get('/get_users/{id}', [ProgramsController::class, 'get_user']);
     Route::get('/get_user_tag', [ProgramsController::class, 'get_user_tag']);
+    Route::post('/update-program-status', [ProgramsController::class, 'update_program_status']);
 });
 
 // notification

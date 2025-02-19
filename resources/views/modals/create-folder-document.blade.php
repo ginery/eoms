@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="col-sm-12">Project Members</label>
                                 <div class="col-md-12">
@@ -57,7 +57,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     
                 </div>
                 <div class="modal-footer">
