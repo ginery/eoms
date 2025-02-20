@@ -85,7 +85,7 @@
                             <!--begin::Item-->
                             @if(Auth::user()->role != 0 or Auth::user()->id === $document->user_id)
                             <li class="navi-item">
-                                <a href="#" class="navi-link" onclick="handleDeleteFolder({{$document->id}})">
+                                <a href="#" class="navi-link" onclick="handleUpdateStatus('{{$document->id}}', 5)">
                                     <span class="symbol symbol-20 mr-3">
                                         <i class="fas fa-trash"></i> <!-- Font Awesome trash icon -->
                                     </span>
