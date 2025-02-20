@@ -19,6 +19,7 @@ class CompletedController extends Controller
         $user_id = (string)Auth::user()->id;
         if($role === 1 || $role === 2){
          $document = Document::where('path', 0)->get();
+         $programs = Programs::all();
          } else {
             $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])
             ->where(function ($query) use ($user_id) {

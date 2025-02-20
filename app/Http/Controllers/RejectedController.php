@@ -17,7 +17,8 @@ class RejectedController extends Controller
         // dd(json_encode($role));
         $role = Auth::user()->role;
         if($role === 1 || $role === 2){
-         $document = Document::where('status', -1)->get();
+            $document = Document::where('status', -1)->get();
+            $programs = Programs::all();
          } else {
              $document = Document::where('user_id', Auth::user()->id)->where('status', -1)->get();
          }

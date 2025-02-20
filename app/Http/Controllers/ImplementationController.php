@@ -16,7 +16,8 @@ class ImplementationController extends Controller
         $role = Auth::user()->role;
         $user_id = (string)Auth::user()->id;
         if($role === 1 || $role === 2){
-         $document = Document::where('path', 0)->get();
+            $document = Document::where('path', 0)->get();
+            $programs = Programs::all();
          } else {
              $document = Document::where('user_id', Auth::user()->id)->where('path', 0)->get();
              $programs = Programs::whereRaw('JSON_CONTAINS(users_involve, ?)', [json_encode($user_id)])
